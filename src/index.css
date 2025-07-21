@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Play&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Teko:wght@300&display=swap');
+
+@import "tailwindcss";
+@plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "cof";
+  default: true; 
+  prefersdark: true;
+  color-scheme: light;
+
+  --color-base-100: oklch(98% 0.02 240);
+  --color-base-200: oklch(95% 0.03 240);
+  --color-base-300: oklch(92% 0.04 240);
+  --color-base-content: oklch(20% 0.05 240);
+  --color-primary: oklch(40% 0.13 250);
+  --color-primary-content: oklch(88% 0.04 240);
+  --color-secondary: oklch(70% 0.25 200);
+  --color-secondary-content: oklch(98% 0.01 200);
+  --color-accent: oklch(65% 0.25 160);
+  --color-accent-content: oklch(98% 0.01 160);
+  --color-neutral: oklch(20% 0.02 250);
+  --color-neutral-content: oklch(87.34% 0.008 269.39);
+  --color-info: oklch(70% 0.2 220);
+  --color-info-content: oklch(98% 0.01 220);
+  --color-success: oklch(65% 0.25 140);
+  --color-success-content: oklch(98% 0.01 140);
+  --color-warning: oklch(80% 0.25 80);
+  --color-warning-content: oklch(20% 0.05 80);
+  --color-error: oklch(65% 0.3 30);
+  --color-error-content: oklch(98% 0.01 30);
+}
+
+@tailwind utilities;
+
+body {
+  margin: 0;
+  background: linear-gradient(217deg, hsla(210, 64%, 31%, .6), hsla(0, 0%, 9%, .9) 70.71%),
+              linear-gradient(290deg, hsla(0, 0%, 9%, .9), hsla(210, 64%, 31%, .1) 70.71%),
+              linear-gradient(320deg, hsla(210, 64%, 31%, .5), hsla(0, 0%, 9%, .6) 70.71%);
+              background-attachment: fixed;
+}
