@@ -1,4 +1,4 @@
-import { Controller } from "react-hook-form"
+import { Controller, useWatch } from "react-hook-form"
 import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
 import { useGetBatteries } from './hooks'
@@ -56,16 +56,23 @@ export const BatteryInput = ({ index }: { index: number }) => {
 }
 
 const BatteryOptions = () => {
+  const { control } = useCreateMissionCtx()
+
+  const vehicle = useWatch({
+    control,
+    name: 'Vehicle.registration'
+  })
+
   const { data } = useGetBatteries()
 
-  const batteries = data?.data || []
+  const batteries = data?.data.filter(battery => battery.registration === vehicle) || []
 
   return (
     <>
       <option value=""></option>
       {batteries.map(battery => (
         <BatteryOption
-          key={`battery-option-${ battery.uuid }`}
+          key={`battery-option-${battery.uuid}`}
           battery={battery} />
       ))}
     </>

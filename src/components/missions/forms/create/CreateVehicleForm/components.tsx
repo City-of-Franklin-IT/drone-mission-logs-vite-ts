@@ -17,7 +17,7 @@ export const Header = () => {
 }
 
 export const VehicleRegistrationInput = () => {
-  const { register, formState: { errors } } = useCreateMissionCtx()
+  const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   const { isLoading } = useGetVehicleRegistrations()
 
@@ -34,7 +34,8 @@ export const VehicleRegistrationInput = () => {
         <select
           className={styles.input}
           { ...register('Vehicle.registration', {
-            required: 'Vehicle registration is required'
+            required: 'Vehicle registration is required',
+            onChange: () => setValue('Vehicle._dirtied', true, { shouldDirty: true, shouldValidate: true })
           }) }>
             <RegistrationOptions />
         </select>
@@ -44,14 +45,14 @@ export const VehicleRegistrationInput = () => {
   )
 }
 
-const RegistrationOptions = () => {
+export const RegistrationOptions = () => {
   const { data } = useGetVehicleRegistrations()
 
   const registrations = data?.data || []
 
   return (
     <>
-      <option value=""></option>
+      <option value="">Select vehicle..</option>
       {registrations.map(registration => (
         <RegistrationOption
           key={`registration-option-${registration.uuid}`}

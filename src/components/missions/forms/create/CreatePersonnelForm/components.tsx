@@ -1,6 +1,10 @@
 import { Controller } from "react-hook-form"
 import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
+import { useGetPersonnel } from "./hooks"
+
+// Types
+import * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -14,8 +18,12 @@ export const Header = () => {
   )
 }
 
-export const PilotInput = () => {
-  const { control, setValue } = useCreateMissionCtx()
+export const PilotSelect = () => {
+  const { control, setValue, getValues } = useCreateMissionCtx()
+
+  const { isLoading } = useGetPersonnel()
+
+  if(isLoading) return
 
   return (
     <Controller
@@ -23,13 +31,13 @@ export const PilotInput = () => {
       name={`Personnel.${ 0 }.email`}
       rules={{
         required: 'Pilot email is required',
-        maxLength: {
-          value: 255,
-          message: 'Pilot email must be 255 characters or less'
-        },
-        pattern: {
-          value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-          message: 'Please enter a valid email address'
+        validate: value => {
+          const supportPersonnel = getValues(`Personnel.${ 1 }.email`)
+          if(value === supportPersonnel) {
+            return 'Pilot cannot be the same as support personnel'
+          }
+
+          return true
         }
       }}
       render={({ field, fieldState: { error } }) => (
@@ -38,16 +46,18 @@ export const PilotInput = () => {
             <FormLabel
               name={field.name}
               required={true}>
-                Pilot Email:
+                Pilot:
             </FormLabel>
-            <input 
-              type="email"
+            <select 
               className={styles.input}
               { ...field }
               onChange={(e) => {
                 field.onChange(e)
                 setValue(`Personnel.${ 0 }._dirtied`, true)
-              }} />
+                setValue(`Personnel.${ 0 }.isPilot`, true)
+              }}>
+                <PersonnelOptions />
+            </select>
           </div>
           <FormError error={error?.message} />
         </div>
@@ -68,29 +78,32 @@ export const SupportPersonnelInput = () => {
         control={control}
         name={`Personnel.${ 1 }.email`}
         rules={{
-          maxLength: {
-            value: 255,
-            message: 'Personnel email must be 255 characters or less'
-          },
-          pattern: {
-            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: 'Please enter a valid email address'
+          validate: (value) => {
+            if(!value) return true
+
+            const pilot = getValues(`Personnel.${ 0 }.email`)
+            if(value === pilot) {
+              
+              return 'Support personnel cannot be the same as pilot'
+            }
+            return true
           }
         }}
         render={({ field, fieldState: { error } }) => (
-          <div className="flex flex-col gap-6 w-full">
+          <div className="flex flex-col">
             <div className="flex">
               <FormLabel name={field.name}>
                 Support Email:
               </FormLabel>
-              <input 
-                type="email"
+              <select 
                 className={styles.input}
-                { ...field }
+                {...field}
                 onChange={(e) => {
                   field.onChange(e)
-                  setValue(`Personnel.${ 1 }._dirtied`, true)
-                }} />
+                  setValue(`Personnel.${1}._dirtied`, true)
+                }}>
+                  <PersonnelOptions />
+              </select>
             </div>
             <FormError error={error?.message} />
           </div>
@@ -99,5 +112,30 @@ export const SupportPersonnelInput = () => {
           onClick={() => setValue(`Personnel.${ 1 }._deleted`, true, { shouldDirty: true, shouldValidate: true })}
           visible={!!values?.email} />
     </div>
+  )
+}
+
+export const PersonnelOptions = () => {
+  const { data } = useGetPersonnel()
+
+  const personnel = data?.data || []
+
+  return (
+    <>
+      <option value=""></option>
+      {personnel.map(item => (
+        <PersonnelOption
+          key={`personnel-option-${ item.uuid }`}
+          personnel={item} />
+      ))}
+    </>
+  )
+}
+
+export const PersonnelOption = ({ personnel }: { personnel: AppTypes.PersonnelRosterInterface }) => {
+  if(!personnel) return
+
+  return (
+    <option value={personnel.email}>{personnel.email}</option>
   )
 }

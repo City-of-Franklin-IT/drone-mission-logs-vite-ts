@@ -20,10 +20,10 @@ const TableHeaders = () => {
   return (
     <thead>
       <tr className="text-warning uppercase bg-neutral/50 border-b-2 border-warning">
-        <th className="px-3">Date</th>
+        <th className="px-4">Date</th>
         <th>Location</th>
         <th>Description</th>
-        <th className="text-center">Personnel</th>
+        <th className="text-center px-4">Personnel</th>
       </tr>
     </thead>
   )
@@ -52,8 +52,8 @@ const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, 
 
   return (
     <>
-      <tr className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/10' : null }`} data-uuid={tableData.uuid}>
-        <td className="p-2 whitespace-nowrap">{tableData.missionDate}</td>
+      <tr className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={tableData.uuid}>
+        <td className="px-4 whitespace-nowrap">{tableData.missionDate}</td>
         <td className="whitespace-nowrap">{tableData.location}</td>
         <td>{tableData.missionDescription}</td>
         <td><PersonnelTableData personnel={tableData.Personnel} /></td>
@@ -76,7 +76,7 @@ type ShowDetailsBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>
 const ShowDetailsBtn = (props: ShowDetailsBtnProps) => {
 
   return (
-    <tr className={`${ props.index % 2 === 0 ? 'bg-neutral/10' : null }`}>
+    <tr className={`${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}>
       <td colSpan={4}>
         <div className="flex justify-around">
           <button
@@ -95,7 +95,7 @@ const PersonnelTableData = ({ personnel }: { personnel: AppTypes.PersonnelInterf
   if(!personnel) return
 
   return (
-    <div className="flex flex-col mx-auto items-center">
+    <div className="flex flex-col mx-auto px-4 items-center">
       {personnel.map(item => (
         <Personnel
           key={`personnel-${ item.uuid }`}
@@ -128,9 +128,9 @@ const MissionDetails = ({ expanded , tableData, index }: { expanded: boolean, ta
   if(!expanded) return
 
   return (
-    <tr className={`text-center ${ index % 2 === 0 ? 'bg-neutral/10' : null }`}>
+    <tr className={`text-center ${ index % 2 === 0 ? 'bg-neutral/20' : null }`}>
       <td colSpan={4}>
-        <div className="flex flex-col gap-4 mx-auto w-fit p-4 border-2 border-info/10 rounded-xl">
+        <div className="flex flex-col gap-4 mx-auto w-fit p-4 border-2 border-info/10 rounded-xl max-w-1/2">
           <Vehicle vehicle={tableData.Vehicle} />
           <Flights flights={tableData.Flights} />
           <Weather weather={tableData.Weather} />
@@ -355,9 +355,7 @@ const TemporaryFlightRestriction = ({ tfr }: { tfr: AppTypes.TemporaryFlightRest
         <small className="italic">Source: {tfr.source}</small>
       </div>
 
-      <DetailItemContent icon={'tfr'}>
-        <span className="italic">{tfr.temporaryFlightRestriction}</span>
-      </DetailItemContent>
+      <span className="italic p-4">{tfr.temporaryFlightRestriction}</span>
     </div>
   )
 }

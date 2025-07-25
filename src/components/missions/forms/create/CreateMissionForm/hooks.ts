@@ -76,6 +76,9 @@ export const useHandleFormSubmit = () => {
     handleCreateMission(formData, token)
       .then(() => {
         queryClient.invalidateQueries('getMissions')
+        queryClient.invalidateQueries('getRosterPersonnel')
+        queryClient.invalidateQueries('getRosterVehicles')
+        queryClient.invalidateQueries('getRosterBatteries')
         navigate('/missions')
       })
       .catch((err) => errorPopup(err))

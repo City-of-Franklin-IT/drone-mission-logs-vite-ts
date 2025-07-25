@@ -36,8 +36,10 @@ function CreateMissionForm() {
           <Components.PreflightInspectionInput />
           <Components.FlightInputs />
           <Components.PostflightInspectionInput />
+          <FormBtns 
+            onCancelBtnClick={onCancelBtnClick}
+            size={'btn-lg'} />
         </div>
-        <FormBtns onCancelBtnClick={onCancelBtnClick} />
       </form>
     </FormProvider>
   )

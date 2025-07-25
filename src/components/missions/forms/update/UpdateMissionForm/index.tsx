@@ -1,5 +1,5 @@
 import { FormProvider } from 'react-hook-form'
-import { useUpdateMissionForm, useOnCancelBtnClick, useHandleFormSubmit } from './hooks'
+import { useUpdateMissionForm, useOnCancelBtnClick, useHandleDeleteBtn, useHandleFormSubmit } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -7,6 +7,7 @@ import * as AppTypes from '@/context/App/types'
 // Components
 import CreatePersonnelForm from '../../create/CreatePersonnelForm'
 import * as MissionCreate from '../../create/CreateMissionForm/components'
+import * as PersonnelContainer from '@/components/rosters/containers/PersonnelContainer/components'
 import FormBtns from '@/components/form-elements/buttons/FormBtns'
 import CreateTFRForm from '../../create/CreateTFRForm'
 import CreateWeatherForm from '../../create/CreateWeatherForm'
@@ -15,6 +16,8 @@ function UpdateMissionForm({ mission }: { mission: AppTypes.MissionInterface | u
   const methods = useUpdateMissionForm(mission)
 
   const onCancelBtnClick = useOnCancelBtnClick()
+
+  const { label, onClick } = useHandleDeleteBtn()
 
   const handleFormSubmit = useHandleFormSubmit()
 
@@ -39,8 +42,17 @@ function UpdateMissionForm({ mission }: { mission: AppTypes.MissionInterface | u
           <MissionCreate.PreflightInspectionInput />
           <MissionCreate.FlightInputs />
           <MissionCreate.PostflightInspectionInput />
+          <div className="flex flex-col gap-6">
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
+            <PersonnelContainer.DeleteBtn 
+              onClick={onClick}
+              size={'btn-lg'}>
+                {label}
+            </PersonnelContainer.DeleteBtn>
+          </div>
         </div>
-        <FormBtns onCancelBtnClick={onCancelBtnClick} />
       </form>
     </FormProvider>
   )

@@ -1,10 +1,13 @@
 // Types
 import * as AppTypes from '@/context/App/types'
 
+// Components
+import * as Components from './components'
+
 function PersonnelTable({ personnel }: { personnel: AppTypes.PersonnelRosterInterface[] }) {
 
   return (
-    <div>PersonnelTable</div>
+    <Components.Table tableData={personnel} />
   )
 }
 

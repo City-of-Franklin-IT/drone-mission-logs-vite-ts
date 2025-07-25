@@ -21,7 +21,7 @@ type HeaderAction =
 
 const initialState: HeaderState = {
   activePage: 'Entries',
-  expanded: false
+  expanded: true
 }
 
 const HeaderCtx = createContext<HeaderCtx>({

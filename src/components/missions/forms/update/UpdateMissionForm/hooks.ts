@@ -1,6 +1,8 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useQueryClient } from "react-query"
+import { authHeaders } from "@/helpers/utils"
+import * as AppActions from '@/context/App/AppActions'
 import MissionsCtx from "@/components/missions/context"
 import { useEnableQuery } from "@/helpers/hooks"
 import { utcToLocalDatetime, handleUpdateMission } from './utils'
@@ -30,6 +32,33 @@ export const useOnCancelBtnClick = () => {
     dispatch({ type: 'RESET_CTX' })
     window.scrollTo({ behavior: 'smooth', top: 0 })
   }
+}
+
+export const useHandleDeleteBtn = () => {
+  const { missionUUID, dispatch } = useContext(MissionsCtx)
+
+  const [state, setState] = useState<{ active: boolean }>({ active: false })
+
+  const queryClient = useQueryClient()
+
+  const { token } = useEnableQuery()
+
+  const onClick = async () => {
+    if(!state.active) {
+      setState({ active: true })
+      return
+    }
+
+    const result = await AppActions.deleteMission(missionUUID, authHeaders(token))
+
+    if(result.success) {
+      queryClient.invalidateQueries('getMissions')
+      dispatch({ type: 'RESET_CTX' })
+      savedPopup(result.msg)
+    } else errorPopup(result.msg)
+  }
+
+  return { onClick, label: !state.active ? 'Delete Mission' : 'Confirm Delete' }
 }
 
 export const useHandleFormSubmit = () => {

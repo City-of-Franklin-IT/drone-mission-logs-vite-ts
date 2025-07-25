@@ -9,6 +9,7 @@ import Login from "./pages/Login"
 import Missions from "./pages/Missions"
 import Redirect from "./pages/Redirect"
 import Create from "./pages/Create"
+import Rosters from "./pages/Rosters"
 
 const queryClient = new QueryClient()
 
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Login />} />
           <Route path="/missions" element={<Missions />} />
           <Route path="/create/:formtype" element={<Create />} />
+          <Route path="/rosters" element={<Rosters />} />
           <Route path="/*" element={<Redirect />} />
         </Routes>
       </Router>

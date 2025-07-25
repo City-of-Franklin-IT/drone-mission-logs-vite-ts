@@ -49,9 +49,10 @@ export interface PersonnelInterface extends BaseInterface {
   parentId: string
   email: string
   isPilot: boolean | null
+  Mission?: MissionInterface
 }
 
-export interface PersonnelCreateInterface extends Omit<PersonnelInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface PersonnelCreateInterface extends Omit<PersonnelInterface, 'Mission' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
   _deleted?: boolean | null
   uuid?: string
@@ -73,6 +74,7 @@ export interface VehicleInterface extends BaseInterface {
   parentId: string
   registration: string
   VehicleRoster?: VehicleRosterInterface
+  Mission?: MissionInterface
   Batteries?: BatteryInterface[]
 }
 
@@ -85,9 +87,10 @@ export interface VehicleCreateInterface extends Omit<VehicleInterface, 'VehicleR
 export interface VehicleRosterInterface extends BaseInterface {
   model: string
   registration: string
+  Vehicles?: VehicleInterface[]
 }
 
-export interface VehicleRosterCreateInterface extends Omit<VehicleRosterInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface VehicleRosterCreateInterface extends Omit<VehicleRosterInterface, 'Vehicles' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
   _deleted?: boolean | null
   uuid?: string
@@ -118,19 +121,24 @@ export interface BatteryCreateInterface extends Omit<BatteryInterface, 'uuid' | 
 }
 
 export interface BatteryRosterInterface extends BaseInterface {
+  registration: string
   batteryName: string
+  VehicleRoster?: VehicleRosterInterface
 }
 
-export interface BatteryRosterCreateInterface extends Omit<BatteryRosterInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface BatteryRosterCreateInterface extends Omit<BatteryRosterInterface, 'VehicleRoster' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _dirtied?: boolean | null
   _deleted?: boolean | null
   uuid?: string
 }
 
 export interface PersonnelRosterInterface extends BaseInterface {
   email: string
+  Personnel?: PersonnelInterface[]
 }
 
-export interface PersonnelRosterCreateInterface extends Omit<PersonnelRosterInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface PersonnelRosterCreateInterface extends Omit<PersonnelRosterInterface, 'Personnel' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _dirtied?: boolean | null
   _deleted?: boolean | null
   uuid?: string
 }

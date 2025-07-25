@@ -181,7 +181,11 @@ export const PostflightInspectionInput = () => {
 const BatteryInputs = () => {
   const { watch } = useCreateMissionCtx()
 
+  const vehicle = watch('Vehicle.registration')
+
   const batteries = watch('Vehicle.Batteries') || []
+
+  if(!vehicle) return
 
   return (
     <div className="flex flex-col gap-4">

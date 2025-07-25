@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import React, { useContext } from "react"
 import { useLocation, Link } from "react-router"
 import HeaderCtx from "./context"
 import { APP_TITLE } from '../../../config'
@@ -16,7 +16,7 @@ export const Title = () => {
   if(!visible) return null
 
   return (
-    <Link to={'/public'} className="flex flex-col text-primary-content items-start w-fit">
+    <Link to={'/missions'} className="flex flex-col text-primary-content items-start w-fit">
       <h1 className="text-lg font-bold whitespace-nowrap lg:text-2xl">Franklin Police Department</h1>
       <span className="text-sm ml-6 w-fit lg:text-xl lg:whitespace-nowrap">{APP_TITLE}</span>
     </Link>
@@ -46,14 +46,18 @@ export const Buttons = () => {
 
   return (
     <div className="flex flex-col items-center gap-4 mr-auto md:flex-row md:ml-auto">
-      <CreateBtn />
-      <LoginPageLink />
+      <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
+      <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
+      <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
+      <HeaderBtn to={'/'}>Login</HeaderBtn>
       <LogoutBtn />
     </div>
   )
 }
 
-const LoginPageLink = () => { // Link to login page
+type HeaderBtnProps = { to: string, children: React.ReactNode }
+
+const HeaderBtn = (props: HeaderBtnProps) => {
   const activeAccount = useActiveAccount()
 
   const pathname = useLocation().pathname
@@ -62,23 +66,10 @@ const LoginPageLink = () => { // Link to login page
   // if(activeAccount || pathname === '/') return null
 
   return (
-    <Link to={'/'} className="btn btn-sm btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none lg:btn-lg">Login</Link>
-  )
-}
-
-const CreateBtn = () => {
-  const activeAccount = useActiveAccount()
-
-  const pathname = useLocation().pathname
-
-  // @TODO remove for prod
-  // if(!activeAccount || pathname === '/missions/create') return null
-
-  return (
     <Link 
-      to={'/create/mission'}
+      to={props.to} 
       className="btn btn-sm btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none lg:btn-lg">
-        Create New Mission
+        {props.children}
     </Link>
   )
 }

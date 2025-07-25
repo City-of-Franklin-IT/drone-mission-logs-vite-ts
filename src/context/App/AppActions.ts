@@ -114,6 +114,8 @@ export const createVehicle = async (formData: AppTypes.VehicleCreateInterface, h
 // Update vehicle
 // PUT /api/v2/pd/drone/vehicle/:uuid
 export const updateVehicle = async (formData: AppTypes.VehicleCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
+  headers.append('Content-Type', 'application/json')
+
   const res = await fetch(`${ baseUrl }/vehicle/${ formData.uuid }`, {
     method: 'PUT',
     headers,
@@ -315,6 +317,14 @@ export const getRosterVehicles = async (headers: Headers): Promise<AppTypes.Serv
   return await res.json()
 }
 
+// Get vehicle
+// GET /api/v2/pd/drone/vehicle-roster/:uuid
+export const getVehicle = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
+  const res = await fetch(`${ baseUrl }/vehicle-roster/${ uuid }`, { headers })
+
+  return await res.json()
+}
+
 // Create roster vehicle
 // POST /api/v2/pd/drone/vehicle-roster
 export const createRosterVehicle = async (formData: AppTypes.VehicleRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
@@ -356,8 +366,16 @@ export const deleteRosterVehicle = async (uuid: string, headers: Headers): Promi
 
 // Get roster batteries
 // GET /api/v2/api/pd/drone/battery-roster
-export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryInterface[] }> => {
+export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/battery-roster`, { headers })
+
+  return await res.json()
+}
+
+// Get battery
+// GET /api/v2/api/pd/drone/battery-roster/:uuid
+export const getBattery = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface }> => {
+  const res = await fetch(`${ baseUrl }/battery-roster/${ uuid }`, { headers })
 
   return await res.json()
 }
@@ -405,6 +423,14 @@ export const deleteRosterBattery = async (uuid: string, headers: Headers): Promi
 // GET /api/v2/api/pd/drone/personnel-roster
 export const getRosterPersonnel = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/personnel-roster`, { headers })
+
+  return await res.json()
+}
+
+// Get person
+// GET /api/v2/pd/drone/personnel-roster/:uuid
+export const getPerson = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface }> => {
+  const res = await fetch(`${ baseUrl }/personnel-roster/${ uuid }`, { headers })
 
   return await res.json()
 }
