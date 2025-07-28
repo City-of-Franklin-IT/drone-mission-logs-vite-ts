@@ -41,12 +41,12 @@ export const PilotSelect = () => {
         }
       }}
       render={({ field, fieldState: { error } }) => (
-        <div className="flex flex-col gap-6">
-          <div className="flex">
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col bg-neutral xl:flex-row">
             <FormLabel
               name={field.name}
               required={true}>
-                Pilot:
+                Pilot Email:
             </FormLabel>
             <select 
               className={styles.input}
@@ -91,7 +91,7 @@ export const SupportPersonnelInput = () => {
         }}
         render={({ field, fieldState: { error } }) => (
           <div className="flex flex-col">
-            <div className="flex">
+            <div className="flex flex-col bg-neutral xl:flex-row">
               <FormLabel name={field.name}>
                 Support Email:
               </FormLabel>

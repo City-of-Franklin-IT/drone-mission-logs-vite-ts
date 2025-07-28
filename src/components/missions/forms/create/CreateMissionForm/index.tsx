@@ -20,7 +20,7 @@ function CreateMissionForm() {
       <Components.Header>Create Mission</Components.Header>
       
       <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-        <div className="flex flex-col gap-4 p-10 mx-auto w-4/5 border-2 border-info/10 rounded-xl">
+        <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
           <div className="flex gap-4 flex-wrap">
             <Components.MissionDateInput />
             <Components.IncidentNumberInput />
@@ -28,7 +28,7 @@ function CreateMissionForm() {
           </div>
           <Components.MissionDescriptionInput />
         </div>
-        <div className="flex flex-col mx-auto w-4/5">
+        <div className="flex flex-col mx-auto w-full xl:w-4/5">
           <CreatePersonnelForm />
           <Components.VehicleInputs />
           <CreateWeatherForm />

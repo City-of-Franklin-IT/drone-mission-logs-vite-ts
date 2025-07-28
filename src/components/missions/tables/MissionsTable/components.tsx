@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react'
 import MissionsCtx from '../../context'
 import { setFlightTimes, iconMap } from './utils'
+import { useDescriptionVisibility } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -16,13 +17,14 @@ export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] })
 }
 
 const TableHeaders = () => {
+  const descriptionVisible = useDescriptionVisibility()
 
   return (
     <thead>
       <tr className="text-warning uppercase bg-neutral/50 border-b-2 border-warning">
         <th className="px-4">Date</th>
         <th>Location</th>
-        <th>Description</th>
+        <th className={`${ !descriptionVisible ? 'hidden' : 'block' }`}>Description</th>
         <th className="text-center px-4">Personnel</th>
       </tr>
     </thead>
@@ -48,6 +50,8 @@ const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) =>
 const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, index: number }) => {
   const [state, setState] = useState<{ expanded: boolean }>({ expanded: false })
 
+  const descriptionVisible = useDescriptionVisibility()
+
   const btnIcon = !state.expanded ? iconMap.get('downArrow') : iconMap.get('upArrow')
 
   return (
@@ -55,7 +59,7 @@ const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, 
       <tr className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={tableData.uuid}>
         <td className="px-4 whitespace-nowrap">{tableData.missionDate}</td>
         <td className="whitespace-nowrap">{tableData.location}</td>
-        <td>{tableData.missionDescription}</td>
+        <td className={`${ !descriptionVisible ? 'hidden' : 'block' }`}>{tableData.missionDescription}</td>
         <td><PersonnelTableData personnel={tableData.Personnel} /></td>
       </tr>
       <ShowDetailsBtn 
@@ -130,7 +134,7 @@ const MissionDetails = ({ expanded , tableData, index }: { expanded: boolean, ta
   return (
     <tr className={`text-center ${ index % 2 === 0 ? 'bg-neutral/20' : null }`}>
       <td colSpan={4}>
-        <div className="flex flex-col gap-4 mx-auto w-fit p-4 border-2 border-info/10 rounded-xl max-w-1/2">
+        <div className="flex flex-col gap-4 mx-auto w-fit p-4 border-2 border-info/10 rounded-xl xl:max-w-1/2">
           <Vehicle vehicle={tableData.Vehicle} />
           <Flights flights={tableData.Flights} />
           <Weather weather={tableData.Weather} />

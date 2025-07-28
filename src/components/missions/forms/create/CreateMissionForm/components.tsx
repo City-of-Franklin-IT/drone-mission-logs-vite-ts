@@ -20,8 +20,8 @@ export const MissionDateInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-1 flex flex-col gap-6">
-      <div className="flex">
+    <div className="flex-1 flex flex-col gap-4">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel
           name={'missionDate'}
           required={true}>
@@ -44,8 +44,8 @@ export const IncidentNumberInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-2 flex flex-col gap-6">
-      <div className="flex">
+    <div className="flex-2 flex flex-col gap-4">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'incidentNumber'}>
           Incident #:
         </FormLabel>
@@ -69,8 +69,8 @@ export const MissionDescriptionInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-1 flex flex-col">
-      <div className="flex">
+    <div className="flex-1 flex flex-col gap-4">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel 
           name={'missionDescription'}
           required={true}>
@@ -93,8 +93,8 @@ export const LocationInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-2 flex flex-col gap-6">
-      <div className="flex">
+    <div className="flex-2 flex flex-col gap-4">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'location'}>
           Location:
         </FormLabel>
@@ -117,10 +117,10 @@ export const LocationInput = () => {
 export const VehicleInputs = () => {
 
   return (
-    <div className="flex flex-col gap-4 items-center p-10 mt-10 mx-auto w-full border-2 border-info/10 rounded-xl">
+    <div className="flex flex-col gap-4 items-center mt-10 p-6 w-full border-2 border-info/10 rounded-xl xl:p-10">
       <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
 
-      <div className="flex flex-col gap-10">
+      <div className="flex flex-col gap-10 w-full">
         <CreateVehicleForm />
         <BatteryInputs />
       </div>
@@ -132,7 +132,7 @@ export const VehicleInputs = () => {
 export const FlightInputs = () => {
 
   return (
-    <div className="flex flex-col gap-4 items-center p-10 mt-10 mx-auto w-full border-2 border-info/10 rounded-xl">
+    <div className="flex flex-col gap-4 items-center mt-10 p-6 mx-auto w-full border-2 border-info/10 rounded-xl xl:p-10">
       <h3 className="text-3xl text-neutral-content font-[play]">Flights</h3>
 
       <Flights />
@@ -227,7 +227,7 @@ const Flights = () => {
   const flights = watch('Flights') || []
 
   return (
-    <div className="flex flex-col gap-10">
+    <div className="flex flex-col gap-10 w-full">
       {flights.map((_, index) => (
         <div key={`flight-form-${ index }`} className="flex flex-col gap-4 p-6 bg-info/10">
           <span className="font-[play] text-neutral-content text-start underline">Flight #{index + 1}</span>

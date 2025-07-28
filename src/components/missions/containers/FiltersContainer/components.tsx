@@ -6,33 +6,65 @@ import { useGetPersonnel } from "../../forms/create/CreatePersonnelForm/hooks"
 import * as CreatePersonnelForm from '../../forms/create/CreatePersonnelForm/components'
 
 export const DateRangeFilterInputs = () => {
+  const { dateRangeFilter, dispatch } = useContext(MissionsCtx)
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl">
       <span className="text-neutral-content uppercase font-bold">Date Range Filter</span>
-      <div className="flex items-center gap-4 font-[play]">
+      <div className="flex items-center gap-4 font-[play] px-2 justify-center flex-wrap">
         <DateRangeStartInput />
         <DateRangeEndInput />
       </div>
+      <ClearFilterBtn
+        onClick={() => {
+          dispatch({ type: 'SET_DATE_RANGE_FILTER_START', payload: '' })
+          dispatch({ type: 'SET_DATE_RANGE_FILTER_END', payload: '' })
+        }}
+        disabled={!dateRangeFilter.start || !dateRangeFilter.end} />
     </div>
   )
 }
 
 export const PersonnelFilter = () => {
-  const { dispatch } = useContext(MissionsCtx)
+  const { personnelFilter, dispatch } = useContext(MissionsCtx)
 
   const { isLoading } = useGetPersonnel()
 
   if(isLoading) return
 
   return (
-    <div className="flex flex-col gap-2 items-center">
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl">
       <span className="text-neutral-content uppercase font-bold">Personnel Filter</span>
+
       <select
-        className="select hover:cursor-pointer"
+        className="select mx-auto w-[90%] hover:cursor-pointer"
+        value={personnelFilter}
         onChange={(e) => dispatch({ type: 'SET_PERSONNEL_FILTER', payload: e.currentTarget.value })}>
           <CreatePersonnelForm.PersonnelOptions />
       </select>
+      <ClearFilterBtn
+        onClick={() => dispatch({ type: 'SET_PERSONNEL_FILTER', payload: '' })}
+        disabled={!personnelFilter} />
+    </div>
+  )
+}
+
+export const Search = () => {
+  const { searchValue, dispatch } = useContext(MissionsCtx)
+
+  return (
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl">
+      <span className="text-neutral-content uppercase font-bold">Search</span>
+
+      <input 
+        type="text"
+        className="input"
+        placeholder="by mission description.."
+        value={searchValue}
+        onChange={(e) => dispatch({ type: 'SET_SEARCH_VALUE', payload: e.currentTarget.value })} />
+      <ClearFilterBtn
+        onClick={() => dispatch({ type: 'SET_SEARCH_VALUE', payload: '' })}
+        disabled={!searchValue} />
     </div>
   )
 }
@@ -62,5 +94,20 @@ const DateRangeEndInput = () => {
         className="input hover:cursor-pointer" 
         onChange={(e) => dispatch({ type: 'SET_DATE_RANGE_FILTER_END', payload: e.currentTarget.value })}/>
     </div>
+  )
+}
+
+type ClearFilterBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>, disabled: boolean }
+
+const ClearFilterBtn = (props: ClearFilterBtnProps) => {
+
+  return (
+    <button 
+      type="button"
+      className="btn btn-secondary btn-sm font-[play] uppercase w-full"
+      disabled={props.disabled}
+      onClick={props.onClick}>
+        Clear
+    </button>
   )
 }

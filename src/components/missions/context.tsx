@@ -9,8 +9,11 @@ type MissionsCtx = {
     start: string
     end: string
   },
+  currentPage: number
   missionUUID: string
   personnelFilter: string
+  searchValue: string
+  totalPages: number
 }
 
 type MissionsState = Omit<MissionsCtx, 'dispatch'>
@@ -20,6 +23,9 @@ type MissionsAction =
   | { type: 'SET_DATE_RANGE_FILTER_START', payload: string }
   | { type: 'SET_DATE_RANGE_FILTER_END', payload: string }
   | { type: 'SET_PERSONNEL_FILTER', payload: string }
+  | { type: 'SET_SEARCH_VALUE', payload: string }
+  | { type: 'SET_TOTAL_PAGES', payload: number }
+  | { type: 'SET_CURRENT_PAGE', payload: number }
   | { type: 'RESET_CTX' }
 
 const initialState: MissionsState = {
@@ -27,8 +33,11 @@ const initialState: MissionsState = {
     start: '',
     end: ''
   },
+  currentPage: 1,
   missionUUID: '',
-  personnelFilter: ''
+  personnelFilter: '',
+  searchValue: '',
+  totalPages: 1
 }
 
 const MissionsCtx = createContext<MissionsCtx>({
@@ -64,6 +73,21 @@ const MissionsReducer = (state: MissionsState, action: MissionsAction) => {
       return {
         ...state,
         personnelFilter: action.payload
+      }
+    case 'SET_SEARCH_VALUE':
+      return {
+        ...state,
+        searchValue: action.payload
+      }
+    case 'SET_TOTAL_PAGES':
+      return {
+        ...state,
+        totalPages: action.payload
+      }
+    case 'SET_CURRENT_PAGE':
+      return {
+        ...state,
+        currentPage: action.payload
       }
     case 'RESET_CTX':
       return initialState

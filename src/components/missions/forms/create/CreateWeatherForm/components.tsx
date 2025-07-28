@@ -21,7 +21,7 @@ export const TemperatureInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'Weather.temperature'}>
           Air Temperature:
         </FormLabel>
@@ -49,7 +49,7 @@ export const VisibilitySelect = () => {
   const { register, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-2 flex">
+    <div className="flex-1 flex flex-col bg-neutral xl:flex-row">
       <FormLabel name={'Weather.visibility'}>
         Visibility:
       </FormLabel>
@@ -69,7 +69,7 @@ export const WindInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'Weather.wind'}>
           Wind Speed:
         </FormLabel>
@@ -98,7 +98,7 @@ export const SourceInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'Weather.source'}>
           Source:
         </FormLabel>

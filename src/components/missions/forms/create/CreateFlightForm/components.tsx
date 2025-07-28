@@ -17,7 +17,7 @@ export const FlightInputs = ({ index }: { index: number }) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex gap-10 justify-center flex-wrap">
+      <div className="flex flex-col gap-10 md:flex-row md:justify-center md:flex-wrap">
         <TakeOffInput index={index} />
         <LandingInput index={index} />
       </div>
@@ -55,9 +55,9 @@ const TakeOffInput = ({ index }: { index: number }) => {
         }
       }}
       render={({ field, fieldState: { error } }) => (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex">
+            <div className="flex flex-col bg-neutral xl:flex-row">
               <FormLabel name={field.name}>
                 Takeoff Time:
               </FormLabel>
@@ -105,9 +105,9 @@ const LandingInput = ({ index }: { index: number }) => {
         }
       }}
       render={({ field, fieldState: { error } }) => (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex">
+            <div className="flex flex-col bg-neutral xl:flex-row">
               <FormLabel name={field.name}>
                 Landing Time:
               </FormLabel>

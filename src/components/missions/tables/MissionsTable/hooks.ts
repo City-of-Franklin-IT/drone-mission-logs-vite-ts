@@ -1,11 +1,11 @@
-import { useContext, useMemo } from "react"
+import { useContext, useMemo, useState, useLayoutEffect } from "react"
 import MissionsCtx from "../../context"
 
 // Types
 import * as AppTypes from '@/context/App/types'
 
 export const useSetTableData = (missions: AppTypes.MissionInterface[]) => {
-  const { dateRangeFilter, personnelFilter } = useContext(MissionsCtx)
+  const { dateRangeFilter, personnelFilter, searchValue, currentPage } = useContext(MissionsCtx)
 
   let missionsArray = missions
 
@@ -29,6 +29,35 @@ export const useSetTableData = (missions: AppTypes.MissionInterface[]) => {
       )
     }
 
-    return missionsArray
-  }, [missionsArray, dateRangeFilter, personnelFilter])
+    if(searchValue) { // Search value
+      missionsArray = missionsArray.filter(mission => {
+        const regex = new RegExp(searchValue, 'i')
+
+        return regex.test(mission.missionDescription)
+      })
+    }
+
+    const startIndex = (currentPage - 1) * 25
+    const endIndex = currentPage * 25
+
+    return missionsArray.slice(startIndex, endIndex)
+  }, [missionsArray, dateRangeFilter, personnelFilter, searchValue, currentPage])
+}
+
+export const useDescriptionVisibility = () => {
+  const [state, setState] = useState<{ visible: boolean }>({ visible: false })
+
+  useLayoutEffect(() => {
+    const updateVisibility = () => {
+      setState({ visible: window.innerWidth >= 1024 })
+    }
+
+    updateVisibility()
+
+    window.addEventListener('resize', updateVisibility)
+
+    return () => window.removeEventListener('resize', updateVisibility)
+  }, [])
+
+  return state.visible
 }

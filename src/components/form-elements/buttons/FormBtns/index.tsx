@@ -6,7 +6,7 @@ type FormBtnsProps = { onCancelBtnClick: React.MouseEventHandler<HTMLButtonEleme
 function FormBtns(props: FormBtnsProps) {
 
   return (
-    <div className="flex gap-6 h-[44px] mt-6">
+    <div className="flex flex-col gap-4 w-full md:flex-row md:gap-6">
       <Components.CancelBtn 
         onClick={props.onCancelBtnClick}
         size={props.size} />

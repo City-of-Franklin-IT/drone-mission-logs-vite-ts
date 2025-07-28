@@ -4,9 +4,9 @@ import * as Components from './components'
 function CreateWeatherForm() {
   
   return (
-    <div className="flex flex-col gap-4 items-center p-10 mt-10 mx-auto w-full border-2 border-info/10 rounded-xl">
+    <div className="flex flex-col gap-4 items-center mt-10 p-6 mx-auto w-full border-2 border-info/10 rounded-xl xl:p-10">
       <Components.Header />
-      <div className="flex gap-10 justify-center flex-wrap">
+      <div className="flex flex-col gap-4 w-full md:flex-row md:flex-wrap md:justify-center md:gap-10">
         <Components.TemperatureInput />
         <Components.WindInput />
         <Components.VisibilitySelect />

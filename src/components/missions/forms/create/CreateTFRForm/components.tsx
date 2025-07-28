@@ -9,7 +9,7 @@ import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 export const Header = () => {
 
   return (
-    <h3 className="text-3xl text-neutral-content font-[play]">Temporary Flight Restriction</h3>
+    <h3 className="text-3xl text-neutral-content text-center font-[play]">Temporary Flight Restriction</h3>
   )
 }
 
@@ -61,7 +61,7 @@ export const TFRInput = () => {
   if(!visible) return
 
   return (
-    <div className="flex">
+    <div className="flex flex-col bg-neutral xl:flex-row">
       <FormLabel name={'TemporaryFlightRestriction.temporaryFlightRestriction'}>
         Temporary Flight Restriction:
       </FormLabel>
@@ -85,7 +85,7 @@ export const TFRSourceInput = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex">
+      <div className="flex flex-col bg-neutral xl:flex-row">
         <FormLabel name={'TemporaryFlightRestriction.source'}>
           Source:
         </FormLabel>

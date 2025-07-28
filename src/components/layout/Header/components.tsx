@@ -4,37 +4,27 @@ import HeaderCtx from "./context"
 import { APP_TITLE } from '../../../config'
 import { useActiveAccount } from "@/helpers/hooks"
 import useHandleLogoutRedirect from "@/context/Auth/hooks/useHandleLogoutRedirect"
-import { useHandleTitleVisibility } from './hooks'
 
 // Icons
 import inactiveMenuIcon from '@/assets/icons/menu/menu-light.svg'
 import activeMenuIcon from '@/assets/icons/menu/menu.svg'
 
 export const Title = () => {
-  const visible = useHandleTitleVisibility()
-
-  if(!visible) return null
 
   return (
-    <Link to={'/missions'} className="flex flex-col text-primary-content items-start w-fit">
+    <Link to={'/missions'} className="flex flex-col text-primary-content text-center w-fit">
       <h1 className="text-lg font-bold whitespace-nowrap lg:text-2xl">Franklin Police Department</h1>
-      <span className="text-sm ml-6 w-fit lg:text-xl lg:whitespace-nowrap">{APP_TITLE}</span>
+      <span className="text-sm lg:text-xl lg:whitespace-nowrap">{APP_TITLE}</span>
     </Link>
   )
 }
 
 export const BtnsMenu = ({ children }: { children: React.ReactNode }) => {
-  const { expanded, dispatch } = useContext(HeaderCtx)
 
   return (
     <div className="flex justify-between ml-auto w-full lg:w-fit lg:gap-4">
       {children}
-      <button 
-        type="button"
-        className="flex flex-col justify-center ml-auto w-16 hover:cursor-pointer"
-        onClick={() => dispatch({ type: 'TOGGLE_EXPANDED' })}>
-          <img src={!expanded ? inactiveMenuIcon : activeMenuIcon} alt="menu icon" className="w-fit" />
-      </button>
+      <MenuBtn />
     </div>
   )
 }
@@ -45,7 +35,7 @@ export const Buttons = () => {
   if(!expanded) return null
 
   return (
-    <div className="flex flex-col items-center gap-4 mr-auto md:flex-row md:ml-auto">
+    <div className="flex flex-col items-center gap-4 mx-auto md:mr-auto md:flex-row md:ml-auto">
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
@@ -87,6 +77,23 @@ const LogoutBtn = () => { // Logout button
       onClick={handleLogoutRedirect}
       className="btn btn-sm btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none lg:btn-lg">
         Logout
+    </button>
+  )
+}
+
+const MenuBtn = () => {
+  const { expanded, dispatch } = useContext(HeaderCtx)
+
+  const visible = window.innerWidth >= 1024
+
+  if(!visible) return
+
+  return (
+    <button 
+      type="button"
+      className="flex flex-col justify-center ml-auto w-16 hover:cursor-pointer"
+      onClick={() => dispatch({ type: 'TOGGLE_EXPANDED' })}>
+        <img src={!expanded ? inactiveMenuIcon : activeMenuIcon} alt="menu icon" className="w-fit" />
     </button>
   )
 }

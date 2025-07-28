@@ -25,7 +25,7 @@ export const VehicleRegistrationInput = () => {
 
   return (
     <div className={styles.inputSection}>
-      <div className="flex">
+      <div className="flex flex-col bg-neutral w-full xl:flex-row">
         <FormLabel
           name={'Vehicle.registration'}
           required={true}>
