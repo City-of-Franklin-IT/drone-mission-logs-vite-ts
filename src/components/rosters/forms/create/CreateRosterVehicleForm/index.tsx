@@ -23,10 +23,10 @@ function CreateRosterVehicleForm() {
           <div className="flex flex-col gap-4 w-full">
             <Components.ModelInput />
             <Components.RegistrationInput />
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
           </div>
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
         </form>
       </div>
     </FormProvider>

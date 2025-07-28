@@ -37,6 +37,7 @@ export const PersonnelFilter = () => {
       <span className="text-neutral-content uppercase font-bold">Personnel Filter</span>
 
       <select
+        data-testid="personnel-select"
         className="select mx-auto w-[90%] hover:cursor-pointer"
         value={personnelFilter}
         onChange={(e) => dispatch({ type: 'SET_PERSONNEL_FILTER', payload: e.currentTarget.value })}>
@@ -56,7 +57,8 @@ export const Search = () => {
     <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl">
       <span className="text-neutral-content uppercase font-bold">Search</span>
 
-      <input 
+      <input
+        data-testid="search-input" 
         type="text"
         className="input"
         placeholder="by mission description.."
@@ -75,7 +77,8 @@ const DateRangeStartInput = () => {
   return (
     <div className="flex gap-2 items-center font-[play]">
       <label className="label text-neutral-content">Start:</label>
-      <input 
+      <input
+        data-testid="start-input" 
         type="date"
         className="input hover:cursor-pointer" 
         onChange={(e) => dispatch({ type: 'SET_DATE_RANGE_FILTER_START', payload: e.currentTarget.value })}/>
@@ -102,7 +105,8 @@ type ClearFilterBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>
 const ClearFilterBtn = (props: ClearFilterBtnProps) => {
 
   return (
-    <button 
+    <button
+      data-testid="clear-filter-btn" 
       type="button"
       className="btn btn-secondary btn-sm font-[play] uppercase w-full"
       disabled={props.disabled}

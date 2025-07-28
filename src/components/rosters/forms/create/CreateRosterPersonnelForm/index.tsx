@@ -19,10 +19,12 @@ function CreateRosterPersonnelForm() {
         <Components.Header>Create Personnel</Components.Header>
         
         <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-          <Components.EmailInput />
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
+          <div className="flex flex-col gap-4">
+            <Components.EmailInput />
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
+          </div>
         </form>
       </div>
     </FormProvider>

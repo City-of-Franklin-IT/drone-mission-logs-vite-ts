@@ -23,13 +23,15 @@ function UpdateRosterVehicleForm({ vehicle }: { vehicle: AppTypes.VehicleRosterI
         <CreateRosterPersonnelForm.Header>Update Vehicle</CreateRosterPersonnelForm.Header>
         
         <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-          <div className="flex flex-col gap-4 w-full">
-            <CreateRosterVehicleForm.ModelInput />
-            <CreateRosterVehicleForm.RegistrationInput />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-4 w-full">
+              <CreateRosterVehicleForm.ModelInput />
+              <CreateRosterVehicleForm.RegistrationInput />
+            </div>
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
           </div>
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
         </form>
       </div>
     </FormProvider>

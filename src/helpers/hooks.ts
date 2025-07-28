@@ -147,7 +147,7 @@ export const useUnauthRedirect = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    if (inProgress === 'none') {
+    if(inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()
       
       if(!activeAccount) {

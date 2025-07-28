@@ -23,10 +23,12 @@ function UpdateRosterBatteryForm({ battery }: { battery: AppTypes.BatteryRosterI
         <CreateRosterPersonnelForm.Header>Update Battery</CreateRosterPersonnelForm.Header>
         
         <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-          <CreateRosterBatteryForm.BatteryNameInput />
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
+          <div className="flex flex-col gap-4">
+            <CreateRosterBatteryForm.BatteryNameInput />
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
+          </div>
         </form>
       </div>
     </FormProvider>

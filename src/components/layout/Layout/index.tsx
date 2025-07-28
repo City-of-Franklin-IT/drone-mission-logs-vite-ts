@@ -3,11 +3,9 @@ import { HeaderProvider } from "../Header/context"
 // Components
 import Header from "../Header"
 import Footer from "../Footer"
+import PageWrapper from "@/utils/PageWrapper"
 
-// Types
-import { ReactNode } from 'react'
-
-function Layout({ children }: { children: ReactNode }) {
+function Layout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="flex flex-col w-full h-[100%] min-h-screen">
@@ -15,9 +13,11 @@ function Layout({ children }: { children: ReactNode }) {
         <Header />
       </HeaderProvider>
       <main>
-        <div className="m-auto w-full h-full xl:w-[90%] 2xl:w-[80%]">
-          {children}
-        </div>
+        <PageWrapper>
+          <div className="m-auto w-full h-full xl:w-[90%] 2xl:w-[80%]">
+            {children}
+          </div>
+        </PageWrapper>
       </main>
       <Footer />
     </div>

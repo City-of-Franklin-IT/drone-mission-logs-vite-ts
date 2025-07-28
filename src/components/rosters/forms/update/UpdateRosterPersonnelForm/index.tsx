@@ -21,10 +21,12 @@ function UpdateRosterPersonnelForm({ personnel }: { personnel: AppTypes.Personne
         <CreateRosterPersonnelForm.Header>Update Personnel</CreateRosterPersonnelForm.Header>
         
         <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-          <CreateRosterPersonnelForm.EmailInput />
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
+          <div className="flex flex-col gap-4">
+            <CreateRosterPersonnelForm.EmailInput />
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
+          </div>
         </form>
       </div>
     </FormProvider>

@@ -1,4 +1,5 @@
 import { useOnTableRowClick } from '../PersonnelTable/hooks'
+import { useSetColumnVisibility } from '@/components/missions/tables/MissionsTable/hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -14,12 +15,13 @@ export const Table = ({ tableData }: { tableData: AppTypes.VehicleRosterInterfac
 }
 
 const TableHeaders = () => {
+  const visible = useSetColumnVisibility()
 
   return (
     <thead>
       <tr className="text-warning uppercase bg-neutral/50 border-b-2 border-warning">
         <th className="px-10">Make/Model</th>
-        <th className="px-10">Registration</th>
+        <th className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>Registration</th>
         <th className="px-10">Missions</th>
       </tr>
     </thead>
@@ -43,6 +45,8 @@ const TableBody = ({ tableData }: { tableData: AppTypes.VehicleRosterInterface[]
 }
 
 const TableRow = ({ tableData, index }: { tableData: AppTypes.VehicleRosterInterface, index: number }) => {
+  const visible = useSetColumnVisibility()
+
   const onTableRowClick = useOnTableRowClick('vehicle', tableData.uuid)
 
   const missions = tableData.Vehicles?.length ? tableData.Vehicles.map(item => (item.Mission)) : []
@@ -50,7 +54,7 @@ const TableRow = ({ tableData, index }: { tableData: AppTypes.VehicleRosterInter
   return (
     <tr className={`border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} onClick={onTableRowClick}>
       <td className="px-10 whitespace-nowrap">{tableData.model}</td>
-      <td className="px-10">{tableData.registration}</td>
+      <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{tableData.registration}</td>
       <td className="px-10 text-center">{missions.length}</td>
     </tr>
   )

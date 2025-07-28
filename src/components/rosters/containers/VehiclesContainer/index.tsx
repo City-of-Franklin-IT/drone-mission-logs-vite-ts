@@ -18,7 +18,7 @@ function VehiclesContainer({ vehicles }: { vehicles: AppTypes.VehicleRosterInter
   useScrollToFormRef({ topRef, formRef }, 'vehicle')
 
   return (
-    <div ref={topRef} className="flex flex-col gap-4 items-center p-10 rounded-xl bg-neutral/10">
+    <div ref={topRef} className="flex flex-col gap-4 items-center p-6 rounded-xl bg-neutral/10 xl:p-10">
       <div className="flex flex-col gap-4 items-center">
         <PersonnelContainer.Header>Vehicles</PersonnelContainer.Header>
 

@@ -22,7 +22,7 @@ export const PageNavBtns = () => { // Page nav buttons
             onClick={handleNextBtn}
             disabled={!totalPages || currentPage === totalPages} />
         </div>
-        <small className="text-neutral-content font-[play] uppercase">{label}</small>
+        <small data-testid="page-nav-label" className="text-neutral-content font-[play] uppercase">{label}</small>
       </div>
     </div>
   )

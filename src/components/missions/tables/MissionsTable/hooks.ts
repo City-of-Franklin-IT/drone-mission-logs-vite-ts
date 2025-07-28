@@ -44,7 +44,7 @@ export const useSetTableData = (missions: AppTypes.MissionInterface[]) => {
   }, [missionsArray, dateRangeFilter, personnelFilter, searchValue, currentPage])
 }
 
-export const useDescriptionVisibility = () => {
+export const useSetColumnVisibility = () => { // Hide cols on smaller display sizes
   const [state, setState] = useState<{ visible: boolean }>({ visible: false })
 
   useLayoutEffect(() => {

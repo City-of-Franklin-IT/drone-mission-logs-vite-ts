@@ -20,10 +20,12 @@ function CreateRosterBatteryForm() {
         <CreateRosterPersonnelForm.Header>Create Battery</CreateRosterPersonnelForm.Header>
         
         <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
-          <Components.BatteryNameInput />
-          <FormBtns 
-            onCancelBtnClick={onCancelBtnClick}
-            size={'btn-sm'} />
+          <div className="flex flex-col gap-4">
+            <Components.BatteryNameInput />
+            <FormBtns 
+              onCancelBtnClick={onCancelBtnClick}
+              size={'btn-lg'} />
+          </div>
         </form>
       </div>
     </FormProvider>
