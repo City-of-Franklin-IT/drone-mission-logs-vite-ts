@@ -4,24 +4,23 @@ import { createContext, useReducer } from "react"
 import { ReactNode, Dispatch } from "react"
 
 export type PagesType =
-  | 'Entries'
-  | 'Create'
+  | 'Login'
+  | 'Missions'
+  | 'Create Mission'
+  | 'Manage Rosters'
 
 type HeaderCtx = {
   dispatch: Dispatch<HeaderAction>
   activePage: PagesType
-  expanded: boolean
 }
 
 type HeaderState = Omit<HeaderCtx, 'dispatch'>
 
 type HeaderAction =
   | { type: 'SET_ACTIVE_PAGE', payload: PagesType }
-  | { type: 'TOGGLE_EXPANDED' }
 
 const initialState: HeaderState = {
-  activePage: 'Entries',
-  expanded: true
+  activePage: 'Login'
 }
 
 const HeaderCtx = createContext<HeaderCtx>({
@@ -36,11 +35,6 @@ const HeaderReducer = (state: HeaderState, action: HeaderAction) => {
       return {
         ...state,
         activePage: action.payload
-      }
-    case 'TOGGLE_EXPANDED':
-      return {
-        ...state,
-        expanded: !state.expanded
       }
     default:
       return state
