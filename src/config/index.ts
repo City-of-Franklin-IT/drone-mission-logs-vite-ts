@@ -1,5 +1,5 @@
 export const APP_BASE = '/drone-missions'
 export const APP_TITLE = 'Drone Missions'
-// export const API_URL = 'https://dev.franklintn.gov/api/v2/pd/drone'
-export const API_URL = 'https://istest.franklintn.gov/api/v2/pd/drone'
-export const NODE_ENV: 'development' | 'test' | 'production' = 'test'
+export const API_URL = 'https://dev.franklintn.gov/api/v2/pd/drone'
+// export const API_URL = 'https://istest.franklintn.gov/api/v2/pd/drone'
+export const NODE_ENV: 'development' | 'test' | 'production' = 'production'
