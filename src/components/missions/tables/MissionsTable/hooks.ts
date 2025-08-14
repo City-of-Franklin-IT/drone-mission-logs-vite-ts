@@ -1,4 +1,4 @@
-import { useContext, useMemo, useState, useLayoutEffect } from "react"
+import { useContext, useMemo, useState, useLayoutEffect, useRef, useEffect } from "react"
 import MissionsCtx from "../../context"
 
 // Types
@@ -60,4 +60,19 @@ export const useSetColumnVisibility = () => { // Hide cols on smaller display si
   }, [])
 
   return state.visible
+}
+
+export const useScrollToMissionDetails = (expanded: boolean) => {
+  const tableRowRef = useRef<HTMLTableRowElement>(null)
+  const detailsRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if(expanded && detailsRef.current) {
+      detailsRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    } else if(!expanded && tableRowRef.current) {
+      tableRowRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    }
+  }, [expanded]) 
+
+  return { tableRowRef, detailsRef }
 }

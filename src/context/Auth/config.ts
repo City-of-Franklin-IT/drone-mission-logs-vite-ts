@@ -2,7 +2,7 @@ import { LogLevel } from '@azure/msal-browser';
 
 export const msalConfig = {
     auth: {
-        clientId: '',
+        clientId: 'ff3cbe5e-f332-4013-8fd5-d2e121c39af9',
         authority: 'https://login.microsoftonline.com/f6644f52-f834-4a2f-a433-e6bc40d7c17f/',
         redirectUri: 'https://istest.franklintn.gov/drone-missions',
         postLogoutRedirectUri: '/',
@@ -38,5 +38,5 @@ export const msalConfig = {
 
 export const loginRequest = {
     scopes: ["openid", "profile"],
-    redirectUri: "https://apps.franklintn.gov/drone-missions"
+    redirectUri: "https://istest.franklintn.gov/drone-missions"
 };

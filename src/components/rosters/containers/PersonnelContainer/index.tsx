@@ -1,4 +1,6 @@
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
+import { motion } from 'motion/react'
+import { motionProps } from '@/components/missions/tables/MissionsTable/utils'
 import { useOnCreateBtnClick, useScrollToFormRef } from './hooks'
 
 // Types
@@ -8,7 +10,7 @@ import * as AppTypes from '@/context/App/types'
 import PersonnelTable from '../../tables/PersonnelTable'
 import * as Components from './components'
 
-function PersonnelContainer({ personnel }: { personnel: AppTypes.PersonnelRosterInterface[] }) {
+const PersonnelContainer = memo(({ personnel }: { personnel: AppTypes.PersonnelRosterInterface[] }) => {
   const onCreateBtnClick = useOnCreateBtnClick('personnel')
 
   const topRef = useRef<HTMLDivElement>(null)
@@ -17,18 +19,21 @@ function PersonnelContainer({ personnel }: { personnel: AppTypes.PersonnelRoster
   useScrollToFormRef({ topRef, formRef }, 'personnel')
 
   return (
-    <div ref={topRef} className="flex flex-col gap-4 items-center p-6 rounded-xl bg-neutral/10 xl:p-10">
-      <div className="flex flex-col gap-4 items-center">
-        <Components.Header>Personnel</Components.Header>
+    <motion.div 
+      ref={topRef} 
+      className="flex flex-col gap-4 items-center p-6 rounded-xl bg-neutral/10 xl:p-10"
+      { ...motionProps.slideInLeft }>
+        <div className="flex flex-col gap-4 items-center">
+          <Components.Header>Personnel</Components.Header>
 
-        <PersonnelTable personnel={personnel} />
-        <Components.CreateBtn onClick={onCreateBtnClick}>
-          Add Personnel
-        </Components.CreateBtn>
-      </div>
-      <Components.Form formRef={formRef} />
-    </div>
+          <PersonnelTable personnel={personnel} />
+          <Components.CreateBtn onClick={onCreateBtnClick}>
+            Add Personnel
+          </Components.CreateBtn>
+        </div>
+        <Components.Form formRef={formRef} />
+    </motion.div>
   )
-}
+})
 
 export default PersonnelContainer

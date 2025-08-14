@@ -31,7 +31,6 @@ export const Buttons = () => {
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
-      <HeaderBtn to={'/'}>Login</HeaderBtn>
       <LogoutBtn />
     </div>
   )
@@ -46,8 +45,7 @@ const HeaderBtn = (props: HeaderBtnProps) => {
 
   const pathname = useLocation().pathname
 
-  // TODO remove for prod
-  // if(activeAccount || pathname === '/') return null
+  if(!activeAccount || pathname === '/') return null
 
   const active = activePage === props.children
 

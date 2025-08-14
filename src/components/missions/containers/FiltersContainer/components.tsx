@@ -3,13 +3,14 @@ import MissionsCtx from "../../context"
 import { useGetPersonnel } from "../../forms/create/CreatePersonnelForm/hooks"
 
 // Components
+import Loading from "@/components/loading/Loading"
 import * as CreatePersonnelForm from '../../forms/create/CreatePersonnelForm/components'
 
 export const DateRangeFilterInputs = () => {
   const { dateRangeFilter, dispatch } = useContext(MissionsCtx)
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
       <span className="text-neutral-content uppercase font-bold">Date Range Filter</span>
       <div className="flex items-center gap-4 font-[play] px-2 justify-center flex-wrap">
         <DateRangeStartInput />
@@ -28,12 +29,12 @@ export const DateRangeFilterInputs = () => {
 export const PersonnelFilter = () => {
   const { personnelFilter, dispatch } = useContext(MissionsCtx)
 
-  const { isLoading } = useGetPersonnel()
+  const { isSuccess } = useGetPersonnel()
 
-  if(isLoading) return
+  if(!isSuccess) return <Loading />
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl w-full">
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl w-full">
       <span className="text-neutral-content uppercase font-bold">Personnel Filter</span>
 
       <select
@@ -54,7 +55,7 @@ export const Search = () => {
   const { searchValue, dispatch } = useContext(MissionsCtx)
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-1 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
+    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
       <span className="text-neutral-content uppercase font-bold">Search</span>
 
       <input

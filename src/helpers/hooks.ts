@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router"
 import { useMsal } from "@azure/msal-react"
 import { NODE_ENV } from "@/config"
+import { infoPopup } from "@/utils/Toast/Toast"
 
 export const useGetToken = () => {
   const [state, setState] = useState<{ token: string | undefined }>({ token: undefined })
@@ -151,6 +152,7 @@ export const useUnauthRedirect = () => {
       const activeAccount = instance.getActiveAccount()
       
       if(!activeAccount) {
+        infoPopup('Unauthorized: Please Login')
         navigate('/')
       }
     }

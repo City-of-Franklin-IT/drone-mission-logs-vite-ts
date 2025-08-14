@@ -18,7 +18,7 @@ export const useScrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
 
   useEffect(() => {
     if(ref.current && missionUUID) {
-      ref.current.scrollIntoView({ behavior: 'smooth' })
+      ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [ref, missionUUID])
 }

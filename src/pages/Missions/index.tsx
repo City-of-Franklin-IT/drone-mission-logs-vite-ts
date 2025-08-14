@@ -1,4 +1,5 @@
 import { MissionsProvider } from "@/components/missions/context"
+import { useUnauthRedirect } from "@/helpers/hooks"
 import { useGetMissions } from "./hooks"
 
 // Components
@@ -8,6 +9,8 @@ import ErrorBoundary from "@/components/error/ErrorBoundary"
 import MissionsContainer from "@/components/missions/containers/MissionsContainer"
 
 function Missions() {
+  useUnauthRedirect()
+
   const { data, isSuccess } = useGetMissions()
 
   return (

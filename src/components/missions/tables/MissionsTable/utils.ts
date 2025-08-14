@@ -16,6 +16,7 @@ import upArrowIcon from '@/assets/icons/arrows/up-arrow.svg'
 import downArrowIcon from '@/assets/icons/arrows/down-arrow.svg'
 
 // Types
+import { MotionProps } from 'motion/react'
 import * as AppTypes from '@/context/App/types'
 
 export const setFlightTimes = (flight: AppTypes.FlightInterface) => {
@@ -54,3 +55,47 @@ export const iconMap = new Map<string, string>([
   ['upArrow', upArrowIcon],
   ['downArrow', downArrowIcon]
 ])
+
+const slideInLeft: MotionProps = {
+  initial: { x: -100, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  transition: { 
+    type: "spring",
+    stiffness: 100,
+    damping: 15,
+    mass: 1
+  }
+}
+
+const slideInRight: MotionProps = {
+  initial: { x: 100, opacity: 0 },
+  animate: { x: 0, opacity: 1 },
+  transition: { 
+    type: "spring",
+    stiffness: 100,
+    damping: 15,
+    mass: 1
+  }
+}
+
+const fadeInOut: MotionProps = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { 
+    opacity: 0,
+    transition: {
+    duration: 0.25,
+    ease: 'easeOut'
+    } 
+  },
+  transition: {
+    duration: 0.25,
+    ease: 'easeIn'
+  }
+}
+
+export const motionProps = {
+  slideInLeft,
+  slideInRight,
+  fadeInOut
+}

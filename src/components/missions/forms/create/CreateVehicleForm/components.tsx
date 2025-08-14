@@ -8,6 +8,7 @@ import * as AppTypes from '@/context/App/types'
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
 import FormError from "@/components/form-elements/FormError"
+import Loading from "@/components/loading/Loading"
 
 export const Header = () => {
 

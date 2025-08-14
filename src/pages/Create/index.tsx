@@ -1,8 +1,11 @@
+import { useUnauthRedirect } from "@/helpers/hooks"
+
 // Components
 import Layout from "@/components/layout/Layout"
 import * as Components from './components'
 
 function Create() {
+  useUnauthRedirect()
 
   return (
     <Layout>

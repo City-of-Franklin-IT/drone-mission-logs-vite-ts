@@ -1,7 +1,8 @@
-import { useState, useContext } from 'react'
+import React, { useState, useContext } from 'react'
+import { motion, AnimatePresence } from 'motion/react'
 import MissionsCtx from '../../context'
-import { setFlightTimes, iconMap } from './utils'
-import { useSetColumnVisibility } from './hooks'
+import { setFlightTimes, iconMap, motionProps } from './utils'
+import { useSetColumnVisibility, useScrollToMissionDetails } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -9,10 +10,12 @@ import * as AppTypes from '@/context/App/types'
 export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => {
 
   return (
-    <table className="table text-neutral-content font-[play] w-full">
-      <TableHeaders />
-      <TableBody tableData={tableData} />
-    </table>
+    <motion.table 
+      className="table text-neutral-content font-[play] w-full"
+      { ...motionProps.slideInLeft }>
+        <TableHeaders />
+        <TableBody tableData={tableData} />
+    </motion.table>
   )
 }
 
@@ -52,11 +55,13 @@ const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, 
 
   const visible = useSetColumnVisibility()
 
+  const { tableRowRef, detailsRef } = useScrollToMissionDetails(state.expanded)
+
   const btnIcon = !state.expanded ? iconMap.get('downArrow') : iconMap.get('upArrow')
 
   return (
     <>
-      <tr className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={tableData.uuid}>
+      <tr ref={tableRowRef} className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={tableData.uuid}>
         <td className="px-4 whitespace-nowrap">{tableData.missionDate}</td>
         <td className="whitespace-nowrap">{tableData.location}</td>
         <td className={`${ !visible ? 'hidden' : 'block' }`}>{tableData.missionDescription}</td>
@@ -70,6 +75,7 @@ const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, 
       <MissionDetails
         expanded={state.expanded} 
         tableData={tableData}
+        detailsRef={detailsRef}
         index={index} />
     </>
   )
@@ -129,22 +135,27 @@ const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
   )
 }
 
-const MissionDetails = ({ expanded , tableData, index }: { expanded: boolean, tableData: AppTypes.MissionInterface, index: number }) => {
-  if(!expanded) return
+const MissionDetails = ({ expanded , tableData, detailsRef, index }: { expanded: boolean, tableData: AppTypes.MissionInterface, detailsRef: React.RefObject<HTMLDivElement>, index: number }) => {
 
   return (
-      <tr className={`text-center ${ index % 2 === 0 ? 'bg-neutral/20' : null }`}>
-        <td colSpan={4}>
-          <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
-            <Vehicle vehicle={tableData.Vehicle} />
-            <Flights flights={tableData.Flights} />
-            <Weather weather={tableData.Weather} />
-            <Inspections inspection={tableData.Inspection} />
-            <TemporaryFlightRestriction tfr={tableData.TemporaryFlightRestriction} />
-            <UpdateMissionBtn uuid={tableData.uuid} />
-          </div>
-        </td>
-      </tr>
+    <AnimatePresence>
+      {expanded && (
+        <motion.tr 
+          className={`text-center ${ index % 2 === 0 ? 'bg-neutral/20' : null }`}
+          { ...motionProps.fadeInOut }>
+          <td colSpan={4}>
+            <div data-testid="mission-details" ref={detailsRef} className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
+              <Vehicle vehicle={tableData.Vehicle} />
+              <Flights flights={tableData.Flights} />
+              <Weather weather={tableData.Weather} />
+              <Inspections inspection={tableData.Inspection} />
+              <TemporaryFlightRestriction tfr={tableData.TemporaryFlightRestriction} />
+              <UpdateMissionBtn uuid={tableData.uuid} />
+            </div>
+          </td>
+        </motion.tr>
+      )}
+    </AnimatePresence>
   )
 }
 
