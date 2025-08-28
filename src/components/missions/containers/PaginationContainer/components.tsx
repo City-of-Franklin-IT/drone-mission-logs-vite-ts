@@ -12,7 +12,7 @@ export const PageNavBtns = () => { // Page nav buttons
   const { handlePrevBtn, handleNextBtn, label } = useHandleNavBtns()
 
   return (
-    <div className="flex flex-col ml-auto w-fit">
+    <div className="flex flex-col ml-auto mt-auto w-fit">
       <div className="flex flex-col gap-1 items-center px-2 ml-auto">
         <div className="flex gap-4">
           <PrevPageBtn 

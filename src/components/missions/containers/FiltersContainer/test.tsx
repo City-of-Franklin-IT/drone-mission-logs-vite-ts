@@ -11,7 +11,7 @@ vi.mock('@/components/missions/forms/create/CreatePersonnelForm/hooks', async ()
   const actual = vi.importActual('@/components/missions/forms/create/CreatePersonnelForm/hooks')
   return {
     ...actual,
-    useGetPersonnel: vi.fn(() => ({ isLoading: false }))
+    useGetPersonnel: vi.fn(() => ({ isSuccess: true }))
   }
 })
 
@@ -37,7 +37,7 @@ describe('FiltersContainer', () => {
         return (
           <>
             <span data-testid="test-span">Filter Start: {dateRangeFilter.start}</span>
-            <FiltersContainer />
+            <FiltersContainer visible={true} />
           </>
         )
       }
@@ -64,7 +64,7 @@ describe('FiltersContainer', () => {
         return (
           <>
             <span data-testid="test-span">Personnel Filter: {personnelFilter}</span>
-            <FiltersContainer />
+            <FiltersContainer visible={true} />
           </>
         )
       }
@@ -91,7 +91,7 @@ describe('FiltersContainer', () => {
         return (
           <>
             <span data-testid="test-span">Search Value: {searchValue}</span>
-            <FiltersContainer />
+            <FiltersContainer visible={true} />
           </>
         )
       }
@@ -118,7 +118,7 @@ describe('FiltersContainer', () => {
         return (
           <>
             <span data-testid="test-span">Search Value: {searchValue}</span>
-            <FiltersContainer />
+            <FiltersContainer visible={true} />
           </>
         )
       }

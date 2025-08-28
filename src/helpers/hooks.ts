@@ -147,6 +147,8 @@ export const useUnauthRedirect = () => {
   const { instance, inProgress } = useMsal()
   const navigate = useNavigate()
 
+  if(NODE_ENV === 'development') return
+
   useEffect(() => {
     if(inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()
