@@ -1,7 +1,7 @@
 import { useRedirect } from './hooks'
 
 function Redirect() {
-  useRedirect('/missions')
+  useRedirect()
 
   return null
 }

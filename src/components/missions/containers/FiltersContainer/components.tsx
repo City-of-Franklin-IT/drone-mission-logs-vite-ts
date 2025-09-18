@@ -3,7 +3,7 @@ import MissionsCtx from "../../context"
 import { useGetPersonnel } from "../../forms/create/CreatePersonnelForm/hooks"
 
 // Components
-import Loading from "@/components/loading/Loading"
+import Loading from "@/components/layout/loading/Loading"
 import * as CreatePersonnelForm from '../../forms/create/CreatePersonnelForm/components'
 
 export const DateRangeFilterInputs = () => {

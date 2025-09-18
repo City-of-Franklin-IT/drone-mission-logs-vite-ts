@@ -7,11 +7,16 @@ function Header() {
   useSetActivePage()
 
   return (
-    <header className="flex flex-col gap-10 justify-between font-[play] tracking-[.25rem] items-center bg-primary py-2 px-8 w-full h-[15vh] min-h-fit shadow-xl lg:flex-row lg:h-[10vh]">
-      <Components.Title />
-      <Components.BtnsMenu>
-        <Components.Buttons />
-      </Components.BtnsMenu>
+    <header className="flex flex-col font-[play] w-full">
+      <div className="flex justify-between font-[play] tracking-[.25rem] items-center bg-gradient-to-r from-primary/80 to-primary py-1 px-8 h-[15vh] shadow-xl 2xl:h-[10vh]">
+        <Components.Title />
+
+        <div className="flex gap-2">
+          <Components.Buttons />
+        </div>
+      </div>
+
+      <Components.HomeLink />
     </header>
   )
 }
