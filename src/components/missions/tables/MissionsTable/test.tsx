@@ -9,6 +9,17 @@ import { setFlightTimes } from './utils'
 // Components
 import MissionsTable from "."
 
+vi.mock('./hooks', async () => {
+  const actual = await vi.importActual('./hooks')
+  return {
+    ...actual,
+    useScrollToMissionDetails: vi.fn(() => ({
+      tableRowRef: { current: null },
+      detailsRef: { current: null }
+    }))
+  }
+})
+
 const mockMissions = Array.from({ length: 10 }).map(() => MockAPI.createMockMission())
 
 describe('MissionsTable', () => {
@@ -46,7 +57,7 @@ describe('MissionsTable', () => {
 
   describe('ShowDetailsBtn', () => {
     it('Updates state on click and makes MissionDetails visible', async () => {
-      
+
       render(
         <MemoryRouter>
           <MissionsProvider>

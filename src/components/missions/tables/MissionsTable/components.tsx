@@ -1,4 +1,5 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
+import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
 import MissionsCtx from '../../context'
 import { setFlightTimes, iconMap, motionProps } from './utils'
@@ -16,6 +17,16 @@ export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] })
         <TableHeaders />
         <TableBody tableData={tableData} />
     </motion.table>
+  )
+}
+
+export const NoMissions = () => {
+
+  return (
+    <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center m-10 p-10 m-auto outline outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
+      <span className="text-xl uppercase font-bold">No Missions</span>
+      <Link to={'/create/mission'} className="text-lg text-warning font-bold hover:text-info">Click to create mission</Link>
+    </div>
   )
 }
 

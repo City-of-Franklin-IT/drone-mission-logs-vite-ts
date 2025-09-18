@@ -4,15 +4,18 @@ import { motionProps } from '../../tables/MissionsTable/utils'
 // Components
 import * as Components from './components'
 
-function FiltersContainer() {
+function FiltersContainer({ visible }: { visible: boolean }) {
+  if(!visible) return 
 
   return (
     <motion.div 
-      className="flex flex-col gap-4 items-end mx-auto w-fit lg:flex-row lg:gap-10 lg:mr-auto lg:mx-0"
+      className="flex flex-col gap-4 items-end mx-auto w-fit lg:gap-6 lg:mr-auto lg:mx-0"
       { ...motionProps.slideInRight }>
-        <Components.PersonnelFilter />
+        <div className="flex gap-4">
+          <Components.PersonnelFilter />
+          <Components.Search />
+        </div>
         <Components.DateRangeFilterInputs />
-        <Components.Search />
     </motion.div>
   )
 }
