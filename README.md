@@ -4,7 +4,7 @@
 <a href="https://pdapps.franklintn.gov/drone-missions" target="_blank">https://pdapps.franklintn.gov/drone-missions</a><br><br>
 
 <h1>API</h1>
-https://api.franklintn-gov.com/api/v2/pd | <a href="https://github.com/City-of-Franklin-IT/pd-api-ts" target="_blank">GitHub</a><br>
+https://api.franklin-gov.com/api/v2/pd | <a href="https://github.com/City-of-Franklin-IT/pd-api-ts" target="_blank">GitHub</a><br>
 https://dev.franklintn.gov/api/v2/pd <em>Proxy</em><br>
 <a href="https://dev.franklintn.gov/api/v2/pd/api-docs" target="_blank">API Docs</a><br><br>
 
