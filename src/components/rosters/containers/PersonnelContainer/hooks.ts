@@ -26,8 +26,8 @@ export const useGetPersonnel = () => {
   return useQuery(['getPerson', formUUID], () => AppActions.getPerson(formUUID, authHeaders(token)), { enabled: enabled && !!token })
 }
 
-export const useHandleDeleteBtn = () => {
-  const { formUUID, dispatch } = useContext(RostersCtx)
+export const useHandleForm = () => {
+  const { formUUID, formType, dispatch } = useContext(RostersCtx)
 
   const [state, setState] = useState<{ active: boolean }>({ active: false })
 
@@ -35,7 +35,7 @@ export const useHandleDeleteBtn = () => {
 
   const { token } = useEnableQuery()
 
-  const onClick = async () => {
+  const onDeleteBtnClick = async () => {
     if(!state.active) {
       setState({ active: true })
       return
@@ -51,7 +51,9 @@ export const useHandleDeleteBtn = () => {
     } else errorPopup(result.msg)
   }
 
-  return { onClick, label: !state.active ? 'Delete Personnel' : 'Confirm Delete' }
+  const deleteBtnLabel = !state.active ? 'Delete Personnel' : 'Confirm Delete'
+
+  return { onDeleteBtnClick, deleteBtnLabel, formUUID, formType }
 }
 
 export const useScrollToFormRef = (refs: { topRef: React.RefObject<HTMLDivElement>, formRef: React.RefObject<HTMLDivElement> }, target: FormType): void => {

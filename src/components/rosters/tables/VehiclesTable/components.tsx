@@ -44,17 +44,21 @@ const TableBody = ({ tableData }: { tableData: AppTypes.VehicleRosterInterface[]
   )
 }
 
-const TableRow = ({ tableData, index }: { tableData: AppTypes.VehicleRosterInterface, index: number }) => {
+type TableRowProps = { tableData: AppTypes.VehicleRosterInterface, index: number }
+
+const TableRow = (props: TableRowProps) => {
   const visible = useSetColumnVisibility()
 
-  const onTableRowClick = useOnTableRowClick('vehicle', tableData.uuid)
+  const onTableRowClick = useOnTableRowClick('vehicle', props.tableData.uuid)
 
-  const missions = tableData.Vehicles?.length ? tableData.Vehicles.map(item => (item.Mission)) : []
+  const missions = props.tableData.Vehicles?.length ? props.tableData.Vehicles.map(item => (item.Mission)) : []
+
+  const bgColor = props.index % 2 === 0 ? 'bg-neutral/20' : null
 
   return (
-    <tr className={`border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} onClick={onTableRowClick}>
-      <td className="px-10 whitespace-nowrap">{tableData.model}</td>
-      <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{tableData.registration}</td>
+    <tr className={`border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ bgColor }`} onClick={onTableRowClick}>
+      <td className="px-10 whitespace-nowrap">{props.tableData.model}</td>
+      <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{props.tableData.registration}</td>
       <td className="px-10 text-center">{missions.length}</td>
     </tr>
   )

@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import RostersCtx from '../../context'
 import { useOnCreateBtnClick } from '../PersonnelContainer/hooks'
-import { useGetBattery, useHandleDeleteBtn } from './hooks'
+import { useGetBattery, useHandleForm } from './hooks'
 
 // Components
 import HandleLoading from "@/utils/HandleLoading"
@@ -10,9 +10,7 @@ import CreateRosterBatteryForm from '../../forms/create/CreateRosterBatteryForm'
 import UpdateRosterBatteryForm from '../../forms/update/UpdateRosterBatteryForm'
 
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
-  const { formUUID, formType } = useContext(RostersCtx)
-
-  const { onClick, label } = useHandleDeleteBtn()
+  const { formUUID, formType, onDeleteBtnClick, deleteBtnLabel } = useHandleForm()
 
   if(formType !== 'battery') return
 
@@ -26,9 +24,9 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
     <div ref={formRef} className="flex flex-col gap-4 w-full">
       <GetBattery />
       <PersonnelContainer.DeleteBtn 
-        onClick={onClick}
+        onClick={onDeleteBtnClick}
         size={'btn-sm'}>
-          {label}
+          {deleteBtnLabel}
       </PersonnelContainer.DeleteBtn>
     </div>
   )

@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useRef } from "react"
 import { useQuery } from "react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { useEnableQuery } from "@/helpers/hooks"
@@ -13,12 +13,16 @@ export const useGetMission = () => {
   return useQuery(['getMission', missionUUID], () => AppActions.getMission(missionUUID, authHeaders(token)), { enabled: enabled && !!token && !!missionUUID })
 }
 
-export const useScrollToRef = (ref: React.RefObject<HTMLDivElement>) => {
+export const useScrollToRef = () => {
   const { missionUUID } = useContext(MissionsCtx)
 
+  const formRef = useRef<HTMLDivElement|null>(null)
+
   useEffect(() => {
-    if(ref.current && missionUUID) {
-      ref.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
+    if(formRef.current && missionUUID) {
+      formRef.current.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
-  }, [ref, missionUUID])
+  }, [formRef, missionUUID])
+
+  return formRef
 }

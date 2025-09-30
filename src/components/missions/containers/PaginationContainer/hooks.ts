@@ -1,7 +1,7 @@
 import { useContext, useCallback } from "react"
 import MissionsCtx from "../../context"
 
-export const useHandleNavBtns = () => {
+export const useHandlePageNav = () => {
   const { currentPage, totalPages, dispatch } = useContext(MissionsCtx)
 
   const handlePrevBtn = useCallback(() => {
@@ -18,5 +18,5 @@ export const useHandleNavBtns = () => {
 
   const label = `Page ${ currentPage } / ${ totalPages }`
 
-  return { handlePrevBtn, handleNextBtn, label }
+  return { currentPage, handlePrevBtn, handleNextBtn, label, totalPages }
 }

@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react"
+import { useContext } from "react"
 import MissionsCtx from "../../context"
 import { useGetMission, useScrollToRef } from './hooks'
 
@@ -10,9 +10,7 @@ import UpdateMissionForm from "../../forms/update/UpdateMissionForm"
 export const Form = () => {
   const { missionUUID } = useContext(MissionsCtx)
 
-  const ref = useRef<HTMLDivElement>(null)
-
-  useScrollToRef(ref)
+  const ref = useScrollToRef()
 
   if(!missionUUID) return
 

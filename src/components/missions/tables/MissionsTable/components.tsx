@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react'
+import { useContext } from 'react'
 import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
 import MissionsCtx from '../../context'
 import { setFlightTimes, iconMap, motionProps } from './utils'
-import { useSetColumnVisibility, useScrollToMissionDetails } from './hooks'
+import { useSetColumnVisibility, useHandleTableRow } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -23,7 +23,7 @@ export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] })
 export const NoMissions = () => {
 
   return (
-    <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center m-10 p-10 m-auto outline outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
+    <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center p-10 m-auto outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
       <span className="text-xl uppercase font-bold">No Missions</span>
       <Link to={'/create/mission'} className="text-lg text-warning font-bold hover:text-info">Click to create mission</Link>
     </div>
@@ -61,33 +61,32 @@ const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) =>
   )
 }
 
-const TableRow = ({ tableData, index }: { tableData: AppTypes.MissionInterface, index: number }) => {
-  const [state, setState] = useState<{ expanded: boolean }>({ expanded: false })
+type TableRowProps = { tableData: AppTypes.MissionInterface, index: number }
+
+const TableRow = (props: TableRowProps) => {
+  const { expanded, onDetailsBtnClick } = useHandleTableRow()
 
   const visible = useSetColumnVisibility()
 
-  const { tableRowRef, detailsRef } = useScrollToMissionDetails(state.expanded)
-
-  const btnIcon = !state.expanded ? iconMap.get('downArrow') : iconMap.get('upArrow')
+  const btnIcon = !expanded ? iconMap.get('downArrow') : iconMap.get('upArrow')
 
   return (
     <>
-      <tr ref={tableRowRef} className={`border-0 border-t-1 border-neutral-content ${ index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={tableData.uuid}>
-        <td className="px-4 whitespace-nowrap">{tableData.missionDate}</td>
-        <td className="whitespace-nowrap">{tableData.location}</td>
-        <td className={`${ !visible ? 'hidden' : 'block' }`}>{tableData.missionDescription}</td>
-        <td><PersonnelTableData personnel={tableData.Personnel} /></td>
+      <tr className={`border-0 border-t-1 border-neutral-content ${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={props.tableData.uuid}>
+        <td className="px-4 whitespace-nowrap">{props.tableData.missionDate}</td>
+        <td className="whitespace-nowrap">{props.tableData.location}</td>
+        <td className={`${ !visible ? 'hidden' : 'block' }`}>{props.tableData.missionDescription}</td>
+        <PersonnelTableData personnel={props.tableData.Personnel} />
       </tr>
       <ShowDetailsBtn 
-        onClick={() => setState(prevState => ({ expanded: !prevState.expanded }))}
-        index={index}>
+        onClick={onDetailsBtnClick}
+        index={props.index}>
           <img src={btnIcon} alt="show details btn icon" className="w-[20px]" />
       </ShowDetailsBtn>
       <MissionDetails
-        expanded={state.expanded} 
-        tableData={tableData}
-        detailsRef={detailsRef}
-        index={index} />
+        expanded={expanded} 
+        tableData={props.tableData}
+        index={props.index} />
     </>
   )
 }
@@ -117,13 +116,15 @@ const PersonnelTableData = ({ personnel }: { personnel: AppTypes.PersonnelInterf
   if(!personnel) return
 
   return (
-    <div data-testid="personnel-table-data" className="flex flex-col mx-auto px-4 items-center">
-      {personnel.map(item => (
-        <Personnel
-          key={`personnel-${ item.uuid }`}
-          personnel={item} />
-      ))}
-    </div>
+    <td>
+      <div data-testid="personnel-table-data" className="flex flex-col mx-auto px-4 items-center">
+        {personnel.map(item => (
+          <Personnel
+            key={`personnel-${ item.uuid }`}
+            personnel={item} />
+        ))}
+      </div>
+    </td>
   )
 }
 
@@ -146,22 +147,24 @@ const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
   )
 }
 
-const MissionDetails = ({ expanded , tableData, detailsRef, index }: { expanded: boolean, tableData: AppTypes.MissionInterface, detailsRef: React.RefObject<HTMLDivElement>, index: number }) => {
+type MissionDetailsProps = { expanded: boolean, tableData: AppTypes.MissionInterface, index: number }
+
+const MissionDetails = (props: MissionDetailsProps) => {
 
   return (
     <AnimatePresence>
-      {expanded && (
+      {props.expanded && (
         <motion.tr 
-          className={`text-center ${ index % 2 === 0 ? 'bg-neutral/20' : null }`}
+          className={`text-center ${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}
           { ...motionProps.fadeInOut }>
           <td colSpan={4}>
-            <div data-testid="mission-details" ref={detailsRef} className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
-              <Vehicle vehicle={tableData.Vehicle} />
-              <Flights flights={tableData.Flights} />
-              <Weather weather={tableData.Weather} />
-              <Inspections inspection={tableData.Inspection} />
-              <TemporaryFlightRestriction tfr={tableData.TemporaryFlightRestriction} />
-              <UpdateMissionBtn uuid={tableData.uuid} />
+            <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
+              <Vehicle vehicle={props.tableData.Vehicle} />
+              <Flights flights={props.tableData.Flights} />
+              <Weather weather={props.tableData.Weather} />
+              <Inspections inspection={props.tableData.Inspection} />
+              <TemporaryFlightRestriction tfr={props.tableData.TemporaryFlightRestriction} />
+              <UpdateMissionBtn uuid={props.tableData.uuid} />
             </div>
           </td>
         </motion.tr>

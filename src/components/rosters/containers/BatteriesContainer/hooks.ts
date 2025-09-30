@@ -14,8 +14,8 @@ export const useGetBattery = () => {
   return useQuery(['getBattery', formUUID], () => AppActions.getBattery(formUUID, authHeaders(token)), { enabled: enabled && !!token })
 }
 
-export const useHandleDeleteBtn = () => {
-  const { formUUID, dispatch } = useContext(RostersCtx)
+export const useHandleForm = () => {
+  const { formUUID, formType, dispatch } = useContext(RostersCtx)
 
   const [state, setState] = useState<{ active: boolean }>({ active: false })
 
@@ -23,7 +23,7 @@ export const useHandleDeleteBtn = () => {
 
   const { token } = useEnableQuery()
 
-  const onClick = async () => {
+  const onDeleteBtnClick = async () => {
     if(!state.active) {
       setState({ active: true })
       return
@@ -39,5 +39,7 @@ export const useHandleDeleteBtn = () => {
     } else errorPopup(result.msg)
   }
 
-  return { onClick, label: !state.active ? 'Delete Battery' : 'Confirm Delete' }
+  const deleteBtnLabel = !state.active ? 'Delete Battery' : 'Confirm Delete'
+
+  return { formUUID, formType, onDeleteBtnClick, deleteBtnLabel }
 }
