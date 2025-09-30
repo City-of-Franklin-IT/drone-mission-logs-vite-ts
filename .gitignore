@@ -17,20 +17,13 @@ build
 lib
 *.local
 
-# TypeScript compiled output (be more specific)
+# TypeScript compiled output
 src/**/*.js
+src/**/*.jsx
 src/**/*.js.map
 *.d.ts.map
 *.tsbuildinfo
 tsconfig.tsbuildinfo
-
-# But keep important config files that are actually JavaScript
-!vite.config.js
-!tailwind.config.js
-!postcss.config.js
-!vitest.config.js
-!eslint.config.js
-!prettier.config.js
 
 # Editor directories and files
 .vscode/*
