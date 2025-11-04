@@ -9,10 +9,10 @@ import HeaderCtx from "./context"
 export const Title = () => {
 
   return (
-    <Link to={'/missions'} className="flex flex-col text-primary-content text-center w-fit">
-      <div className="flex gap-4 text-primary-content items-center">
+    <Link to={'/missions'} className="flex flex-col text-primary-content text-center mt-4 w-fit lg:my-4">
+      <div className="flex gap-4 text-primary-content items-center justify-center">
         <img src={cofIcon} alt="cof icon" className="w-20" />
-        <h1 className="text-4xl font-bold text-center">{APP_TITLE}</h1>
+        <h1 className="text-xl font-bold text-center md:text-2xl lg:text-4xl">{APP_TITLE}</h1>
       </div>
     </Link>
   )
@@ -24,7 +24,7 @@ export const Buttons = () => {
   if(pathname === '/') return null
 
   return (
-    <div className="flex gap-2">
+    <div className="flex flex-nowrap gap-2 overflow-x-auto w-full pl-4">
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>

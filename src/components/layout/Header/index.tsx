@@ -8,10 +8,10 @@ function Header() {
 
   return (
     <header className="flex flex-col font-[play] w-full">
-      <div className="flex justify-between font-[play] tracking-[.25rem] items-center bg-gradient-to-r from-primary/80 to-primary py-1 px-8 h-[15vh] shadow-xl 2xl:h-[10vh]">
+      <div className="flex flex-col gap-4 justify-between font-[play] tracking-[.25rem] items-center bg-primary px-8 w-full shadow-xl 2xl:h-[10vh] lg:flex-row">
         <Components.Title />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 overflow-hidden w-full lg:w-auto">
           <Components.Buttons />
         </div>
       </div>
