@@ -5,20 +5,16 @@ import PrevPageBtn from "@/components/layout/buttons/nav/PrevPageBtn"
 import NextPageBtn from "@/components/layout/buttons/nav/NextPageBtn"
 
 export const PageNavBtns = () => { // Page nav buttons
-  const { handlePrevBtn, handleNextBtn, label, currentPage, totalPages } = useHandlePageNav()
+  const { prevBtnProps, nextBtnProps, label } = useHandlePageNav()
 
   return (
-    <div className="flex flex-col ml-auto mt-auto w-fit">
+    <div className="flex flex-col m-auto mt-auto w-fit xl:m-0">
       <div className="flex flex-col gap-1 items-center px-2 ml-auto">
         <div className="flex gap-4">
-          <PrevPageBtn 
-            onClick={handlePrevBtn}
-            disabled={currentPage === 1} />
-          <NextPageBtn 
-            onClick={handleNextBtn}
-            disabled={!totalPages || currentPage === totalPages} />
+          <PrevPageBtn { ...prevBtnProps } />
+          <NextPageBtn { ...nextBtnProps } />
         </div>
-        <small data-testid="page-nav-label" className="text-neutral-content font-[play] uppercase">{label}</small>
+        <small className="text-neutral-content font-[play] uppercase">{label}</small>
       </div>
     </div>
   )

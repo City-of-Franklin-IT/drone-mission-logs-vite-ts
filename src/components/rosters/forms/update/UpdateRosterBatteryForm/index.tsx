@@ -1,6 +1,5 @@
 import { FormProvider } from 'react-hook-form'
-import { useOnCancelBtnClick } from '../UpdateRosterPersonnelForm/hooks'
-import { useUpdateRosterBattery, useHandleFormSubmit } from './hooks'
+import { useHandleUpdateRosterBatteryForm } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -11,18 +10,14 @@ import * as CreateRosterPersonnelForm from '../../create/CreateRosterPersonnelFo
 import * as CreateRosterBatteryForm from '../../create/CreateRosterBatteryForm/components'
 
 function UpdateRosterBatteryForm({ battery }: { battery: AppTypes.BatteryRosterInterface | undefined }) {
-  const methods = useUpdateRosterBattery(battery)
-
-  const onCancelBtnClick = useOnCancelBtnClick()
-  
-  const handleFormSubmit = useHandleFormSubmit()
+  const { methods, onCancelBtnClick, handleFormSubmit } = useHandleUpdateRosterBatteryForm(battery)
   
   return (
     <FormProvider { ...methods }>
       <div className="flex flex-col gap-2 p-6 bg-info/10 w-full rounded-lg">
         <CreateRosterPersonnelForm.Header>Update Battery</CreateRosterPersonnelForm.Header>
         
-        <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
+        <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
           <div className="flex flex-col gap-4">
             <CreateRosterBatteryForm.BatteryNameInput />
             <FormBtns 

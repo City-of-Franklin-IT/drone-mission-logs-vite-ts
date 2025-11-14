@@ -9,12 +9,10 @@ function FiltersContainer({ visible }: { visible: boolean }) {
 
   return (
     <motion.div 
-      className="flex flex-col gap-4 items-end mx-auto w-fit lg:gap-6 lg:mr-auto lg:mx-0"
+      className="flex flex-col gap-4 items-end mx-auto w-full lg:flex-row lg:gap-6 lg:mr-auto lg:mx-0 lg:w-fit"
       { ...motionProps.slideInRight }>
-        <div className="flex gap-4">
-          <Components.PersonnelFilter />
-          <Components.Search />
-        </div>
+        <Components.PersonnelFilter />
+        <Components.Search />
         <Components.DateRangeFilterInputs />
     </motion.div>
   )

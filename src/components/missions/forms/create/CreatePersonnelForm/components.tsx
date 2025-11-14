@@ -1,7 +1,6 @@
 import { Controller } from "react-hook-form"
-import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
-import { useGetPersonnel } from "./hooks"
+import { useHandlePilotSelect, useHandleSupportPersonnelInput, useHandlePersonnelOptions } from "./hooks"
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -19,20 +18,18 @@ export const Header = () => {
 }
 
 export const PilotSelect = () => {
-  const { control, setValue, getValues } = useCreateMissionCtx()
-
-  const { isLoading } = useGetPersonnel()
+  const { methods, isLoading } = useHandlePilotSelect()
 
   if(isLoading) return
 
   return (
     <Controller
-      control={control}
+      control={methods.control}
       name={`Personnel.${ 0 }.email`}
       rules={{
         required: 'Pilot email is required',
         validate: value => {
-          const supportPersonnel = getValues(`Personnel.${ 1 }.email`)
+          const supportPersonnel = methods.getValues(`Personnel.${ 1 }.email`)
           if(value === supportPersonnel) {
             return 'Pilot cannot be the same as support personnel'
           }
@@ -53,8 +50,8 @@ export const PilotSelect = () => {
               { ...field }
               onChange={(e) => {
                 field.onChange(e)
-                setValue(`Personnel.${ 0 }._dirtied`, true)
-                setValue(`Personnel.${ 0 }.isPilot`, true)
+                methods.setValue(`Personnel.${ 0 }._dirtied`, true)
+                methods.setValue(`Personnel.${ 0 }.isPilot`, true)
               }}>
                 <PersonnelOptions />
             </select>
@@ -66,22 +63,20 @@ export const PilotSelect = () => {
 }
 
 export const SupportPersonnelInput = () => {
-  const { control, setValue, getValues } = useCreateMissionCtx()
+  const { methods, visible, removeBtnProps } = useHandleSupportPersonnelInput()
 
-  const values = getValues(`Personnel.${ 1 }`)
-
-  if(values?._deleted) return
+  if(!visible) return
 
   return (
     <div className="flex flex-col gap-2">
       <Controller
-        control={control}
+        control={methods.control}
         name={`Personnel.${ 1 }.email`}
         rules={{
           validate: (value) => {
             if(!value) return true
 
-            const pilot = getValues(`Personnel.${ 0 }.email`)
+            const pilot = methods.getValues(`Personnel.${ 0 }.email`)
             if(value === pilot) {
               
               return 'Support personnel cannot be the same as pilot'
@@ -100,7 +95,7 @@ export const SupportPersonnelInput = () => {
                 {...field}
                 onChange={(e) => {
                   field.onChange(e)
-                  setValue(`Personnel.${1}._dirtied`, true)
+                  methods.setValue(`Personnel.${1}._dirtied`, true)
                 }}>
                   <PersonnelOptions />
               </select>
@@ -108,17 +103,15 @@ export const SupportPersonnelInput = () => {
             <FormError error={error?.message} />
           </div>
         )} />
-        <RemoveBtn 
-          onClick={() => setValue(`Personnel.${ 1 }._deleted`, true, { shouldDirty: true, shouldValidate: true })}
-          visible={!!values?.email} />
+        <RemoveBtn { ...removeBtnProps } />
     </div>
   )
 }
 
 export const PersonnelOptions = () => {
-  const { data } = useGetPersonnel()
+  const { isLoading, personnel } = useHandlePersonnelOptions()
 
-  const personnel = data?.data || []
+  if(isLoading) return
 
   return (
     <>

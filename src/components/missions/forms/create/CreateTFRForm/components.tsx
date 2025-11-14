@@ -1,5 +1,5 @@
-import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
+import { useHandleTFRInputs, useHandleAddTFRBtn, useHandleTFR } from './hooks'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -14,32 +14,21 @@ export const Header = () => {
 }
 
 export const TFRInputs = () => {
-  const { setValue, getValues } = useCreateMissionCtx()
+  const { visible, removeBtnProps } = useHandleTFRInputs()
 
-  const values = getValues('TemporaryFlightRestriction')
-
-  if(values?._deleted) return
+  if(!visible) return
 
   return (
     <div className="flex flex-col gap-4 w-full">
       <TFRInput />
       <TFRSourceInput />
-      <RemoveBtn 
-        onClick={() => setValue('TemporaryFlightRestriction._deleted', true, { shouldDirty: true, shouldValidate: true })}
-        visible={!!values} />
+      <RemoveBtn { ...removeBtnProps } />
     </div>
   )
 }
 
 export const AddTFRBtn = () => {
-  const { setValue, getValues } = useCreateMissionCtx()
-
-  const onClick = () => {
-    setValue('TemporaryFlightRestriction.temporaryFlightRestriction', ''),
-    setValue('TemporaryFlightRestriction.source', '')
-  }
-
-  const visible = !!getValues('TemporaryFlightRestriction') ? false : true
+  const { visible, onClick } = useHandleAddTFRBtn()
 
   if(!visible) return
 
@@ -54,9 +43,7 @@ export const AddTFRBtn = () => {
 }
 
 export const TFRInput = () => {
-  const { register, watch, setValue } = useCreateMissionCtx()
-
-  const visible = !!watch('TemporaryFlightRestriction')
+  const { methods, visible } = useHandleTFR()
 
   if(!visible) return
 
@@ -68,8 +55,8 @@ export const TFRInput = () => {
       <textarea
         rows={4}
         className={styles.input}
-        { ...register('TemporaryFlightRestriction.temporaryFlightRestriction', {
-          onChange: () => setValue('TemporaryFlightRestriction._dirtied', true)
+        { ...methods.register('TemporaryFlightRestriction.temporaryFlightRestriction', {
+          onChange: () => methods.setValue('TemporaryFlightRestriction._dirtied', true)
         }) }>
       </textarea>
     </div>
@@ -77,9 +64,7 @@ export const TFRInput = () => {
 }
 
 export const TFRSourceInput = () => {
-  const { register, watch, formState: { errors }, setValue } = useCreateMissionCtx()
-
-  const visible = !!watch('TemporaryFlightRestriction')
+  const { methods, visible } = useHandleTFR()
 
   if(!visible) return
 
@@ -92,15 +77,15 @@ export const TFRSourceInput = () => {
         <input 
           type="text"
           className={styles.input}
-          {  ...register('TemporaryFlightRestriction.source', {
+          {  ...methods.register('TemporaryFlightRestriction.source', {
             maxLength: {
               value: 50,
               message: 'TFR source must be 50 characters or less'
             },
-            onChange: () => setValue('TemporaryFlightRestriction._dirtied', true)
+            onChange: () => methods.setValue('TemporaryFlightRestriction._dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.TemporaryFlightRestriction?.source?.message} />
+      <FormError error={methods.formState.errors.TemporaryFlightRestriction?.source?.message} />
     </div>
   )
 }

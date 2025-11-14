@@ -7,9 +7,9 @@ import CreateRosterVehicleForm from '../../forms/create/CreateRosterVehicleForm'
 import UpdateRosterVehicleForm from '../../forms/update/UpdateRosterVehicleForm'
 
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
-  const { formUUID, formType, onDeleteBtnClick, deleteBtnLabel } = useHandleForm()
+  const { formUUID, deleteBtnProps, visible } = useHandleForm()
 
-  if(formType !== 'vehicle') return
+  if(!visible) return
 
   if(!formUUID) return ( // Create new
     <div ref={formRef} className="w-full">
@@ -21,9 +21,9 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
     <div ref={formRef} className="flex flex-col gap-4 w-full">
       <GetVehicle />
       <PersonnelContainer.DeleteBtn 
-        onClick={onDeleteBtnClick}
+        onClick={deleteBtnProps.onClick}
         size={'btn-sm'}>
-          {deleteBtnLabel}
+          {deleteBtnProps.label}
       </PersonnelContainer.DeleteBtn>
     </div>
   )

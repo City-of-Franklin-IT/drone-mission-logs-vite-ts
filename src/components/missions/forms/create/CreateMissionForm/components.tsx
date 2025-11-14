@@ -1,6 +1,5 @@
-import { useFieldArray } from "react-hook-form"
-import { useCreateMissionCtx } from "./hooks"
 import styles from '@/components/form-elements/Forms.module.css'
+import { useCreateMissionCtx, useHandleBatteryInputs, useHandleAddBatteryBtn, useHandleAddFlightBtn } from "./hooks"
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -179,13 +178,9 @@ export const PostflightInspectionInput = () => {
 }
 
 const BatteryInputs = () => {
-  const { watch } = useCreateMissionCtx()
+  const { visible, batteries } = useHandleBatteryInputs()
 
-  const vehicle = watch('Vehicle.registration')
-
-  const batteries = watch('Vehicle.Batteries') || []
-
-  if(!vehicle) return
+  if(!visible) return
 
   return (
     <div className="flex flex-col gap-4">
@@ -200,16 +195,7 @@ const BatteryInputs = () => {
 }
 
 const AddBatteryBtn = () => {
-  const { control } = useCreateMissionCtx()
-
-  const { append } = useFieldArray({
-    control,
-    name: 'Vehicle.Batteries'
-  })
-
-  const onClick = () => {
-    append({ batteryName: '', parentId: '' })
-  }
+  const onClick = useHandleAddBatteryBtn()
 
   return (
     <button 
@@ -240,16 +226,7 @@ const Flights = () => {
 }
 
 const AddFlightBtn = () => {
-  const { control } = useCreateMissionCtx()
-
-  const { append } = useFieldArray({
-    control,
-    name: 'Flights'
-  })
-
-  const onClick = () => {
-    append({ takeOffDateTime: '', landingDateTime: '', parentId: '' })
-  }
+  const onClick = useHandleAddFlightBtn()
 
   return (
     <button 

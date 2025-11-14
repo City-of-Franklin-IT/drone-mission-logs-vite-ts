@@ -1,7 +1,6 @@
 import { Controller } from "react-hook-form"
-import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
-import { useOnCurrentDateTimeBtnClick } from './hooks'
+import { useHandleFlightInputs, useHandleTakeOffInput, useHandleLandingInput } from './hooks'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -9,11 +8,9 @@ import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
 export const FlightInputs = ({ index }: { index: number }) => {
-  const { getValues, setValue } = useCreateMissionCtx()
+  const { visible, removeBtnProps } = useHandleFlightInputs(index)
 
-  const values = getValues(`Flights.${ index }`)
-
-  if(values?._deleted) return
+  if(!visible) return
 
   return (
     <div className="flex flex-col gap-2">
@@ -21,19 +18,13 @@ export const FlightInputs = ({ index }: { index: number }) => {
         <TakeOffInput index={index} />
         <LandingInput index={index} />
       </div>
-      <RemoveBtn
-        onClick={() => setValue(`Flights.${ index }._deleted`, true, { shouldDirty: true, shouldValidate: true })}
-        visible={!!values.takeOffDateTime || !!values.landingDateTime} />
+      <RemoveBtn { ...removeBtnProps } />
     </div>
   )
 }
 
 const TakeOffInput = ({ index }: { index: number }) => {
-  const { control, watch, setValue } = useCreateMissionCtx()
-
-  const onCurrentDateTimeBtnClick = useOnCurrentDateTimeBtnClick()
-
-  const landingDateTime = watch(`Flights.${ index }.landingDateTime`)
+  const { control, setValue, onCurrentDateTimeBtnClick, landingDateTime } = useHandleTakeOffInput(index)
 
   return (
     <Controller
@@ -79,11 +70,7 @@ const TakeOffInput = ({ index }: { index: number }) => {
 }
 
 const LandingInput = ({ index }: { index: number }) => {
-  const { control, watch, setValue } = useCreateMissionCtx()
-
-  const onCurrentDateTimeBtnClick = useOnCurrentDateTimeBtnClick()
-
-  const takeOffDateTime = watch(`Flights.${index}.takeOffDateTime`)
+  const { control, setValue, onCurrentDateTimeBtnClick, takeOffDateTime } = useHandleLandingInput(index)
 
   return (
     <Controller

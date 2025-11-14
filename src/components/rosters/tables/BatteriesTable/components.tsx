@@ -1,7 +1,6 @@
 import { useContext } from 'react'
 import RostersCtx from '../../context'
-import { useOnTableRowClick } from '../PersonnelTable/hooks'
-import { useOnBatteryFilterChange, useHandleTableBody } from './hooks'
+import { useOnBatteryFilterChange, useHandleTableBody, useHandleTableRow } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -57,14 +56,10 @@ const TableBody = ({ tableData }: { tableData: AppTypes.BatteryRosterInterface[]
 type TableRowType = { tableData: AppTypes.BatteryRosterInterface, index: number }
 
 const TableRow = (props: TableRowType) => {
-  const onTableRowClick = useOnTableRowClick('battery', props.tableData.uuid)
-
-  const missions = props.tableData.VehicleRoster?.Vehicles?.length ? props.tableData.VehicleRoster?.Vehicles.map(item => (item.Mission)) : []
-
-  const bgColor = props.index % 2 === 0 ? 'bg-neutral/20' : null
+  const { trProps, missions} = useHandleTableRow(props)
 
   return (
-    <tr className={`border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ bgColor }`} onClick={onTableRowClick}>
+    <tr { ...trProps }>
       <td className="px-10 whitespace-nowrap">{props.tableData.batteryName}</td>
       <td className="px-10 whitespace-nowrap">{missions.length}</td>
     </tr>

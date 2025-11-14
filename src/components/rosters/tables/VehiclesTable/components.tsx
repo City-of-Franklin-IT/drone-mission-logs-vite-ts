@@ -1,5 +1,6 @@
 import { useOnTableRowClick } from '../PersonnelTable/hooks'
 import { useSetColumnVisibility } from '@/components/missions/tables/MissionsTable/hooks'
+import { useHandleTableRow } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -47,16 +48,10 @@ const TableBody = ({ tableData }: { tableData: AppTypes.VehicleRosterInterface[]
 type TableRowProps = { tableData: AppTypes.VehicleRosterInterface, index: number }
 
 const TableRow = (props: TableRowProps) => {
-  const visible = useSetColumnVisibility()
-
-  const onTableRowClick = useOnTableRowClick('vehicle', props.tableData.uuid)
-
-  const missions = props.tableData.Vehicles?.length ? props.tableData.Vehicles.map(item => (item.Mission)) : []
-
-  const bgColor = props.index % 2 === 0 ? 'bg-neutral/20' : null
+  const { visible, trProps, missions } = useHandleTableRow(props)
 
   return (
-    <tr className={`border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ bgColor }`} onClick={onTableRowClick}>
+    <tr { ...trProps }>
       <td className="px-10 whitespace-nowrap">{props.tableData.model}</td>
       <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{props.tableData.registration}</td>
       <td className="px-10 text-center">{missions.length}</td>

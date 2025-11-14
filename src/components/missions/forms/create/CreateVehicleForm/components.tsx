@@ -1,6 +1,5 @@
-import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import styles from '@/components/form-elements/Forms.module.css'
-import { useGetVehicleRegistrations } from './hooks'
+import { useHandleVehicleRegistrationInput, useGetVehicleRegistrations } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -17,9 +16,7 @@ export const Header = () => {
 }
 
 export const VehicleRegistrationInput = () => {
-  const { register, formState: { errors }, setValue } = useCreateMissionCtx()
-
-  const { isLoading } = useGetVehicleRegistrations()
+  const { methods, isLoading } = useHandleVehicleRegistrationInput()
 
   if(isLoading) return
 
@@ -33,22 +30,24 @@ export const VehicleRegistrationInput = () => {
         </FormLabel>
         <select
           className={styles.input}
-          { ...register('Vehicle.registration', {
+          { ...methods.register('Vehicle.registration', {
             required: 'Vehicle registration is required',
-            onChange: () => setValue('Vehicle._dirtied', true, { shouldDirty: true, shouldValidate: true })
+            onChange: () => methods.setValue('Vehicle._dirtied', true, { shouldDirty: true, shouldValidate: true })
           }) }>
             <RegistrationOptions />
         </select>
       </div>
-      <FormError error={errors.Vehicle?.registration?.message} />
+      <FormError error={methods.formState.errors.Vehicle?.registration?.message} />
     </div>
   )
 }
 
 export const RegistrationOptions = () => {
-  const { data } = useGetVehicleRegistrations()
+  const { data, isLoading } = useGetVehicleRegistrations()
 
-  const registrations = data?.data || []
+  const registrations = data?.data ?? []
+
+  if(isLoading) return
 
   return (
     <>

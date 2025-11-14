@@ -14,6 +14,7 @@ import batteryIcon from '@/assets/icons/battery/battery.svg'
 import tfrIcon from '@/assets/icons/tfr/tfr.svg'
 import upArrowIcon from '@/assets/icons/arrows/up-arrow.svg'
 import downArrowIcon from '@/assets/icons/arrows/down-arrow.svg'
+import pdfIcon from '@/assets/icons/pdf/pdf.svg'
 
 // Types
 import { MotionProps } from 'motion/react'
@@ -38,6 +39,16 @@ export const setFlightTimes = (flight: AppTypes.FlightInterface) => {
   }
 }
 
+export const setLastName = (email: string) => {
+  const splitEmail = email.split('@')[0]
+
+  if(splitEmail.includes('.')) { // firstName.lastName format
+    return splitEmail.split('.').pop()
+  }
+
+  return splitEmail.slice(1) // firstInitiallastName format
+}
+
 export const iconMap = new Map<string, string>([
   ['wind', windIcon],
   ['temperature', temperatureIcon],
@@ -53,7 +64,8 @@ export const iconMap = new Map<string, string>([
   ['battery', batteryIcon],
   ['tfr', tfrIcon],
   ['upArrow', upArrowIcon],
-  ['downArrow', downArrowIcon]
+  ['downArrow', downArrowIcon],
+  ['pdf', pdfIcon]
 ])
 
 const slideInLeft: MotionProps = {

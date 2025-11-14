@@ -1,10 +1,20 @@
-import { useContext, useState } from "react"
+import { useContext, useState, useRef } from "react"
 import { useQuery, useQueryClient } from "react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
-import { useEnableQuery } from "@/helpers/hooks"
-import RostersCtx from "../../context"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
+import { useEnableQuery } from "@/helpers/hooks"
+import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
+import RostersCtx from "../../context"
+
+export const useHandleVehiclesContainer = () => {
+  const onCreateBtnClick = useOnCreateBtnClick('vehicle')
+
+  const topRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
+
+  return { refs: { topRef, formRef }, onCreateBtnClick }
+}
 
 export const useGetVehicle = () => {
   const { formUUID } = useContext(RostersCtx)
@@ -41,5 +51,12 @@ export const useHandleForm = () => {
 
   const deleteBtnLabel = !state.active ? 'Delete Vehicle' : 'Confirm Delete'
 
-  return { formUUID, formType, onDeleteBtnClick, deleteBtnLabel }
+  const visible = formType === 'vehicle'
+
+  const deleteBtnProps = {
+    onClick: onDeleteBtnClick,
+    label: deleteBtnLabel
+  }
+
+  return { formUUID, deleteBtnProps, visible }
 }

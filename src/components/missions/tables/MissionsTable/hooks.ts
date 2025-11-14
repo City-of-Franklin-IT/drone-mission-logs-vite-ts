@@ -1,5 +1,6 @@
 import { useContext, useMemo, useState, useLayoutEffect } from "react"
 import MissionsCtx from "../../context"
+import { iconMap } from "./utils"
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -69,5 +70,9 @@ export const useHandleTableRow = () => {
     setState(prevState => ({ expanded: !prevState.expanded }))
   }
 
-  return { expanded: state.expanded, onDetailsBtnClick }
+  const visible = useSetColumnVisibility()
+
+  const btnIconSrc = !state.expanded ? iconMap.get('downArrow')! : iconMap.get('upArrow')!
+
+  return { expanded: state.expanded, onDetailsBtnClick, visible, btnIconSrc }
 }

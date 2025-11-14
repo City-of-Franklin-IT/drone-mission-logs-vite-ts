@@ -1,6 +1,6 @@
 export const APP_BASE = '/drone-missions'
 export const APP_TITLE = 'Drone Missions'
 export const API_URL = 'https://pdapps.franklintn.gov/api/v2/pd/drone'
-// export const API_URL = 'http://cofasv38/api/v2/pd/drone'
+// export const API_URL = 'https://cofasv38.franklin-gov.com/api/v2/pd/drone'
 export const NODE_ENV: 'development' | 'test' | 'production' = 'production'
 export const CLIENT_ID = 'ff3cbe5e-f332-4013-8fd5-d2e121c39af9'

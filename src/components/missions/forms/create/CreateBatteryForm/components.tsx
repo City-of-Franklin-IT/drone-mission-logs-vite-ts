@@ -1,7 +1,6 @@
-import { Controller, useWatch } from "react-hook-form"
-import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
+import { Controller } from "react-hook-form"
 import styles from '@/components/form-elements/Forms.module.css'
-import { useGetBatteries } from './hooks'
+import { useHandleBatteryInput, useHandleBatteryOptions } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -18,13 +17,9 @@ export const Header = () => {
 }
 
 export const BatteryInput = ({ index }: { index: number }) => {
-  const { control, setValue, getValues } = useCreateMissionCtx()
+  const { control, setValue, visible, removeBtnProps } = useHandleBatteryInput(index)
 
-  const { isLoading } = useGetBatteries()
-
-  const values = getValues(`Vehicle.Batteries.${ index }`)
-
-  if(isLoading || values?._deleted) return
+  if(!visible) return
 
   return (
     <div className="flex flex-col gap-2">
@@ -33,9 +28,8 @@ export const BatteryInput = ({ index }: { index: number }) => {
         name={`Vehicle.Batteries.${ index }.batteryName`}
         render={({ field }) => (
           <div className="flex">
-            <FormLabel
-              name={field.name}>
-                Battery {index + 1}:
+            <FormLabel name={field.name}>
+              Battery {index + 1}:
             </FormLabel>
             <select
               className={styles.input}
@@ -48,24 +42,13 @@ export const BatteryInput = ({ index }: { index: number }) => {
             </select>
           </div>
         )} />
-        <RemoveBtn 
-          onClick={() => setValue(`Vehicle.Batteries.${ index }._deleted`, true, { shouldDirty: true, shouldValidate: true })}
-          visible={!!values?.batteryName} />
+        <RemoveBtn { ...removeBtnProps } />
     </div>
   )
 }
 
 const BatteryOptions = () => {
-  const { control } = useCreateMissionCtx()
-
-  const vehicle = useWatch({
-    control,
-    name: 'Vehicle.registration'
-  })
-
-  const { data } = useGetBatteries()
-
-  const batteries = data?.data.filter(battery => battery.registration === vehicle) || []
+  const batteries = useHandleBatteryOptions()
 
   return (
     <>

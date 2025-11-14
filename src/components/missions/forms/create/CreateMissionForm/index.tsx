@@ -1,5 +1,5 @@
 import { FormProvider } from "react-hook-form"
-import { useOnCancelBtnClick, useCreateMissionForm, useHandleFormSubmit } from "./hooks"
+import { useHandleCreateMissionForm } from "./hooks"
 
 // Components
 import CreatePersonnelForm from "../CreatePersonnelForm"
@@ -9,17 +9,13 @@ import FormBtns from "@/components/form-elements/buttons/FormBtns"
 import * as Components from './components'
 
 function CreateMissionForm() {
-  const methods = useCreateMissionForm()
-
-  const onCancelBtnClick = useOnCancelBtnClick()
-
-  const handleFormSubmit = useHandleFormSubmit()
+  const { methods, onCancelBtnClick, handleFormSubmit } = useHandleCreateMissionForm()
 
   return (
     <FormProvider { ...methods }>
       <Components.Header>Create Mission</Components.Header>
       
-      <form onSubmit={methods.handleSubmit(formData => handleFormSubmit(formData))}>
+      <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
         <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
           <div className="flex gap-4 flex-wrap">
             <Components.MissionDateInput />

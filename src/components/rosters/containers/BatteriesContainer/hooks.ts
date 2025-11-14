@@ -3,8 +3,9 @@ import { useQuery, useQueryClient } from "react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
 import { useEnableQuery } from "@/helpers/hooks"
-import RostersCtx from "../../context"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
+import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
+import RostersCtx from "../../context"
 
 export const useGetBattery = () => {
   const { formUUID } = useContext(RostersCtx)
@@ -39,7 +40,22 @@ export const useHandleForm = () => {
     } else errorPopup(result.msg)
   }
 
-  const deleteBtnLabel = !state.active ? 'Delete Battery' : 'Confirm Delete'
+  const visible = formType === 'battery'
 
-  return { formUUID, formType, onDeleteBtnClick, deleteBtnLabel }
+  const deleteBtnProps = {
+    onClick: onDeleteBtnClick,
+    label: !state.active ? 'Delete Battery' : 'Confirm Delete'
+  }
+
+  return { formUUID, deleteBtnProps, visible }
+}
+
+export const useHandleCreateBtn = () => {
+  const { batteryRosterFilter } = useContext(RostersCtx)
+
+  const onClick = useOnCreateBtnClick('battery')
+
+  const visible = !!batteryRosterFilter
+
+  return { onClick, visible }
 }

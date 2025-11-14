@@ -5,7 +5,6 @@ import { useSetTableData } from './hooks'
 import * as AppTypes from '@/context/App/types'
 
 // Components
-import PaginationContainer from '../../containers/PaginationContainer'
 import * as Components from './components'
 
 const MissionsTable = memo(({ missions }: { missions: AppTypes.MissionInterface[] }) => {
@@ -16,10 +15,7 @@ const MissionsTable = memo(({ missions }: { missions: AppTypes.MissionInterface[
   )
 
   return (
-    <>
-      <PaginationContainer />
-      <Components.Table tableData={tableData} />    
-    </>
+    <Components.Table tableData={tableData} />    
   )
 })
 

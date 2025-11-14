@@ -4,10 +4,19 @@ import { useForm } from "react-hook-form"
 import { useEnableQuery } from "@/helpers/hooks"
 import RostersCtx from "@/components/rosters/context"
 import { errorPopup } from "@/utils/Toast/Toast"
+import { useOnCancelBtnClick } from "../UpdateRosterPersonnelForm/hooks"
 import { handleUpdateVehicle } from './utils'
 
 // Types
 import * as AppTypes from '@/context/App/types'
+
+export const useHandleUpdateRosterVehicleForm = (vehicle: AppTypes.VehicleRosterInterface | undefined) => {
+  const methods = useUpdateRosterVehicle(vehicle)
+  const onCancelBtnClick = useOnCancelBtnClick()
+  const handleFormSubmit = useHandleFormSubmit()
+
+  return { methods, onCancelBtnClick, handleFormSubmit }
+}
 
 export const useUpdateRosterVehicle = (vehicle: AppTypes.VehicleRosterInterface | undefined) => {
 

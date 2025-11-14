@@ -11,7 +11,16 @@ import { utcToLocalDatetime, handleUpdateMission } from './utils'
 import * as AppTypes from '@/context/App/types'
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
-export const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) => {
+export const useHandleUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) => {
+  const methods = useUpdateMissionForm(mission)
+  const onCancelBtnClick = useOnCancelBtnClick()
+  const deleteBtnProps = useHandleDeleteBtn()
+  const handleFormSubmit = useHandleFormSubmit()
+
+  return { methods, onCancelBtnClick, deleteBtnProps, handleFormSubmit } 
+}
+
+const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) => {
   const flights = mission?.Flights?.map(flight => {
     return ({ ...flight, takeOffDateTime: utcToLocalDatetime(flight.takeOffDateTime), landingDateTime: utcToLocalDatetime(flight.landingDateTime) })
   })
@@ -25,7 +34,7 @@ export const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefi
   })
 }
 
-export const useOnCancelBtnClick = () => {
+const useOnCancelBtnClick = () => {
   const { dispatch } = useContext(MissionsCtx)
 
   return () => {
@@ -34,7 +43,7 @@ export const useOnCancelBtnClick = () => {
   }
 }
 
-export const useHandleDeleteBtn = () => {
+const useHandleDeleteBtn = () => {
   const { missionUUID, dispatch } = useContext(MissionsCtx)
 
   const [state, setState] = useState<{ active: boolean }>({ active: false })
@@ -61,7 +70,7 @@ export const useHandleDeleteBtn = () => {
   return { onClick, label: !state.active ? 'Delete Mission' : 'Confirm Delete' }
 }
 
-export const useHandleFormSubmit = () => {
+const useHandleFormSubmit = () => {
   const { dispatch } = useContext(MissionsCtx)
 
   const queryClient = useQueryClient()

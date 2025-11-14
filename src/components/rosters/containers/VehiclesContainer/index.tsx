@@ -1,7 +1,8 @@
 import { memo, useRef } from 'react'
 import { motion } from 'motion/react'
 import { motionProps } from '@/components/missions/tables/MissionsTable/utils'
-import { useOnCreateBtnClick, useScrollToFormRef } from '../PersonnelContainer/hooks'
+import { useScrollToFormRef } from '../PersonnelContainer/hooks'
+import { useHandleVehiclesContainer } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -12,16 +13,13 @@ import * as PersonnelContainer from '../PersonnelContainer/components'
 import * as Components from './components'
 
 const VehiclesContainer = memo(({ vehicles }: { vehicles: AppTypes.VehicleRosterInterface[] }) => {
-  const onCreateBtnClick = useOnCreateBtnClick('vehicle')
+  const { refs, onCreateBtnClick } = useHandleVehiclesContainer()
 
-  const topRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
-
-  useScrollToFormRef({ topRef, formRef }, 'vehicle')
+  useScrollToFormRef({ ...refs }, 'vehicle')
 
   return (
     <motion.div 
-      ref={topRef} 
+      ref={refs.topRef} 
       className="flex flex-col gap-4 items-center p-6 rounded-xl bg-neutral/10 xl:p-10"
       { ...motionProps.slideInRight }>
         <div className="flex flex-col gap-4 items-center">
@@ -32,7 +30,7 @@ const VehiclesContainer = memo(({ vehicles }: { vehicles: AppTypes.VehicleRoster
             Add Vehicle
           </PersonnelContainer.CreateBtn>
         </div>
-        <Components.Form formRef={formRef} />
+        <Components.Form formRef={refs.formRef} />
     </motion.div>
   )
 })

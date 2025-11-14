@@ -1,7 +1,7 @@
-import { useRef, memo } from 'react'
+import { memo } from 'react'
 import { motion } from 'motion/react'
 import { motionProps } from '@/components/missions/tables/MissionsTable/utils'
-import { useOnCreateBtnClick, useScrollToFormRef } from './hooks'
+import { useHandlePersonnelContainer, useScrollToFormRef } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -11,16 +11,13 @@ import PersonnelTable from '../../tables/PersonnelTable'
 import * as Components from './components'
 
 const PersonnelContainer = memo(({ personnel }: { personnel: AppTypes.PersonnelRosterInterface[] }) => {
-  const onCreateBtnClick = useOnCreateBtnClick('personnel')
+  const { refs, onCreateBtnClick } = useHandlePersonnelContainer()
 
-  const topRef = useRef<HTMLDivElement>(null)
-  const formRef = useRef<HTMLDivElement>(null)
-
-  useScrollToFormRef({ topRef, formRef }, 'personnel')
+  useScrollToFormRef({ ...refs }, 'personnel')
 
   return (
     <motion.div 
-      ref={topRef} 
+      ref={refs.topRef} 
       className="flex flex-col gap-4 items-center p-6 rounded-xl bg-neutral/10 xl:p-10"
       { ...motionProps.slideInLeft }>
         <div className="flex flex-col gap-4 items-center">
@@ -31,7 +28,7 @@ const PersonnelContainer = memo(({ personnel }: { personnel: AppTypes.PersonnelR
             Add Personnel
           </Components.CreateBtn>
         </div>
-        <Components.Form formRef={formRef} />
+        <Components.Form formRef={refs.formRef} />
     </motion.div>
   )
 })

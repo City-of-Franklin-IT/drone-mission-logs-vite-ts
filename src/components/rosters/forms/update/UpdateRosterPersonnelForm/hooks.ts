@@ -9,7 +9,21 @@ import { handleUpdatePersonnel } from './utils'
 // Types
 import * as AppTypes from '@/context/App/types'
 
-export const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInterface | undefined) => {
+export const useHandleUpdateRosterPersonnelForm = (personnel: AppTypes.PersonnelRosterInterface | undefined) => {
+  const methods = useUpdateRosterPersonnel(personnel)
+  const onCancelBtnClick = useOnCancelBtnClick()
+  const handleFormSubmit = useHandleFormSubmit()
+
+  return { methods, onCancelBtnClick, handleFormSubmit }
+}
+
+export const useOnCancelBtnClick = () => {
+  const { dispatch } = useContext(RostersCtx)
+
+  return () => dispatch({ type: 'RESET_CTX' })
+}
+
+const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInterface | undefined) => {
 
   return useForm<AppTypes.PersonnelRosterInterface>({
     mode: 'onBlur',
@@ -20,13 +34,7 @@ export const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInte
   })
 }
 
-export const useOnCancelBtnClick = () => {
-  const { dispatch } = useContext(RostersCtx)
-
-  return () => dispatch({ type: 'RESET_CTX' })
-}
-
-export const useHandleFormSubmit = () => {
+const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 
   const { enabled, token } = useEnableQuery()

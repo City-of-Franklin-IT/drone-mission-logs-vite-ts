@@ -1,5 +1,5 @@
 import { FormProvider } from 'react-hook-form'
-import { useUpdateMissionForm, useOnCancelBtnClick, useHandleDeleteBtn, useHandleFormSubmit } from './hooks'
+import { useHandleUpdateMissionForm } from './hooks'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -13,13 +13,7 @@ import CreateTFRForm from '../../create/CreateTFRForm'
 import CreateWeatherForm from '../../create/CreateWeatherForm'
 
 function UpdateMissionForm({ mission }: { mission: AppTypes.MissionInterface | undefined }) {
-  const methods = useUpdateMissionForm(mission)
-
-  const onCancelBtnClick = useOnCancelBtnClick()
-
-  const { label, onClick } = useHandleDeleteBtn()
-
-  const handleFormSubmit = useHandleFormSubmit()
+  const { methods, onCancelBtnClick, deleteBtnProps, handleFormSubmit } = useHandleUpdateMissionForm(mission)
 
   return (
     <FormProvider { ...methods }>
@@ -47,9 +41,9 @@ function UpdateMissionForm({ mission }: { mission: AppTypes.MissionInterface | u
               onCancelBtnClick={onCancelBtnClick}
               size={'btn-lg'} />
             <PersonnelContainer.DeleteBtn 
-              onClick={onClick}
+              onClick={deleteBtnProps.onClick}
               size={'btn-lg'}>
-                {label}
+                {deleteBtnProps.label}
             </PersonnelContainer.DeleteBtn>
           </div>
         </div>

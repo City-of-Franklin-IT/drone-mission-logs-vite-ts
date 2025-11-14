@@ -12,7 +12,6 @@ import * as PersonnelContainer from '../PersonnelContainer/components'
 import * as Components from './components'
 
 const BatteriesContainer = memo(({ batteries }: { batteries: AppTypes.BatteryRosterInterface[] }) => {
-
   const topRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
 

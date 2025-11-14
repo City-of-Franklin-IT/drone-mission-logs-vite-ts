@@ -4,12 +4,21 @@ import { useForm } from "react-hook-form"
 import { useEnableQuery } from "@/helpers/hooks"
 import RostersCtx from "@/components/rosters/context"
 import { errorPopup } from "@/utils/Toast/Toast"
+import { useOnCancelBtnClick } from "../UpdateRosterPersonnelForm/hooks"
 import { handleUpdateBattery } from './utils'
 
 // Types
 import * as AppTypes from '@/context/App/types'
 
-export const useUpdateRosterBattery = (battery: AppTypes.BatteryRosterInterface | undefined) => {
+export const useHandleUpdateRosterBatteryForm = (battery: AppTypes.BatteryRosterInterface | undefined) => {
+  const methods = useUpdateRosterBattery(battery)
+  const onCancelBtnClick = useOnCancelBtnClick()
+  const handleFormSubmit = useHandleFormSubmit()
+
+  return { methods, onCancelBtnClick, handleFormSubmit }
+}
+
+const useUpdateRosterBattery = (battery: AppTypes.BatteryRosterInterface | undefined) => {
 
   return useForm<AppTypes.BatteryRosterCreateInterface>({
     mode: 'onBlur',
@@ -20,7 +29,7 @@ export const useUpdateRosterBattery = (battery: AppTypes.BatteryRosterInterface 
   })
 }
 
-export const useHandleFormSubmit = () => {
+const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 
   const queryClient = useQueryClient()

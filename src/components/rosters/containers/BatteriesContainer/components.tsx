@@ -1,7 +1,4 @@
-import { useContext } from 'react'
-import RostersCtx from '../../context'
-import { useOnCreateBtnClick } from '../PersonnelContainer/hooks'
-import { useGetBattery, useHandleForm } from './hooks'
+import { useGetBattery, useHandleForm, useHandleCreateBtn } from './hooks'
 
 // Components
 import HandleLoading from "@/utils/HandleLoading"
@@ -10,9 +7,9 @@ import CreateRosterBatteryForm from '../../forms/create/CreateRosterBatteryForm'
 import UpdateRosterBatteryForm from '../../forms/update/UpdateRosterBatteryForm'
 
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
-  const { formUUID, formType, onDeleteBtnClick, deleteBtnLabel } = useHandleForm()
+  const { formUUID, deleteBtnProps, visible } = useHandleForm()
 
-  if(formType !== 'battery') return
+  if(!visible) return
 
   if(!formUUID) return ( // Create new
     <div ref={formRef}>
@@ -24,23 +21,21 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
     <div ref={formRef} className="flex flex-col gap-4 w-full">
       <GetBattery />
       <PersonnelContainer.DeleteBtn 
-        onClick={onDeleteBtnClick}
+        onClick={deleteBtnProps.onClick}
         size={'btn-sm'}>
-          {deleteBtnLabel}
+          {deleteBtnProps.label}
       </PersonnelContainer.DeleteBtn>
     </div>
   )
 }
 
 export const CreateBtn = () => {
-  const { batteryRosterFilter } = useContext(RostersCtx)
+  const { visible, onClick } = useHandleCreateBtn()
 
-  const onCreateBtnClick = useOnCreateBtnClick('battery')
-
-  if(!batteryRosterFilter) return
+  if(!visible) return
 
   return (
-    <PersonnelContainer.CreateBtn onClick={onCreateBtnClick}>
+    <PersonnelContainer.CreateBtn onClick={onClick}>
       Add Battery
     </PersonnelContainer.CreateBtn>
   )

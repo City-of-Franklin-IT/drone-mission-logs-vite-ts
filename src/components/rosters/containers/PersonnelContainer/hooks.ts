@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react"
+import React, { useContext, useState, useEffect, useRef } from "react"
 import { useQuery, useQueryClient } from "react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
@@ -8,6 +8,15 @@ import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
 // Types
 import { FormType } from "../../context"
+
+export const useHandlePersonnelContainer = () => {
+  const topRef = useRef<HTMLDivElement>(null)
+  const formRef = useRef<HTMLDivElement>(null)
+
+  const onCreateBtnClick = useOnCreateBtnClick('personnel')
+
+  return { refs: { topRef, formRef }, onCreateBtnClick }
+}
 
 export const useOnCreateBtnClick = (formType: FormType) => {
   const { dispatch } = useContext(RostersCtx)

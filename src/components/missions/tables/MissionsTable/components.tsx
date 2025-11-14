@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { Link } from 'react-router'
 import { motion, AnimatePresence } from 'motion/react'
 import MissionsCtx from '../../context'
-import { setFlightTimes, iconMap, motionProps } from './utils'
+import { setFlightTimes, iconMap, motionProps, setLastName } from './utils'
 import { useSetColumnVisibility, useHandleTableRow } from './hooks'
 
 // Types
@@ -11,7 +11,7 @@ import * as AppTypes from '@/context/App/types'
 export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => {
 
   return (
-    <motion.table 
+    <motion.table
       className="table text-neutral-content font-[play] w-full"
       { ...motionProps.slideInLeft }>
         <TableHeaders />
@@ -25,7 +25,11 @@ export const NoMissions = () => {
   return (
     <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center p-10 m-auto outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
       <span className="text-xl uppercase font-bold">No Missions</span>
-      <Link to={'/create/mission'} className="text-lg text-warning font-bold hover:text-info">Click to create mission</Link>
+      <Link 
+        to={'/create/mission'} 
+        className="text-lg text-warning font-bold hover:text-info">
+          Click to create mission
+      </Link>
     </div>
   )
 }
@@ -40,12 +44,13 @@ const TableHeaders = () => {
         <th>Location</th>
         <th className={`${ !visible ? 'hidden' : 'block' }`}>Description</th>
         <th className="text-center px-4">Personnel</th>
+        <th></th>
       </tr>
     </thead>
   )
 }
 
-const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => { // Projects table body
+const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => {
 
   return (
     <tbody>
@@ -64,11 +69,7 @@ const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) =>
 type TableRowProps = { tableData: AppTypes.MissionInterface, index: number }
 
 const TableRow = (props: TableRowProps) => {
-  const { expanded, onDetailsBtnClick } = useHandleTableRow()
-
-  const visible = useSetColumnVisibility()
-
-  const btnIcon = !expanded ? iconMap.get('downArrow') : iconMap.get('upArrow')
+  const { expanded, onDetailsBtnClick, visible, btnIconSrc } = useHandleTableRow()
 
   return (
     <>
@@ -77,11 +78,12 @@ const TableRow = (props: TableRowProps) => {
         <td className="whitespace-nowrap">{props.tableData.location}</td>
         <td className={`${ !visible ? 'hidden' : 'block' }`}>{props.tableData.missionDescription}</td>
         <PersonnelTableData personnel={props.tableData.Personnel} />
+        <ExportBtn uuid={props.tableData.uuid} />
       </tr>
       <ShowDetailsBtn 
         onClick={onDetailsBtnClick}
         index={props.index}>
-          <img src={btnIcon} alt="show details btn icon" className="w-[20px]" />
+          <img src={btnIconSrc} alt="show details btn icon" className="w-[20px]" />
       </ShowDetailsBtn>
       <MissionDetails
         expanded={expanded} 
@@ -97,7 +99,7 @@ const ShowDetailsBtn = (props: ShowDetailsBtnProps) => {
 
   return (
     <tr className={`${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}>
-      <td colSpan={4}>
+      <td colSpan={5}>
         <div className="flex justify-around">
           <button
             data-testid="show-details-btn"
@@ -129,7 +131,7 @@ const PersonnelTableData = ({ personnel }: { personnel: AppTypes.PersonnelInterf
 }
 
 const Personnel = ({ personnel }: { personnel: AppTypes.PersonnelInterface }) => {
-  const lastName = personnel.email.split('@')[0].split('.')[1]
+  const lastName = setLastName(personnel.email)
 
   return (
     <div className={`flex gap-2 items-center uppercase ${ personnel.isPilot ? 'font-bold' : 'italic' }`}>
@@ -149,22 +151,38 @@ const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
 
 type MissionDetailsProps = { expanded: boolean, tableData: AppTypes.MissionInterface, index: number }
 
+const ExportBtn = ({ uuid }: { uuid: string }) => {
+
+  return (
+    <td>
+      <a href={`https://cofdbv10/ReportServer?/Police%20Department/Drone%20Mission%20Log%20Report&uuid=${ uuid }&rs:Command=Render&rs:Format=PDF`} target="_self" className="hover:text-error-content">
+        <div className="flex flex-col items-center">
+          <img src={iconMap.get('pdf')} alt="pdf icon" className="w-[20px]" title="Export to PDF" />
+          <small className="font-[play] uppercase">Export</small>
+        </div>
+      </a>
+    </td>
+  )
+}
+
 const MissionDetails = (props: MissionDetailsProps) => {
 
   return (
     <AnimatePresence>
       {props.expanded && (
-        <motion.tr 
+        <motion.tr
           className={`text-center ${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}
           { ...motionProps.fadeInOut }>
-          <td colSpan={4}>
-            <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
-              <Vehicle vehicle={props.tableData.Vehicle} />
-              <Flights flights={props.tableData.Flights} />
-              <Weather weather={props.tableData.Weather} />
-              <Inspections inspection={props.tableData.Inspection} />
-              <TemporaryFlightRestriction tfr={props.tableData.TemporaryFlightRestriction} />
-              <UpdateMissionBtn uuid={props.tableData.uuid} />
+          <td colSpan={5}>
+            <div className="flex flex-col">
+              <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
+                <Vehicle vehicle={props.tableData.Vehicle} />
+                <Flights flights={props.tableData.Flights} />
+                <Weather weather={props.tableData.Weather} />
+                <Inspections inspection={props.tableData.Inspection} />
+                <TemporaryFlightRestriction tfr={props.tableData.TemporaryFlightRestriction} />
+                <UpdateMissionBtn uuid={props.tableData.uuid} />
+              </div>
             </div>
           </td>
         </motion.tr>
