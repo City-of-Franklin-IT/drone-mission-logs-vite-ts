@@ -17,7 +17,7 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
     </div>
   )
 
-  return ( // Update existing
+  return ( // Delete existing
     <div ref={formRef} className="flex flex-col gap-4 w-full">
       <GetBattery />
       <PersonnelContainer.DeleteBtn 
