@@ -1,4 +1,3 @@
-import { useOnTableRowClick } from '../PersonnelTable/hooks'
 import { useSetColumnVisibility } from '@/components/missions/tables/MissionsTable/hooks'
 import { useHandleTableRow } from './hooks'
 

@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react"
-import { useQuery, useQueryClient } from "react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
 import { useEnableQuery } from "@/helpers/hooks"
@@ -32,7 +32,11 @@ export const useGetPersonnel = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useQuery(['getPerson', formUUID], () => AppActions.getPerson(formUUID, authHeaders(token)), { enabled: enabled && !!token })
+  return useQuery({ 
+    queryKey: ['getPerson', formUUID], 
+    queryFn: () => AppActions.getPerson(formUUID, authHeaders(token)), 
+    enabled: enabled && !!token 
+  })
 }
 
 export const useHandleForm = () => {
@@ -53,8 +57,8 @@ export const useHandleForm = () => {
     const result = await AppActions.deleteRosterPersonnel(formUUID, authHeaders(token))
 
     if(result.success) {
-      queryClient.invalidateQueries('getRosterPersonnel')
-      queryClient.invalidateQueries(['getPerson', formUUID])
+      queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
+      queryClient.invalidateQueries({ queryKey: ['getPerson', formUUID] })
       dispatch({ type: 'RESET_CTX' })
       savedPopup(result.msg)
     } else errorPopup(result.msg)

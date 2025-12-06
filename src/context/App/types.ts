@@ -1,5 +1,6 @@
 export interface MissionInterface extends BaseInterface {
   missionDate: string
+  department: DepartmentType
   incidentNumber: string | null
   missionDescription: string
   location: string
@@ -11,8 +12,9 @@ export interface MissionInterface extends BaseInterface {
   Vehicle?: VehicleInterface
 }
 
-export interface MissionCreateInterface extends Omit<MissionInterface, 'Flights' | 'Personnel' |  'Weather' | 'Inspection' | 'TemporaryFlightRestriction' | 'Vehicle' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface MissionCreateInterface extends Omit<MissionInterface, 'department' | 'Flights' | 'Personnel' |  'Weather' | 'Inspection' | 'TemporaryFlightRestriction' | 'Vehicle' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
+  department: DepartmentType | undefined
   Flights?: FlightCreateInterface[]
   Personnel?: PersonnelCreateInterface[]
   Weather?: WeatherCreateInterface
@@ -87,12 +89,14 @@ export interface VehicleCreateInterface extends Omit<VehicleInterface, 'VehicleR
 export interface VehicleRosterInterface extends BaseInterface {
   model: string
   registration: string
+  department: DepartmentType
   Vehicles?: VehicleInterface[]
 }
 
-export interface VehicleRosterCreateInterface extends Omit<VehicleRosterInterface, 'Vehicles' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface VehicleRosterCreateInterface extends Omit<VehicleRosterInterface, 'department' | 'Vehicles' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
   _deleted?: boolean | null
+  department: DepartmentType | undefined
   uuid?: string
 }
 
@@ -134,12 +138,14 @@ export interface BatteryRosterCreateInterface extends Omit<BatteryRosterInterfac
 
 export interface PersonnelRosterInterface extends BaseInterface {
   email: string
+  department: DepartmentType
   Personnel?: PersonnelInterface[]
 }
 
-export interface PersonnelRosterCreateInterface extends Omit<PersonnelRosterInterface, 'Personnel' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface PersonnelRosterCreateInterface extends Omit<PersonnelRosterInterface, 'department' | 'Personnel' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
   _deleted?: boolean | null
+  department: DepartmentType | undefined
   uuid?: string
 }
 
@@ -161,3 +167,8 @@ export interface ServerResponse {
   success: boolean
   msg?: string
 }
+
+type DepartmentType = 
+  | 'Police'
+  | 'Fire'
+  | 'IT'

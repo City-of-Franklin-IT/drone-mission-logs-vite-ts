@@ -1,5 +1,5 @@
 import { useContext, useRef, useEffect } from 'react'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { screen, render, waitFor, renderHook, cleanup } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import RostersCtx, { RostersProvider } from '../../context'

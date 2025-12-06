@@ -1,5 +1,5 @@
 import { useContext, useState, useRef } from "react"
-import { useQuery, useQueryClient } from "react-query"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
@@ -21,7 +21,11 @@ export const useGetVehicle = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useQuery(['getVehicle', formUUID], () => AppActions.getVehicle(formUUID, authHeaders(token)), { enabled: enabled && !!token })
+  return useQuery({ 
+    queryKey: ['getVehicle', formUUID], 
+    queryFn: () => AppActions.getVehicle(formUUID, authHeaders(token)), 
+    enabled: enabled && !!token 
+  })
 }
 
 export const useHandleForm = () => {
@@ -42,8 +46,8 @@ export const useHandleForm = () => {
     const result = await AppActions.deleteRosterVehicle(formUUID, authHeaders(token))
 
     if(result.success) {
-      queryClient.invalidateQueries('getRosterVehicles')
-      queryClient.invalidateQueries(['getVehicle', formUUID])
+      queryClient.invalidateQueries({ queryKey: ['getRosterVehicles'] })
+      queryClient.invalidateQueries({ queryKey: ['getVehicle', formUUID] })
       dispatch({ type: 'RESET_CTX' })
       savedPopup(result.msg)
     } else errorPopup(result.msg)

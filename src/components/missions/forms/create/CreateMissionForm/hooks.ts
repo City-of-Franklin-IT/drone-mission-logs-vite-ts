@@ -1,8 +1,8 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
-import { useQueryClient } from 'react-query'
+import { useQueryClient } from '@tanstack/react-query'
 import { useForm, useFormContext, useFieldArray } from 'react-hook-form'
-import { useEnableQuery } from '@/helpers/hooks'
+import { useEnableQuery, useGetUserDepartment } from '@/helpers/hooks'
 import { handleCreateMission } from './utils'
 import { errorPopup } from '@/utils/Toast/Toast'
 
@@ -65,11 +65,13 @@ export const useHandleAddFlightBtn = () => {
 }
 
 const useCreateMissionForm = () => {
-  
-  return useForm<AppTypes.MissionCreateInterface>({
+  const { department } = useGetUserDepartment()
+
+  const form = useForm<AppTypes.MissionCreateInterface>({
     mode: 'onBlur',
     defaultValues: {
       missionDate: '',
+      department: undefined,
       incidentNumber: '',
       missionDescription: '',
       location: '',
@@ -105,6 +107,14 @@ const useCreateMissionForm = () => {
       TemporaryFlightRestriction: undefined
     }
   })
+
+  useEffect(() => {
+    if(department) {
+      form.setValue('department', department)
+    }
+  }, [department, form])
+
+  return form
 }
 
 const useOnCancelBtnClick = () => {
@@ -125,10 +135,10 @@ const useHandleFormSubmit = () => {
 
     handleCreateMission(formData, token)
       .then(() => {
-        queryClient.invalidateQueries('getMissions')
-        queryClient.invalidateQueries('getRosterPersonnel')
-        queryClient.invalidateQueries('getRosterVehicles')
-        queryClient.invalidateQueries('getRosterBatteries')
+        queryClient.invalidateQueries({ queryKey: ['getMissions'] })
+        queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
+        queryClient.invalidateQueries({ queryKey: ['getRosterVehicles'] })
+        queryClient.invalidateQueries({ queryKey: ['getRosterBatteries'] })
         navigate('/missions')
       })
       .catch((err) => errorPopup(err))

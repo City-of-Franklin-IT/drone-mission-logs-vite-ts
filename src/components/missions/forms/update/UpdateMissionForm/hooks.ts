@@ -1,6 +1,6 @@
 import { useCallback, useContext, useState } from "react"
 import { useForm } from "react-hook-form"
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 import MissionsCtx from "@/components/missions/context"
@@ -61,7 +61,7 @@ const useHandleDeleteBtn = () => {
     const result = await AppActions.deleteMission(missionUUID, authHeaders(token))
 
     if(result.success) {
-      queryClient.invalidateQueries('getMissions')
+      queryClient.invalidateQueries({ queryKey: ['getMissions'] })
       dispatch({ type: 'RESET_CTX' })
       savedPopup(result.msg)
     } else errorPopup(result.msg)
@@ -83,8 +83,8 @@ const useHandleFormSubmit = () => {
     handleUpdateMission(formData, token)
       .then(() => {
         savedPopup('Mission Updated')
-        queryClient.invalidateQueries('getMissions')
-        queryClient.invalidateQueries(['getMission', formData.uuid])
+        queryClient.invalidateQueries({ queryKey: ['getMissions'] })
+        queryClient.invalidateQueries({ queryKey: ['getMission', formData.uuid] })
         window.scrollTo({ behavior: 'smooth', top: 0 })
         dispatch({ type: 'RESET_CTX' })
       })

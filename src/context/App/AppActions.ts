@@ -4,9 +4,9 @@ import { API_URL as baseUrl } from "@/config"
 import * as AppTypes from '@/context/App/types'
 
 // Get missions
-// GET /api/v2/pd/drone/mission
-export const getMissions = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface[] }> => {
-  const res = await fetch(`${ baseUrl }/mission`, { headers })
+// GET /api/v2/pd/drone/mission?department=
+export const getMissions = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface[] }> => {
+  const res = await fetch(`${ baseUrl }/mission?${ params }`, { headers })
 
   return await res.json()
 }
@@ -310,9 +310,9 @@ export const updateWeather = async (formData: AppTypes.WeatherCreateInterface, h
 }
 
 // Get roster vehicles
-// GET /api/v2/pd/drone/vehicle-roster
-export const getRosterVehicles = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface[] }> => {
-  const res = await fetch(`${ baseUrl }/vehicle-roster`, { headers })
+// GET /api/v2/pd/drone/vehicle-roster?department=
+export const getRosterVehicles = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface[] }> => {
+  const res = await fetch(`${ baseUrl }/vehicle-roster?${ params }`, { headers })
 
   return await res.json()
 }
@@ -420,9 +420,9 @@ export const deleteRosterBattery = async (uuid: string, headers: Headers): Promi
 }
 
 // Get roster personnel
-// GET /api/v2/api/pd/drone/personnel-roster
-export const getRosterPersonnel = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface[] }> => {
-  const res = await fetch(`${ baseUrl }/personnel-roster`, { headers })
+// GET /api/v2/api/pd/drone/personnel-roster?department=
+export const getRosterPersonnel = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface[] }> => {
+  const res = await fetch(`${ baseUrl }/personnel-roster?${ params }`, { headers })
 
   return await res.json()
 }

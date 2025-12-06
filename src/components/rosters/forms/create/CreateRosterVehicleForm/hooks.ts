@@ -1,8 +1,8 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import RostersCtx from "@/components/rosters/context"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, useGetUserDepartment } from "@/helpers/hooks"
 import { errorPopup } from "@/utils/Toast/Toast"
 import { useOnCancelBtnClick } from "../../update/UpdateRosterPersonnelForm/hooks"
 import { handleCreateRosterVehicle } from './utils'
@@ -19,14 +19,23 @@ export const useHandleCreateRosterVehicleForm = () => {
 }
 
 const useCreateRosterVehicle = () => {
+  const { department } = useGetUserDepartment()
 
-  return useForm<AppTypes.VehicleRosterCreateInterface>({
+  const form = useForm<AppTypes.VehicleRosterCreateInterface>({
     mode: 'onBlur',
     defaultValues: {
       model: '',
       registration: ''
     }
   })
+
+  useEffect(() => {
+    if(department) {
+      form.setValue('department', department)
+    }
+  }, [department, form])
+
+  return form
 }
 
 const useHandleFormSubmit = () => {
@@ -41,7 +50,7 @@ const useHandleFormSubmit = () => {
 
     handleCreateRosterVehicle(formData, token)
       .then(() => {
-        queryClient.invalidateQueries('getRosterVehicles')
+        queryClient.invalidateQueries({ queryKey: ['getRosterVehicles'] })
         dispatch({ type: 'RESET_CTX' })
       })
       .catch((err) => errorPopup(err))

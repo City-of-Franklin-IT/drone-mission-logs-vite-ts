@@ -1,4 +1,4 @@
-import { memo, useRef } from 'react'
+import { memo } from 'react'
 import { motion } from 'motion/react'
 import { motionProps } from '@/components/missions/tables/MissionsTable/utils'
 import { useScrollToFormRef } from '../PersonnelContainer/hooks'

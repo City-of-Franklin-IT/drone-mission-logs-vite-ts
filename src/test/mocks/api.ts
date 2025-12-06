@@ -5,6 +5,7 @@ import * as AppTypes from '@/context/App/types'
 
 export const createMockMission = (): AppTypes.MissionInterface => ({
   missionDate: faker.date.anytime().toISOString().split('T')[0],
+  department: 'Police',
   incidentNumber: faker.string.alphanumeric({ length: 10 }),
   missionDescription: faker.lorem.paragraph(),
   location: faker.location.streetAddress({ useFullAddress: false }),
@@ -105,6 +106,7 @@ export const createMockBattery = (index: number): AppTypes.BatteryInterface => (
 
 export const createMockRosterPersonnel = (): AppTypes.PersonnelRosterInterface => ({
   email: faker.internet.email(),
+  department: 'Police',
   Personnel: [],
   createdBy: faker.internet.email(),
   createdAt: faker.date.anytime().toISOString(),

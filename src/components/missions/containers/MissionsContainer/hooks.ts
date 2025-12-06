@@ -1,5 +1,5 @@
 import { useContext, useEffect, useRef } from "react"
-import { useQuery } from "react-query"
+import { useQuery } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { useEnableQuery } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
@@ -10,7 +10,11 @@ export const useGetMission = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useQuery(['getMission', missionUUID], () => AppActions.getMission(missionUUID, authHeaders(token)), { enabled: enabled && !!token && !!missionUUID })
+  return useQuery({ 
+    queryKey: ['getMission', missionUUID], 
+    queryFn: () => AppActions.getMission(missionUUID, authHeaders(token)), 
+    enabled: enabled && !!token && !!missionUUID 
+  })
 }
 
 export const useScrollToRef = () => {

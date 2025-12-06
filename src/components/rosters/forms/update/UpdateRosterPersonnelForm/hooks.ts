@@ -1,5 +1,5 @@
 import { useContext, useCallback } from "react"
-import { useQueryClient } from "react-query"
+import { useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { useEnableQuery } from "@/helpers/hooks"
 import RostersCtx from "@/components/rosters/context"
@@ -46,8 +46,8 @@ const useHandleFormSubmit = () => {
 
     handleUpdatePersonnel(formData, token)
       .then(() => {
-        queryClient.invalidateQueries('getRosterPersonnel')
-        queryClient.invalidateQueries(['getPerson', formData.uuid])
+        queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
+        queryClient.invalidateQueries({ queryKey: ['getPerson', formData.uuid] })
         dispatch({ type: 'RESET_CTX' })
       })
       .catch((err) => errorPopup(err))

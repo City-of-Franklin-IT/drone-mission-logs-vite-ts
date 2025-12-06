@@ -1,5 +1,5 @@
-import { useQuery } from "react-query"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useQuery } from "@tanstack/react-query"
+import { useEnableQuery, useGetUserDepartment } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
@@ -7,7 +7,19 @@ import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 export const useGetPersonnel = () => {
   const { enabled, token } = useEnableQuery()
 
-  return useQuery('getRosterPersonnel', () => AppActions.getRosterPersonnel(authHeaders(token)), { enabled: enabled && !!token })
+  const { department, isLoading } = useGetUserDepartment()
+
+  const params = new URLSearchParams()
+
+  params.append('department', String(department))
+
+  const isReady = enabled && !!token && !isLoading && !!department
+
+  return useQuery({ 
+    queryKey: ['getRosterPersonnel'], 
+    queryFn: () => AppActions.getRosterPersonnel(params, authHeaders(token)), 
+    enabled: isReady
+  })
 }
 
 export const useHandlePilotSelect = () => {
