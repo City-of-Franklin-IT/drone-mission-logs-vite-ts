@@ -24,7 +24,7 @@ export const Buttons = () => {
   if(pathname === '/') return null
 
   return (
-    <div className="flex flex-nowrap gap-2 overflow-x-auto w-full pl-4">
+    <div className="flex gap-2 overflow-y-visible w-fit pl-4 pb-2 flex-wrap justify-around lg:pb-0">
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
@@ -47,7 +47,7 @@ const HeaderBtn = (props: HeaderBtnProps) => {
 
   const activeAccount = useActiveAccount()
 
-  const pathname = useLocation().pathname
+  const { pathname } = useLocation()
 
   if(!activeAccount || pathname === '/') return null
 
@@ -56,7 +56,7 @@ const HeaderBtn = (props: HeaderBtnProps) => {
   return (
     <Link 
       to={props.to} 
-      className={`btn btn-sm btn-ghost rounded-none uppercase hover:bg-primary hover:shadow-none 2xl:btn-lg ${ active ? 'text-warning' : 'text-neutral-content' }`}>
+      className={`btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none ${ active ? 'text-warning' : 'text-neutral-content' }`}>
         {props.children}
     </Link>
   )
@@ -73,7 +73,7 @@ const LogoutBtn = () => { // Logout button
     <button 
       type="button"
       onClick={handleLogoutRedirect}
-      className="btn btn-sm btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none lg:btn-lg">
+      className="btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none">
         Logout
     </button>
   )

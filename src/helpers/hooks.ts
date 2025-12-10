@@ -209,7 +209,7 @@ export const useGetUserDepartment = () => {
 
   useEffect(() => {
     if(NODE_ENV === 'development') {
-      setState({ department: 'IT', isLoading: false })
+      setState({ department: 'Police', isLoading: false })
       return
     }
 
