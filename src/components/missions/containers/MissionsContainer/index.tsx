@@ -13,7 +13,7 @@ function MissionsContainer({ missions }: { missions: AppTypes.MissionInterface[]
     <div className="flex flex-col gap-10 items-center my-20 p-3 lg:p-10">
       <div className="flex gap-6 flex-wrap items-center lg:items-end w-full">
         <FiltersContainer visible={!!missions.length} />
-        <PaginationContainer />
+        <PaginationContainer count={missions.length} />
       </div>
       <div className="overflow-x-auto w-full">
         <MissionsTable missions={missions} />

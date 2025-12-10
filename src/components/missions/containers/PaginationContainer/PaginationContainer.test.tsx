@@ -11,7 +11,7 @@ describe('PaginationContainer', () => {
       const TestComponent = () => {
         const { dispatch } = useContext(MissionsCtx)
 
-        const { prevBtnProps, nextBtnProps, label } = useHandlePageNav()
+        const { prevBtnProps, nextBtnProps, label } = useHandlePageNav(25)
 
         useEffect(() => {
           dispatch({ type: 'SET_TOTAL_PAGES', payload: 10 })

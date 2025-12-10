@@ -1,10 +1,10 @@
 // Components
 import * as Components from './components'
 
-function PaginationContainer() {
+function PaginationContainer({ count }: { count: number }) {
   
   return (
-    <Components.PageNavBtns />
+    <Components.PageNavBtns count={count} />
   )
 }
 

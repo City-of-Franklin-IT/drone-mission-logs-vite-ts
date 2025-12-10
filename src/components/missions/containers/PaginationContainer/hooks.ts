@@ -1,7 +1,7 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import MissionsCtx from "../../context"
 
-export const useHandlePageNav = () => {
+export const useHandlePageNav = (count: number) => {
   const { currentPage, totalPages, dispatch } = useContext(MissionsCtx)
 
   const handlePrevBtn = () => {
@@ -27,6 +27,16 @@ export const useHandlePageNav = () => {
   }
 
   const label = `Page ${ currentPage } / ${ totalPages }`
+
+  useEffect(() => {
+    if(count > 25) {
+      const payload = Math.ceil(count / 25)
+
+      if(totalPages !== payload) {
+        dispatch({ type: 'SET_TOTAL_PAGES', payload }) 
+      }
+    }
+  }, [totalPages, count])
 
   return { prevBtnProps, nextBtnProps, label }
 }
