@@ -6,21 +6,23 @@ import { infoPopup } from "@/utils/Toast/Toast"
 import { getUserDepartment } from "./utils"
 
 // Types
-import { AccountInfo } from "@azure/msal-browser"
+import { AccountInfo, BrowserAuthError } from "@azure/msal-browser"
 
 export const useGetToken = () => {
-  const [state, setState] = useState<{ token: string | undefined, isLoading: boolean }>({ token: undefined, isLoading: true })
+  const [state, setState] = useState<{ token: string | undefined, isLoading: boolean, popupBlocked: boolean }>({ token: undefined, isLoading: true, popupBlocked: false })
 
   const { instance, accounts, inProgress } = useMsal()
 
   if(NODE_ENV === 'development') {
-    return { token: 'dev-token', isLoading: false }
+    return { token: 'dev-token', isLoading: false, popupBlocked: false }
   }
 
   const checkToken = async () => {
     setState(prevState => ({ ...prevState, isLoading: true }))
 
     const activeAccount = instance.getActiveAccount()
+
+    const isEdge = /Edg/.test(navigator.userAgent)
 
     if(!activeAccount && accounts.length === 0) {
       setState(prevState => ({ ...prevState, isLoading: false }))
@@ -34,38 +36,61 @@ export const useGetToken = () => {
       return
     }
 
-    let token: string | undefined = undefined
-
-    if(activeAccount?.idTokenClaims && activeAccount.idTokenClaims.exp) { // Check if token is expired or about to expire
+    if(activeAccount?.idTokenClaims && activeAccount.idTokenClaims.exp) {
       const expiresOn = activeAccount.idTokenClaims.exp * 1000
       const now = Date.now()
-  
-      if(expiresOn > now + 3000000) { // Still valid
-        token = activeAccount.idToken
-        setState(({ token, isLoading: false }))
+
+      if(expiresOn > now + 3000000) {
+        setState({ token: activeAccount.idToken, isLoading: false, popupBlocked: false })
         return
       }
-  
+
       const request = {
         scopes: ["openid", "profile", "email"],
         account: activeAccount,
-        forceRefresh: true
+        forceRefresh: true,
+        redirectUri: "https://pdapps.franklintn.gov/drone-missions/redirect.html"
       }
-  
-      const response = await instance.acquireTokenSilent(request) // Refresh token
 
-      setState(({ token: response.idToken, isLoading: false }))
+      if(isEdge) { // Acquire token via popup for Edge users
+        try {
+          const response = await instance.acquireTokenPopup(request)
+          setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        } catch(error) {
+          if(error instanceof BrowserAuthError && (error.errorCode === 'popup_window_error' || error.errorCode === 'empty_window_error')) {
+            setState({ token: undefined, isLoading: false, popupBlocked: true })
+          } else throw error
+        }
+      } else {
+        const response = await instance.acquireTokenSilent(request)
+        setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+      }
+
+      return
     }
 
-    if(activeAccount && !activeAccount.idTokenClaims) { // Active account but !idTokenClaims
+    if(activeAccount && !activeAccount.idTokenClaims) {
       const request = {
         scopes: ["openid", "profile", "email"],
-        account: activeAccount
+        account: activeAccount,
+        redirectUri: "https://pdapps.franklintn.gov/drone-missions/redirect.html"
       }
 
-      const response = await instance.acquireTokenSilent(request) // Refresh token
+      if(isEdge) { // Acquire token via popup for Edge users
+        try {
+          const response = await instance.acquireTokenPopup(request)
+          setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        } catch(error) {
+          if(error instanceof BrowserAuthError && (error.errorCode === 'popup_window_error' || error.errorCode === 'empty_window_error')) {
+            setState({ token: undefined, isLoading: false, popupBlocked: true })
+          } else throw error
+        }
+      } else {
+        const response = await instance.acquireTokenSilent(request)
+        setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+      }
 
-      setState(({ token: response.idToken, isLoading: false }))
+      return
     }
 
     setState(prevState => ({ ...prevState, isLoading: false }))
@@ -89,7 +114,7 @@ export const useGetToken = () => {
 export const useEnableQuery = () => {
   const [state, setState] = useState<{ enabled: boolean }>({ enabled: false })
 
-  const { token, isLoading } = useGetToken()
+  const { token, isLoading, popupBlocked } = useGetToken()
 
   useEffect(() => {
     if(isLoading) {
@@ -97,26 +122,37 @@ export const useEnableQuery = () => {
     } else setState({ enabled: !!token })
   }, [token, isLoading])
 
+  useEffect(() => {
+    if(popupBlocked) {
+      infoPopup('Please disable popup blocker for this site')
+    }
+  }, [popupBlocked])
+
   return { enabled: state.enabled, token }
 }
 
 export const useRedirectAfterLogin = () => {
   const { instance, inProgress } = useMsal()
-  const activeAccount = instance.getActiveAccount()
+  const development = NODE_ENV === 'development'
 
   useEffect(() => {
+    if(development) return
+
     if(inProgress === 'none') {
+      const activeAccount = instance.getActiveAccount()
 
       if(activeAccount) {
-        const redirectUrl = sessionStorage.getItem('redirectUrl') // Check for redirectUrl
+        const redirectUrl = sessionStorage.getItem('redirectUrl')
 
-        if(redirectUrl) {        
+        if(redirectUrl) {
           window.location.href = redirectUrl
           sessionStorage.removeItem('redirectUrl')
         }
-      } else window.location.pathname = '/drone'
+      } else {
+        window.location.pathname = '/'
+      }
     }
-  }, [activeAccount, inProgress])
+  }, [inProgress, development, instance])
 }
 
 export const useActiveAccount = () => {
