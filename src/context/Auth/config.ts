@@ -1,14 +1,31 @@
 import { LogLevel } from '@azure/msal-browser'
 import { CLIENT_ID } from '@/config'
 
-export const msalConfig = {
-    auth: {
+export const setAuth = () => {
+    const auth = {
         clientId: CLIENT_ID,
         authority: 'https://login.microsoftonline.com/f6644f52-f834-4a2f-a433-e6bc40d7c17f/',
-        redirectUri: 'https://pdapps.franklintn.gov/drone-missions',
-        postLogoutRedirectUri: 'https://pdapps.franklintn.gov/',
-        navigateToLoginRequestUrl: false
-    },
+        redirectUri: '',
+        postLogoutRedirectUri: '',
+        navigateToLoginRequestUrl: true,
+        allowRedirectInIframe: true
+    }
+
+    if(window.location.host === 'pdapps.franklintn.gov') {
+        auth.redirectUri = 'https://pdapps.franklintn.gov/drone-missions'
+        auth.postLogoutRedirectUri = 'https://pdapps.franklintn.gov/'
+    } else {
+        auth.redirectUri = 'https://fireapps.franklintn.gov/drone-missions'
+        auth.postLogoutRedirectUri = 'https://fireapps.franklintn.gov/'
+    }
+
+    return auth
+}
+
+const auth = setAuth()
+
+export const msalConfig = {
+    auth,
     cache: {
         cacheLocation: 'localStorage',
         storeAuthStateInCookie: false
@@ -39,5 +56,5 @@ export const msalConfig = {
 
 export const loginRequest = {
     scopes: ["openid", "profile"],
-    redirectUri: "https://pdapps.franklintn.gov/drone-missions"
+    redirectUri: auth.redirectUri
 };

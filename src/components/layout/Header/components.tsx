@@ -1,17 +1,18 @@
 import { useContext } from "react"
 import { useLocation, Link } from "react-router"
 import { APP_TITLE } from '../../../config'
-import cofIcon from '@/assets/icons/cof/cof-primary-content.svg'
 import { useActiveAccount } from "@/helpers/hooks"
 import useHandleLogoutRedirect from "@/context/Auth/hooks/useHandleLogoutRedirect"
 import HeaderCtx from "./context"
+import { handleTitleIconSrc } from "./utils"
 
 export const Title = () => {
+  const iconSrc = handleTitleIconSrc()
 
   return (
     <Link to={'/missions'} className="flex flex-col text-primary-content text-center mt-4 w-fit lg:my-4">
       <div className="flex gap-4 text-primary-content items-center justify-center">
-        <img src={cofIcon} alt="cof icon" className="w-20" />
+        <img src={iconSrc} alt="department icon" className="w-18" />
         <h1 className="text-xl font-bold text-center md:text-2xl lg:text-4xl">{APP_TITLE}</h1>
       </div>
     </Link>
@@ -34,9 +35,10 @@ export const Buttons = () => {
 }
 
 export const HomeLink = () => {
+  const label = window.location.host === 'pdapps.franklintn.gov' ? 'Back To All PD Apps' : 'Back To All FFD Apps'
 
   return (
-    <a href={'/home'} className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral">Back To All PD Apps</a>
+    <a href={'/home'} className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral">{label}</a>
   )
 }
 

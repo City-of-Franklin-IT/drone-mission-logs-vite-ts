@@ -23,7 +23,7 @@ export const useHandleAuth = () => {
         }
       }).catch(error => {
         if(error.errorCode === "interaction_required") {
-          window.location.href = 'https://pdapps.franklintn.gov/'
+          window.location.href = '/'
         }
       })
     } else navigate('/missions')

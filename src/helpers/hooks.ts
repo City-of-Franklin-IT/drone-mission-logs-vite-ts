@@ -3,6 +3,7 @@ import { useNavigate } from "react-router"
 import { useMsal } from "@azure/msal-react"
 import { NODE_ENV } from "@/config"
 import { infoPopup } from "@/utils/Toast/Toast"
+import { setAuth } from "@/context/Auth/config"
 import { getUserDepartment } from "./utils"
 
 // Types
@@ -36,6 +37,8 @@ export const useGetToken = () => {
       return
     }
 
+    const { redirectUri } = setAuth()
+
     if(activeAccount?.idTokenClaims && activeAccount.idTokenClaims.exp) {
       const expiresOn = activeAccount.idTokenClaims.exp * 1000
       const now = Date.now()
@@ -49,7 +52,7 @@ export const useGetToken = () => {
         scopes: ["openid", "profile", "email"],
         account: activeAccount,
         forceRefresh: true,
-        redirectUri: "https://pdapps.franklintn.gov/drone-missions/redirect.html"
+        redirectUri: `${ redirectUri }/redirect.html`
       }
 
       if(isEdge) { // Acquire token via popup for Edge users
@@ -73,7 +76,7 @@ export const useGetToken = () => {
       const request = {
         scopes: ["openid", "profile", "email"],
         account: activeAccount,
-        redirectUri: "https://pdapps.franklintn.gov/drone-missions/redirect.html"
+        redirectUri: `${ redirectUri }/redirect.html`
       }
 
       if(isEdge) { // Acquire token via popup for Edge users
