@@ -10,6 +10,9 @@ import { handleUpdateVehicle } from './utils'
 // Types
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns update roster vehicle form methods, cancel button onClick handler, and update roster vehicle form submit function
+**/
 export const useHandleUpdateRosterVehicleForm = (vehicle: AppTypes.VehicleRosterInterface | undefined) => {
   const methods = useUpdateRosterVehicle(vehicle)
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -18,7 +21,10 @@ export const useHandleUpdateRosterVehicleForm = (vehicle: AppTypes.VehicleRoster
   return { methods, onCancelBtnClick, handleFormSubmit }
 }
 
-export const useUpdateRosterVehicle = (vehicle: AppTypes.VehicleRosterInterface | undefined) => {
+/**
+* Returns update roster vehicle form methods
+**/
+const useUpdateRosterVehicle = (vehicle: AppTypes.VehicleRosterInterface | undefined) => {
 
   return useForm<AppTypes.VehicleRosterInterface>({
     mode: 'onBlur',
@@ -30,7 +36,10 @@ export const useUpdateRosterVehicle = (vehicle: AppTypes.VehicleRosterInterface 
   })
 }
 
-export const useHandleFormSubmit = () => {
+/**
+* Returns update roster vehicle form submit function
+**/
+const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 
   const queryClient = useQueryClient()

@@ -5,6 +5,9 @@ import { useEnableQuery } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 
+/**
+* Returns visibility boolean and remove button props
+**/
 export const useHandleBatteryInput = (index: number) => {
   const { control, setValue, getValues } = useCreateMissionCtx()
 
@@ -26,6 +29,9 @@ export const useHandleBatteryInput = (index: number) => {
   return { control, setValue, visible, removeBtnProps }
 }
 
+/**
+* Returns battery options by roster vehicle
+**/
 export const useHandleBatteryOptions = () => {
   const { control } = useCreateMissionCtx()
   
@@ -41,6 +47,9 @@ export const useHandleBatteryOptions = () => {
   return batteries
 }
 
+/**
+* Returns roster vehicle batteries from server
+**/
 const useGetBatteries = () => {
   const { enabled, token } = useEnableQuery()
 

@@ -4,21 +4,6 @@ import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 // Types
 import * as AppTypes from '@/context/App/types'
 
-export const useOnCurrentDateTimeBtnClick = () => {
-  const { setValue } = useCreateMissionCtx()
-
-  const cb = (field: FieldPath<AppTypes.MissionCreateInterface>) => {
-    const now = new Date()
-    const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
-      .toISOString()
-      .slice(0, 16)
-
-    setValue(field, localDateTime, { shouldDirty: true, shouldValidate: true })
-  }
-
-  return cb
-}
-
 export const useHandleFlightInputs = (index: number) => {
   const { getValues, setValue } = useCreateMissionCtx()
 
@@ -41,19 +26,34 @@ export const useHandleFlightInputs = (index: number) => {
 export const useHandleTakeOffInput = (index: number) => {
   const { control, watch, setValue } = useCreateMissionCtx()
 
-  const onCurrentDateTimeBtnClick = useOnCurrentDateTimeBtnClick()
+  const onClick = useOnCurrentDateTimeBtnClick()
 
   const landingDateTime = watch(`Flights.${ index }.landingDateTime`)
 
-  return { control, setValue, onCurrentDateTimeBtnClick, landingDateTime }
+  return { control, setValue, onClick, landingDateTime }
 }
 
 export const useHandleLandingInput = (index: number) => {
   const { control, watch, setValue } = useCreateMissionCtx()
 
-  const onCurrentDateTimeBtnClick = useOnCurrentDateTimeBtnClick()
+  const onClick = useOnCurrentDateTimeBtnClick()
 
   const takeOffDateTime = watch(`Flights.${ index }.takeOffDateTime`)
 
-  return { control, setValue, onCurrentDateTimeBtnClick, takeOffDateTime }
+  return { control, setValue, onClick, takeOffDateTime }
+}
+
+const useOnCurrentDateTimeBtnClick = () => {
+  const { setValue } = useCreateMissionCtx()
+
+  const onClick = (field: FieldPath<AppTypes.MissionCreateInterface>) => {
+    const now = new Date()
+    const localDateTime = new Date(now.getTime() - now.getTimezoneOffset() * 60000)
+      .toISOString()
+      .slice(0, 16)
+
+    setValue(field, localDateTime, { shouldDirty: true, shouldValidate: true })
+  }
+
+  return onClick
 }

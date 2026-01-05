@@ -11,6 +11,9 @@ import { utcToLocalDatetime, handleUpdateMission } from './utils'
 import * as AppTypes from '@/context/App/types'
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
+/**
+* Returns update mission form methods, cancel button onClick handler, delete button props, and update mission form submit function
+**/
 export const useHandleUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) => {
   const methods = useUpdateMissionForm(mission)
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -20,6 +23,9 @@ export const useHandleUpdateMissionForm = (mission: AppTypes.MissionInterface | 
   return { methods, onCancelBtnClick, deleteBtnProps, handleFormSubmit } 
 }
 
+/**
+* Returns update mission form methods
+**/
 const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) => {
   const flights = mission?.Flights?.map(flight => {
     return ({ ...flight, takeOffDateTime: utcToLocalDatetime(flight.takeOffDateTime), landingDateTime: utcToLocalDatetime(flight.landingDateTime) })
@@ -34,6 +40,9 @@ const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) =>
   })
 }
 
+/**
+* Returns cancel button onClick handler
+**/
 const useOnCancelBtnClick = () => {
   const { dispatch } = useContext(MissionsCtx)
 
@@ -43,6 +52,9 @@ const useOnCancelBtnClick = () => {
   }
 }
 
+/**
+* Returns delete button onClick handler and label; handles delete mission functionality
+**/
 const useHandleDeleteBtn = () => {
   const { missionUUID, dispatch } = useContext(MissionsCtx)
 
@@ -70,6 +82,9 @@ const useHandleDeleteBtn = () => {
   return { onClick, label: !state.active ? 'Delete Mission' : 'Confirm Delete' }
 }
 
+/**
+* Returns update mission form submit function
+**/
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(MissionsCtx)
 

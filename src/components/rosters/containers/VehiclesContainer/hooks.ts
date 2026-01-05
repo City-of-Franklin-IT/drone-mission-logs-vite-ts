@@ -7,6 +7,9 @@ import { useEnableQuery } from "@/helpers/hooks"
 import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
 import RostersCtx from "../../context"
 
+/**
+* Returns refs for container and form; vehicle create button onClick handler
+**/
 export const useHandleVehiclesContainer = () => {
   const onCreateBtnClick = useOnCreateBtnClick('vehicle')
 
@@ -16,6 +19,9 @@ export const useHandleVehiclesContainer = () => {
   return { refs: { topRef, formRef }, onCreateBtnClick }
 }
 
+/**
+* Returns vehicle by uuid from server
+**/
 export const useGetVehicle = () => {
   const { formUUID } = useContext(RostersCtx)
 
@@ -28,6 +34,9 @@ export const useGetVehicle = () => {
   })
 }
 
+/**
+* Returns delete vehicle button props, vehicle uuid from context, and form visibility boolean
+**/
 export const useHandleForm = () => {
   const { formUUID, formType, dispatch } = useContext(RostersCtx)
 

@@ -2,6 +2,9 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router"
 import { useActiveAccount } from "@/helpers/hooks"
 
+/**
+* Redirects authenticated users to Missions page; unauthenticated users to login page
+**/
 export const useRedirect = () => {
   const navigate = useNavigate()
 
@@ -10,6 +13,8 @@ export const useRedirect = () => {
   useEffect(() => {
     if(activeAccount) {
       navigate('/missions')
-    } else navigate('/')
+    } else {
+      window.location.href = '/'
+    }
   }, [activeAccount, navigate])
 }

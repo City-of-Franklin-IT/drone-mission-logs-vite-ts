@@ -9,6 +9,9 @@ import { handleUpdatePersonnel } from './utils'
 // Types
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns update roster personnel form methods, cancel button onClick handler, and update roster personnel form submit function
+**/
 export const useHandleUpdateRosterPersonnelForm = (personnel: AppTypes.PersonnelRosterInterface | undefined) => {
   const methods = useUpdateRosterPersonnel(personnel)
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -17,12 +20,18 @@ export const useHandleUpdateRosterPersonnelForm = (personnel: AppTypes.Personnel
   return { methods, onCancelBtnClick, handleFormSubmit }
 }
 
+/**
+* Returns cancel button onClick handler
+**/
 export const useOnCancelBtnClick = () => {
   const { dispatch } = useContext(RostersCtx)
 
   return () => dispatch({ type: 'RESET_CTX' })
 }
 
+/**
+* Returns update roster personnel form methods
+**/
 const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInterface | undefined) => {
 
   return useForm<AppTypes.PersonnelRosterInterface>({
@@ -34,6 +43,9 @@ const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInterface |
   })
 }
 
+/**
+* Returns update roster personnel form submit function
+**/
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 

@@ -7,6 +7,9 @@ import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
 import RostersCtx from "../../context"
 
+/**
+* Returns battery by uuid from server 
+**/
 export const useGetBattery = () => {
   const { formUUID } = useContext(RostersCtx)
 
@@ -19,6 +22,9 @@ export const useGetBattery = () => {
   })
 }
 
+/**
+* Returns selected battery uuid from context, delete battery button props, and form visibility boolean
+**/
 export const useHandleForm = () => {
   const { formUUID, formType, dispatch } = useContext(RostersCtx)
 
@@ -54,6 +60,9 @@ export const useHandleForm = () => {
   return { formUUID, deleteBtnProps, visible }
 }
 
+/**
+* Returns create battery button onClick handler and visibility boolean
+**/
 export const useHandleCreateBtn = () => {
   const { batteryRosterFilter } = useContext(RostersCtx)
 

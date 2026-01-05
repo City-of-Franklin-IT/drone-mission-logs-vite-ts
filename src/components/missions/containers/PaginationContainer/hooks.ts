@@ -1,6 +1,9 @@
 import { useContext, useEffect } from "react"
 import MissionsCtx from "../../context"
 
+/**
+* Returns previous page and next page button props and pagination label; updates totalPages in context
+**/
 export const useHandlePageNav = (count: number) => {
   const { currentPage, totalPages, dispatch } = useContext(MissionsCtx)
 

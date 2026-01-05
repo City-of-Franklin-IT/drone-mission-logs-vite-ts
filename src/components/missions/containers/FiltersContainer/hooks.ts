@@ -2,13 +2,18 @@ import React, { useContext } from "react"
 import MissionsCtx from "../../context"
 import { useGetPersonnel } from "../../forms/create/CreatePersonnelForm/hooks"
 
+/**
+* Returns filter start date and end date input props, and clear date range filter button props
+**/
 export const useHandleDateRangeFilterInputs = () => {
   const { dateRangeFilter, dispatch } = useContext(MissionsCtx)
 
   const startOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const payload = e.currentTarget.value
 
-    dispatch({ type: 'SET_DATE_RANGE_FILTER_START', payload })
+    if(payload !== dateRangeFilter.start) {
+      dispatch({ type: 'SET_DATE_RANGE_FILTER_START', payload })
+    }
   }
 
   const startInputProps = {
@@ -19,7 +24,9 @@ export const useHandleDateRangeFilterInputs = () => {
   const endOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const payload = e.currentTarget.value
 
-    dispatch({ type: 'SET_DATE_RANGE_FILTER_END', payload })
+    if(payload !== dateRangeFilter.end) {
+      dispatch({ type: 'SET_DATE_RANGE_FILTER_END', payload })
+    }
   }
 
   const endInputProps = {
@@ -38,6 +45,9 @@ export const useHandleDateRangeFilterInputs = () => {
   return { startInputProps, endInputProps, clearBtnProps }
 }
 
+/**
+* Returns personnel filter select props including onChange handler, and clear personnel filter button props
+**/
 export const useHandlePersonnelFilter = () => {
   const { personnelFilter, dispatch } = useContext(MissionsCtx)
 
@@ -56,6 +66,9 @@ export const useHandlePersonnelFilter = () => {
   return { loading: isLoading, selectProps, clearBtnProps }
 }
 
+/**
+* Returns search component input props and clear search value button props
+**/
 export const useHandleSearch = () => {
   const { searchValue, dispatch } = useContext(MissionsCtx)
 

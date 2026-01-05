@@ -1,12 +1,15 @@
 import { useQueries } from "@tanstack/react-query"
-import { useEnableQuery, useGetUserDepartment } from "@/helpers/hooks"
+import { useEnableQuery } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 
+/**
+* Returns roster data by department from server
+**/
 export const useGetRosters = () => {
   const { enabled, token } = useEnableQuery()
 
-  const { department, isLoading } = useGetUserDepartment()
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
 
   const params = new URLSearchParams()
 
@@ -14,8 +17,8 @@ export const useGetRosters = () => {
 
   const results = useQueries({
     queries: [
-      { queryKey: ['getRosterPersonnel'], queryFn: () => AppActions.getRosterPersonnel(params, authHeaders(token)), staleTime: Infinity, enabled: enabled && !!token && !isLoading && !!department },
-      { queryKey: ['getRosterVehicles'], queryFn: () => AppActions.getRosterVehicles(params, authHeaders(token)), staleTime: Infinity, enabled: enabled && !!token && !isLoading && !!department },
+      { queryKey: ['getRosterPersonnel'], queryFn: () => AppActions.getRosterPersonnel(params, authHeaders(token)), staleTime: Infinity, enabled: enabled && !!token && !!department },
+      { queryKey: ['getRosterVehicles'], queryFn: () => AppActions.getRosterVehicles(params, authHeaders(token)), staleTime: Infinity, enabled: enabled && !!token && !!department },
       { queryKey: ['getRosterBatteries'], queryFn: () => AppActions.getRosterBatteries(authHeaders(token)), staleTime: Infinity, enabled: enabled && !!token }
     ]
   })

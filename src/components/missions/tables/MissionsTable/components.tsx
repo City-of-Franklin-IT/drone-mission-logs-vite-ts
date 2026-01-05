@@ -152,10 +152,13 @@ const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
 type MissionDetailsProps = { expanded: boolean, tableData: AppTypes.MissionInterface, index: number }
 
 const ExportBtn = ({ uuid }: { uuid: string }) => {
+  const href = window.location.hostname === 'pdapps.franklintn.gov' ? 
+    `https://cofdbv10/ReportServer?/Police%20Department/Drone%20Mission%20Log%20Report&uuid=${ uuid }&rs:Command=Render&rs:Format=PDF` :
+    `https://cofdbv10/ReportServer?/Fire%20Department/Drone%20Mission%20Log%20Report&uuid=${ uuid }&rs:Command=Render&rs:Format=PDF`
 
   return (
     <td>
-      <a href={`https://cofdbv10/ReportServer?/Police%20Department/Drone%20Mission%20Log%20Report&uuid=${ uuid }&rs:Command=Render&rs:Format=PDF`} target="_self" className="hover:text-error-content">
+      <a href={href} target="_self" className="hover:text-error-content">
         <div className="flex flex-col items-center">
           <img src={iconMap.get('pdf')} alt="pdf icon" className="w-[20px]" title="Export to PDF" />
           <small className="font-[play] uppercase">Export</small>

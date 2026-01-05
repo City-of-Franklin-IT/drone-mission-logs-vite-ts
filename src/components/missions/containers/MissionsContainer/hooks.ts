@@ -5,6 +5,9 @@ import { useEnableQuery } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import MissionsCtx from "../../context"
 
+/**
+* Returns mission by uuid from server
+**/
 export const useGetMission = () => {
   const { missionUUID } = useContext(MissionsCtx)
 
@@ -17,6 +20,9 @@ export const useGetMission = () => {
   })
 }
 
+/**
+* Returns form ref; scrolls to ref when available / form is present
+**/
 export const useScrollToRef = () => {
   const { missionUUID } = useContext(MissionsCtx)
 

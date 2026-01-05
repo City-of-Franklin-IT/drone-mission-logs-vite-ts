@@ -5,13 +5,16 @@ import HeaderCtx from "./context"
 // Types
 import { PagesType } from "./context"
 
+/**
+* Updates 
+**/
 export const useSetActivePage = () => {
-  const { dispatch } = useContext(HeaderCtx)
+  const { activePage, dispatch } = useContext(HeaderCtx)
 
   const location = useLocation()
 
   useEffect(() => {
-    const pathname = location.pathname
+    const { pathname } = location
 
     let payload: PagesType = 'Login'
 
@@ -29,6 +32,8 @@ export const useSetActivePage = () => {
         payload = 'Login'
     }
 
-    dispatch({ type: 'SET_ACTIVE_PAGE', payload })
-  }, [dispatch, location])
+    if(payload !== activePage) {
+      dispatch({ type: 'SET_ACTIVE_PAGE', payload })
+    }
+  }, [dispatch, location, activePage])
 }

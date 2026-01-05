@@ -10,6 +10,9 @@ import { handleCreateRosterBattery } from './utils'
 import * as AppTypes from '@/context/App/types'
 import { errorPopup } from "@/utils/Toast/Toast"
 
+/**
+* Returns create roster battery form methods, cancel button onClick handler, and create roster battery form submit function
+**/
 export const useHandleCreateRosterBatteryForm = () => {
   const methods = useCreateRosterBattery()
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -18,6 +21,9 @@ export const useHandleCreateRosterBatteryForm = () => {
   return { methods, onCancelBtnClick, handleFormSubmit }
 }
 
+/**
+* Returns create roster battery form methods
+**/
 const useCreateRosterBattery = () => {
   const { batteryRosterFilter } = useContext(RostersCtx)
 
@@ -30,6 +36,9 @@ const useCreateRosterBattery = () => {
   })
 }
 
+/**
+* Returns create roster battery form submit function
+**/
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 

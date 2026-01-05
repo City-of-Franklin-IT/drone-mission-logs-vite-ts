@@ -47,13 +47,13 @@ const TableBody = ({ tableData }: { tableData: AppTypes.VehicleRosterInterface[]
 type TableRowProps = { tableData: AppTypes.VehicleRosterInterface, index: number }
 
 const TableRow = (props: TableRowProps) => {
-  const { visible, trProps, missions } = useHandleTableRow(props)
+  const { visible, trProps, missionsCount } = useHandleTableRow(props)
 
   return (
     <tr { ...trProps }>
       <td className="px-10 whitespace-nowrap">{props.tableData.model}</td>
       <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{props.tableData.registration}</td>
-      <td className="px-10 text-center">{missions.length}</td>
+      <td className="px-10 text-center">{missionsCount}</td>
     </tr>
   )
 }

@@ -5,19 +5,27 @@ import RostersCtx from "../../context"
 import { FormType } from "../../context"
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns table row onClick handler
+**/
 export const useOnTableRowClick = (formType: FormType, uuid: string) => {
   const { dispatch } = useContext(RostersCtx)
 
-  return () => {
+  const onClick = () => {
     dispatch({ type: 'SET_FORM_TYPE', payload: formType })
     dispatch({ type: 'SET_FORM_UUID', payload: uuid })
   }
+
+  return onClick
 }
 
+/**
+* Returns table row props and missions 
+**/
 export const useHandleTableRow = ({ tableData, index }: { tableData: AppTypes.PersonnelRosterInterface, index: number }) => {
   const onTableRowClick = useOnTableRowClick('personnel', tableData.uuid)
 
-  const missions = tableData.Personnel?.length ? tableData.Personnel.map(item => (item.Mission)) : []
+  const missionsCount = Array.isArray(tableData.Personnel) ? tableData.Personnel.map(item => (item.Mission)).length : '-'
 
   const bgColor = index % 2 === 0 ? 'bg-neutral/20' : null
 
@@ -28,5 +36,5 @@ export const useHandleTableRow = ({ tableData, index }: { tableData: AppTypes.Pe
     onClick: onTableRowClick
   }
 
-  return { trProps, missions }
+  return { trProps, missionsCount }
 }

@@ -9,6 +9,9 @@ import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 // Types
 import { FormType } from "../../context"
 
+/**
+* Returns refs for the container and form; create personnel button onClick handler
+**/
 export const useHandlePersonnelContainer = () => {
   const topRef = useRef<HTMLDivElement>(null)
   const formRef = useRef<HTMLDivElement>(null)
@@ -18,6 +21,9 @@ export const useHandlePersonnelContainer = () => {
   return { refs: { topRef, formRef }, onCreateBtnClick }
 }
 
+/**
+* Returns create personnel button onClick handler
+**/
 export const useOnCreateBtnClick = (formType: FormType) => {
   const { dispatch } = useContext(RostersCtx)
 
@@ -27,6 +33,9 @@ export const useOnCreateBtnClick = (formType: FormType) => {
   }
 }
 
+/**
+* Returns person by uuid from server
+**/
 export const useGetPersonnel = () => {
   const { formUUID } = useContext(RostersCtx)
 
@@ -39,6 +48,9 @@ export const useGetPersonnel = () => {
   })
 }
 
+/**
+* Returns personnel delete button props and personnel uuid and formType from context
+**/
 export const useHandleForm = () => {
   const { formUUID, formType, dispatch } = useContext(RostersCtx)
 
@@ -69,6 +81,9 @@ export const useHandleForm = () => {
   return { onDeleteBtnClick, deleteBtnLabel, formUUID, formType }
 }
 
+/**
+* Scrolls to form ref when available
+**/
 export const useScrollToFormRef = (refs: { topRef: React.RefObject<HTMLDivElement>, formRef: React.RefObject<HTMLDivElement> }, target: FormType): void => {
   const { formType } = useContext(RostersCtx)
 

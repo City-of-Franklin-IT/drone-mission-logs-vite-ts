@@ -1,6 +1,9 @@
 import { useParams } from "react-router"
 import { createFormMap } from './utils'
 
+/**
+* Returns create form component
+**/
 export const useSetForm = () => {
   const { formtype } = useParams<{ formtype: string }>()
 

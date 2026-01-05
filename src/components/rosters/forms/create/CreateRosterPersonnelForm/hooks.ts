@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useQueryClient } from "@tanstack/react-query"
 import RostersCtx from "@/components/rosters/context"
-import { useEnableQuery, useGetUserDepartment } from "@/helpers/hooks"
+import { useEnableQuery } from "@/helpers/hooks"
 import { errorPopup } from "@/utils/Toast/Toast"
 import { useOnCancelBtnClick } from "../../update/UpdateRosterPersonnelForm/hooks"
 import { handleCreateRosterPersonnel } from './utils'
@@ -10,6 +10,9 @@ import { handleCreateRosterPersonnel } from './utils'
 // Types
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns create roster personnel form methods, cancel button onClick handler, and create roster personnel form submit function
+**/
 export const useHandleCreateRosterPersonnelForm = () => {
   const methods = useCreateRosterPersonnel()
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -18,8 +21,11 @@ export const useHandleCreateRosterPersonnelForm = () => {
   return { methods, onCancelBtnClick, handleFormSubmit }
 }
 
+/**
+* Returns create roster personnel form methods
+**/
 const useCreateRosterPersonnel = () => {
-  const { department } = useGetUserDepartment()
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
   
   const form = useForm<AppTypes.PersonnelRosterCreateInterface>({
     mode: 'onBlur',
@@ -38,6 +44,9 @@ const useCreateRosterPersonnel = () => {
   return form
 }
 
+/**
+* Returns create roster personnel form submit function
+**/
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 

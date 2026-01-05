@@ -24,7 +24,7 @@ export const FlightInputs = ({ index }: { index: number }) => {
 }
 
 const TakeOffInput = ({ index }: { index: number }) => {
-  const { control, setValue, onCurrentDateTimeBtnClick, landingDateTime } = useHandleTakeOffInput(index)
+  const { control, setValue, onClick, landingDateTime } = useHandleTakeOffInput(index)
 
   return (
     <Controller
@@ -61,7 +61,7 @@ const TakeOffInput = ({ index }: { index: number }) => {
                   setValue(`Flights.${ index }._dirtied`, true)
                 }} />
             </div>
-            <CurrentDateTimeBtn onClick={() => onCurrentDateTimeBtnClick(field.name)} />
+            <CurrentDateTimeBtn onClick={() => onClick(field.name)} />
           </div>
           <FormError error={error?.message} />
         </div>
@@ -70,7 +70,7 @@ const TakeOffInput = ({ index }: { index: number }) => {
 }
 
 const LandingInput = ({ index }: { index: number }) => {
-  const { control, setValue, onCurrentDateTimeBtnClick, takeOffDateTime } = useHandleLandingInput(index)
+  const { control, setValue, onClick, takeOffDateTime } = useHandleLandingInput(index)
 
   return (
     <Controller
@@ -107,7 +107,7 @@ const LandingInput = ({ index }: { index: number }) => {
                   setValue(`Flights.${ index }._dirtied`, true)
                 }} />
             </div>
-            <CurrentDateTimeBtn onClick={() => onCurrentDateTimeBtnClick(field.name)} />
+            <CurrentDateTimeBtn onClick={() => onClick(field.name)} />
           </div>
           <FormError error={error?.message} />
         </div>

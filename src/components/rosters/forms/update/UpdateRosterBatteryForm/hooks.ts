@@ -10,6 +10,9 @@ import { handleUpdateBattery } from './utils'
 // Types
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns update roster battery form methods, cancel button onClick handler, and update roster battery form submit function
+**/
 export const useHandleUpdateRosterBatteryForm = (battery: AppTypes.BatteryRosterInterface | undefined) => {
   const methods = useUpdateRosterBattery(battery)
   const onCancelBtnClick = useOnCancelBtnClick()
@@ -18,6 +21,9 @@ export const useHandleUpdateRosterBatteryForm = (battery: AppTypes.BatteryRoster
   return { methods, onCancelBtnClick, handleFormSubmit }
 }
 
+/**
+* Returns update roster battery form methods
+**/
 const useUpdateRosterBattery = (battery: AppTypes.BatteryRosterInterface | undefined) => {
 
   return useForm<AppTypes.BatteryRosterCreateInterface>({
@@ -29,6 +35,9 @@ const useUpdateRosterBattery = (battery: AppTypes.BatteryRosterInterface | undef
   })
 }
 
+/**
+* Returns update roster battery form submit function
+**/
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 

@@ -56,12 +56,12 @@ const TableBody = ({ tableData }: { tableData: AppTypes.BatteryRosterInterface[]
 type TableRowType = { tableData: AppTypes.BatteryRosterInterface, index: number }
 
 const TableRow = (props: TableRowType) => {
-  const { trProps, missions} = useHandleTableRow(props)
+  const { trProps, missionsCount} = useHandleTableRow(props)
 
   return (
     <tr { ...trProps }>
       <td className="px-10 whitespace-nowrap">{props.tableData.batteryName}</td>
-      <td className="px-10 whitespace-nowrap">{missions.length}</td>
+      <td className="px-10 whitespace-nowrap">{missionsCount}</td>
     </tr>
   )
 }

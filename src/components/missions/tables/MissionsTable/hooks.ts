@@ -5,6 +5,9 @@ import { iconMap } from "./utils"
 // Types
 import * as AppTypes from '@/context/App/types'
 
+/**
+* Returns paginated mission table data; applies filters when applicable
+**/
 export const useSetTableData = (missions: AppTypes.MissionInterface[]) => {
   const { dateRangeFilter, personnelFilter, searchValue, currentPage } = useContext(MissionsCtx)
 
@@ -45,7 +48,10 @@ export const useSetTableData = (missions: AppTypes.MissionInterface[]) => {
   }, [missionsArray, dateRangeFilter, personnelFilter, searchValue, currentPage])
 }
 
-export const useSetColumnVisibility = () => { // Hide cols on smaller display sizes
+/**
+* Returns visibility boolean for table columns; hides certain columns on smaller devices
+**/
+export const useSetColumnVisibility = () => {
   const [state, setState] = useState<{ visible: boolean }>({ visible: false })
 
   useLayoutEffect(() => {
@@ -63,6 +69,9 @@ export const useSetColumnVisibility = () => { // Hide cols on smaller display si
   return state.visible
 }
 
+/**
+* Returns onClick handler for mission details button, expanded boolean, mission description visibility boolean, and expanded button icon source
+**/
 export const useHandleTableRow = () => {
   const [state, setState] = useState<{ expanded: boolean }>({ expanded: false })
 

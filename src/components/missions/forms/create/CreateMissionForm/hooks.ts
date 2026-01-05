@@ -2,7 +2,7 @@ import { useCallback, useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm, useFormContext, useFieldArray } from 'react-hook-form'
-import { useEnableQuery, useGetUserDepartment } from '@/helpers/hooks'
+import { useEnableQuery } from '@/helpers/hooks'
 import { handleCreateMission } from './utils'
 import { errorPopup } from '@/utils/Toast/Toast'
 
@@ -65,7 +65,7 @@ export const useHandleAddFlightBtn = () => {
 }
 
 const useCreateMissionForm = () => {
-  const { department } = useGetUserDepartment()
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
 
   const form = useForm<AppTypes.MissionCreateInterface>({
     mode: 'onBlur',
