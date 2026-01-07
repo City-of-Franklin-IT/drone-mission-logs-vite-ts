@@ -2,44 +2,47 @@ import { useContext, useEffect } from "react"
 import MissionsCtx from "../../context"
 
 /**
-* Returns previous page and next page button props and pagination label; updates totalPages in context
+* Returns pagination button props and label; handles updating totalPages in context
 **/
 export const useHandlePageNav = (count: number) => {
-  const { currentPage, totalPages, dispatch } = useContext(MissionsCtx)
+  const { currentPage, totalPages, dateRangeFilter, personnelFilter, searchValue, dispatch } = useContext(MissionsCtx)
 
-  const handlePrevBtn = () => {
-    if(currentPage !== 1) {
-      dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage - 1 })
-    }
+  const btnOnClick = (type: 'prev' | 'next') => {
+    const payload = type === 'prev' ?
+      currentPage - 1 :
+      currentPage + 1
+
+    dispatch({ type: 'SET_CURRENT_PAGE', payload })
   }
 
-  const handleNextBtn = () => {
-    if(currentPage !== totalPages) {
-      dispatch({ type: 'SET_CURRENT_PAGE', payload: currentPage + 1 })
-    }
-  }
-
-  const prevBtnProps = { 
-    onClick: handlePrevBtn,
+  const prevPageBtnProps = {
+    onClick: () => btnOnClick('prev'),
     disabled: currentPage === 1
   }
 
-  const nextBtnProps = { 
-    onClick: handleNextBtn,
+  const nextPageBtnProps = {
+    onClick: () => btnOnClick('next'),
     disabled: !totalPages || currentPage === totalPages
+  }
+
+  const pageBtnProps = {
+    prevPageBtnProps,
+    nextPageBtnProps
   }
 
   const label = `Page ${ currentPage } / ${ totalPages }`
 
   useEffect(() => {
-    if(count > 25) {
-      const payload = Math.ceil(count / 25)
+    const payload = count > 25 ?
+      Math.ceil(count / 25) :
+      1
 
-      if(totalPages !== payload) {
-        dispatch({ type: 'SET_TOTAL_PAGES', payload }) 
-      }
-    }
-  }, [totalPages, count])
+    dispatch({ type: 'SET_TOTAL_PAGES', payload })
+  }, [count, totalPages])
 
-  return { prevBtnProps, nextBtnProps, label }
+  useEffect(() => {
+    dispatch({ type: 'SET_CURRENT_PAGE', payload: 1 })
+  }, [dateRangeFilter, personnelFilter, searchValue])
+
+  return { pageBtnProps, label }
 }

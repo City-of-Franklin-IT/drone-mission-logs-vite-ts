@@ -61,7 +61,7 @@ describe('MissionsTable', () => {
       render(
         <MemoryRouter>
           <MissionsProvider>
-            <MissionsTable missions={mockMissions} />
+            <MissionsTable tableData={mockMissions} />
           </MissionsProvider>
         </MemoryRouter>
       )

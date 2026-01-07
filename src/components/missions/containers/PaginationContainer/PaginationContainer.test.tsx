@@ -11,7 +11,7 @@ describe('PaginationContainer', () => {
       const TestComponent = () => {
         const { dispatch } = useContext(MissionsCtx)
 
-        const { prevBtnProps, nextBtnProps, label } = useHandlePageNav(25)
+        const { pageBtnProps, label } = useHandlePageNav(25)
 
         useEffect(() => {
           dispatch({ type: 'SET_TOTAL_PAGES', payload: 10 })
@@ -21,12 +21,12 @@ describe('PaginationContainer', () => {
           <>
             <button
               type="button"
-              { ...prevBtnProps }>
+              { ...pageBtnProps.prevPageBtnProps }>
                 Prev
             </button>
             <button
               type="button"
-              { ...nextBtnProps }>
+              { ...pageBtnProps.nextPageBtnProps }>
                 Next
             </button>
             <span>{label}</span>
