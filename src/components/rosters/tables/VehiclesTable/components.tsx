@@ -21,7 +21,9 @@ const TableHeaders = () => {
     <thead>
       <tr className="text-warning uppercase bg-neutral/50 border-b-2 border-warning">
         <th className="px-10">Make/Model</th>
-        <th className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>Registration</th>
+        <th className={`px-10 ${ !visible ?
+          'hidden' :
+          'block' }`}>Registration</th>
         <th className="px-10">Missions</th>
       </tr>
     </thead>
@@ -52,7 +54,9 @@ const TableRow = (props: TableRowProps) => {
   return (
     <tr { ...trProps }>
       <td className="px-10 whitespace-nowrap">{props.tableData.model}</td>
-      <td className={`px-10 ${ !visible ? 'hidden' : 'block' }`}>{props.tableData.registration}</td>
+      <td className={`px-10 ${ !visible ?
+        'hidden' :
+        'block' }`}>{props.tableData.registration}</td>
       <td className="px-10 text-center">{missionsCount}</td>
     </tr>
   )

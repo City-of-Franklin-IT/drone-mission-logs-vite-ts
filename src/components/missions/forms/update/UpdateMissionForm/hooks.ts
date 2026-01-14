@@ -79,7 +79,9 @@ const useHandleDeleteBtn = () => {
     } else errorPopup(result.msg)
   }
 
-  return { onClick, label: !state.active ? 'Delete Mission' : 'Confirm Delete' }
+  return { onClick, label: !state.active ?
+    'Delete Mission' :
+    'Confirm Delete' }
 }
 
 /**

@@ -128,5 +128,9 @@ Uses Azure MSAL (Microsoft Authentication Library) for SSO:
 - Test files colocated with components using `*.test.tsx` pattern
 - Run tests with `npm run test`
 
-### README.md
-For README.md file creation use template at /opt/claude-standards/README_TEMPLATE.md as a guide
+### Coding Standards
+Use the guides in /opt/claude-standards/ for coding conventions:
+- `TYPESCRIPT_STYLE.md` - TypeScript formatting rules
+- `REACT_CONVENTIONS.md` - React component patterns
+- `IMPORT_ORGANIZATION.md` - Import ordering
+- `README_TEMPLATE.md` - README file structure

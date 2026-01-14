@@ -54,7 +54,9 @@ export const useHandleForm = () => {
 
   const deleteBtnProps = {
     onClick: onDeleteBtnClick,
-    label: !state.active ? 'Delete Battery' : 'Confirm Delete'
+    label: !state.active ?
+      'Delete Battery' :
+      'Confirm Delete'
   }
 
   return { formUUID, deleteBtnProps, visible }

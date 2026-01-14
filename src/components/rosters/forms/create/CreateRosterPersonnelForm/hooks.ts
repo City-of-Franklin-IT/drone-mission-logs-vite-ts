@@ -25,7 +25,9 @@ export const useHandleCreateRosterPersonnelForm = () => {
 * Returns create roster personnel form methods
 **/
 const useCreateRosterPersonnel = () => {
-  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ?
+    'Police' :
+    'Fire'
   
   const form = useForm<AppTypes.PersonnelRosterCreateInterface>({
     mode: 'onBlur',

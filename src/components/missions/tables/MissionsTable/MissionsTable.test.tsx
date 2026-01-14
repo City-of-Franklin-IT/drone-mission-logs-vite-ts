@@ -30,7 +30,9 @@ describe('MissionsTable', () => {
       const TestComponent = () => {
         const visibility = useSetColumnVisibility()
 
-        const label = visibility ? 'Visible' : 'Hidden'
+        const label = visibility ?
+          'Visible' :
+          'Hidden'
 
         return (
           <span data-testid="test-span">{label}</span>

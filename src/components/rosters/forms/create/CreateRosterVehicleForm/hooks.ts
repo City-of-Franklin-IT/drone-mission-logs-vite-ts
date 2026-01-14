@@ -25,7 +25,9 @@ export const useHandleCreateRosterVehicleForm = () => {
 * Returns create roster vehicle form methods
 **/
 const useCreateRosterVehicle = () => {
-  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ?
+    'Police' :
+    'Fire'
 
   const form = useForm<AppTypes.VehicleRosterCreateInterface>({
     mode: 'onBlur',

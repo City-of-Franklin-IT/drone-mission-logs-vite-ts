@@ -62,7 +62,9 @@ export const useHandleForm = () => {
     } else errorPopup(result.msg)
   }
 
-  const deleteBtnLabel = !state.active ? 'Delete Vehicle' : 'Confirm Delete'
+  const deleteBtnLabel = !state.active ?
+    'Delete Vehicle' :
+    'Confirm Delete'
 
   const visible = formType === 'vehicle'
 

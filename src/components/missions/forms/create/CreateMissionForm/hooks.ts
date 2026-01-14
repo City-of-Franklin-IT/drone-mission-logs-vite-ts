@@ -65,7 +65,9 @@ export const useHandleAddFlightBtn = () => {
 }
 
 const useCreateMissionForm = () => {
-  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ?
+    'Police' :
+    'Fire'
 
   const form = useForm<AppTypes.MissionCreateInterface>({
     mode: 'onBlur',

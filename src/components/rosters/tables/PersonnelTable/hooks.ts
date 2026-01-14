@@ -25,9 +25,13 @@ export const useOnTableRowClick = (formType: FormType, uuid: string) => {
 export const useHandleTableRow = ({ tableData, index }: { tableData: AppTypes.PersonnelRosterInterface, index: number }) => {
   const onTableRowClick = useOnTableRowClick('personnel', tableData.uuid)
 
-  const missionsCount = Array.isArray(tableData.Personnel) ? tableData.Personnel.map(item => (item.Mission)).length : '-'
+  const missionsCount = Array.isArray(tableData.Personnel) ?
+    tableData.Personnel.map(item => (item.Mission)).length :
+    '-'
 
-  const bgColor = index % 2 === 0 ? 'bg-neutral/20' : null
+  const bgColor = index % 2 === 0 ?
+    'bg-neutral/20' :
+    null
 
   const className = `border-0 border-t-1 border-neutral-content hover:cursor-pointer hover:bg-neutral ${ bgColor }`
 

@@ -42,7 +42,9 @@ const TableHeaders = () => {
       <tr className="text-warning uppercase bg-neutral/50 border-b-2 border-warning">
         <th className="px-4">Date</th>
         <th>Location</th>
-        <th className={`${ !visible ? 'hidden' : 'block' }`}>Description</th>
+        <th className={`${ !visible ?
+          'hidden' :
+          'block' }`}>Description</th>
         <th className="text-center px-4">Personnel</th>
         <th></th>
       </tr>
@@ -73,10 +75,14 @@ const TableRow = (props: TableRowProps) => {
 
   return (
     <>
-      <tr className={`border-0 border-t-1 border-neutral-content ${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`} data-uuid={props.tableData.uuid}>
+      <tr className={`border-0 border-t-1 border-neutral-content ${ props.index % 2 === 0 ?
+        'bg-neutral/20' :
+        null }`} data-uuid={props.tableData.uuid}>
         <td className="px-4 whitespace-nowrap">{props.tableData.missionDate}</td>
         <td className="whitespace-nowrap">{props.tableData.location}</td>
-        <td className={`${ !visible ? 'hidden' : 'block' }`}>{props.tableData.missionDescription}</td>
+        <td className={`${ !visible ?
+          'hidden' :
+          'block' }`}>{props.tableData.missionDescription}</td>
         <PersonnelTableData personnel={props.tableData.Personnel} />
         <ExportBtn uuid={props.tableData.uuid} />
       </tr>
@@ -98,7 +104,9 @@ type ShowDetailsBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>
 const ShowDetailsBtn = (props: ShowDetailsBtnProps) => {
 
   return (
-    <tr className={`${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}>
+    <tr className={`${ props.index % 2 === 0 ?
+      'bg-neutral/20' :
+      null }`}>
       <td colSpan={5}>
         <div className="flex justify-around">
           <button
@@ -134,7 +142,9 @@ const Personnel = ({ personnel }: { personnel: AppTypes.PersonnelInterface }) =>
   const lastName = setLastName(personnel.email)
 
   return (
-    <div className={`flex gap-2 items-center uppercase ${ personnel.isPilot ? 'font-bold' : 'italic' }`}>
+    <div className={`flex gap-2 items-center uppercase ${ personnel.isPilot ?
+      'font-bold' :
+      'italic' }`}>
       <span>{lastName}</span>
       <PilotIcon isPilot={personnel.isPilot} />
     </div>
@@ -174,7 +184,9 @@ const MissionDetails = (props: MissionDetailsProps) => {
     <AnimatePresence>
       {props.expanded && (
         <motion.tr
-          className={`text-center ${ props.index % 2 === 0 ? 'bg-neutral/20' : null }`}
+          className={`text-center ${ props.index % 2 === 0 ?
+            'bg-neutral/20' :
+            null }`}
           { ...motionProps.fadeInOut }>
           <td colSpan={5}>
             <div className="flex flex-col">
@@ -385,7 +397,9 @@ const Inspections = ({ inspection }: { inspection: AppTypes.InspectionInterface 
 type InspectionType = { checked: boolean | null, children: React.ReactNode }
 
 const Inspection = (props: InspectionType) => {
-  const iconSrc = !props.checked ? 'not passed' : 'passed'
+  const iconSrc = !props.checked ?
+    'not passed' :
+    'passed'
 
   if(!iconSrc) return
 

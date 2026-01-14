@@ -7,7 +7,9 @@ import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 export const useGetPersonnel = () => {
   const { enabled, token } = useEnableQuery()
 
-  const department = window.location.hostname === 'pdapps.franklintn.gov' ? 'Police' : 'Fire'
+  const department = window.location.hostname === 'pdapps.franklintn.gov' ?
+    'Police' :
+    'Fire'
 
   const params = new URLSearchParams()
 

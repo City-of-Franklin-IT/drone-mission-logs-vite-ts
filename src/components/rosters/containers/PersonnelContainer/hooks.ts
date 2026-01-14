@@ -76,7 +76,9 @@ export const useHandleForm = () => {
     } else errorPopup(result.msg)
   }
 
-  const deleteBtnLabel = !state.active ? 'Delete Personnel' : 'Confirm Delete'
+  const deleteBtnLabel = !state.active ?
+    'Delete Personnel' :
+    'Confirm Delete'
 
   return { onDeleteBtnClick, deleteBtnLabel, formUUID, formType }
 }

@@ -34,7 +34,9 @@ export const useHandleTableRow = () => {
 
   const visible = useSetColumnVisibility()
 
-  const btnIconSrc = !state.expanded ? iconMap.get('downArrow')! : iconMap.get('upArrow')!
+  const btnIconSrc = !state.expanded ?
+    iconMap.get('downArrow')! :
+    iconMap.get('upArrow')!
 
   return { expanded: state.expanded, onDetailsBtnClick, visible, btnIconSrc }
 }

@@ -27,7 +27,9 @@ export const useHandleAddTFRBtn = () => {
     setValue('TemporaryFlightRestriction.source', '')
   }
 
-  const visible = !!getValues('TemporaryFlightRestriction') ? false : true
+  const visible = !!getValues('TemporaryFlightRestriction') ?
+    false :
+    true
 
   return { onClick, visible }
 }

@@ -35,7 +35,9 @@ export const Buttons = () => {
 }
 
 export const HomeLink = () => {
-  const label = window.location.host === 'pdapps.franklintn.gov' ? 'Back To All PD Apps' : 'Back To All FFD Apps'
+  const label = window.location.host === 'pdapps.franklintn.gov' ?
+    'Back To All PD Apps' :
+    'Back To All FFD Apps'
 
   return (
     <a href={'/home'} className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral">{label}</a>
@@ -58,7 +60,9 @@ const HeaderBtn = (props: HeaderBtnProps) => {
   return (
     <Link 
       to={props.to} 
-      className={`btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none ${ active ? 'text-warning' : 'text-neutral-content' }`}>
+      className={`btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none ${ active ?
+        'text-warning' :
+        'text-neutral-content' }`}>
         {props.children}
     </Link>
   )
