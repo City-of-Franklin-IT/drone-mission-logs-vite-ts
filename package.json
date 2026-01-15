@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite --port 6000",
     "build": "tsc -b && vite build",
-    "deploy": "scp -r dist andrew@cofasv32:/home/andrew/apps/builds/drone-mission-logs-vite-ts",
+    "deploy": "scp -r dist $USER@cofasv32:/opt/builds/drone-mission-logs-vite-ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest"
