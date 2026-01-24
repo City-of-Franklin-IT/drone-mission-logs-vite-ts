@@ -1,10 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router'
 import { useQueryClient } from '@tanstack/react-query'
 import { useForm, useFormContext, useFieldArray } from 'react-hook-form'
 import { useEnableQuery } from '@/helpers/hooks'
 import { handleCreateMission } from './utils'
-import { errorPopup } from '@/utils/Toast/Toast'
+import { errorPopup, savedPopup } from '@/utils/Toast/Toast'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -132,17 +132,20 @@ const useHandleFormSubmit = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useCallback((formData: AppTypes.MissionCreateInterface) => {
+  return async (formData: AppTypes.MissionCreateInterface) => {
     if(!enabled || !token) return
 
-    handleCreateMission(formData, token)
-      .then(() => {
-        queryClient.invalidateQueries({ queryKey: ['getMissions'] })
-        queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
-        queryClient.invalidateQueries({ queryKey: ['getRosterVehicles'] })
-        queryClient.invalidateQueries({ queryKey: ['getRosterBatteries'] })
-        navigate('/missions')
-      })
-      .catch((err) => errorPopup(err))
-  }, [enabled, token, navigate, queryClient])
+    const result = await handleCreateMission(formData, token)
+
+    if(!result.success) {
+      errorPopup(result.msg)
+    } else {
+      savedPopup(result.msg)
+      queryClient.invalidateQueries({ queryKey: ['getMissions'] })
+      queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
+      queryClient.invalidateQueries({ queryKey: ['getRosterVehicles'] })
+      queryClient.invalidateQueries({ queryKey: ['getRosterBatteries'] })
+      navigate('/missions')
+    }
+  }
 }

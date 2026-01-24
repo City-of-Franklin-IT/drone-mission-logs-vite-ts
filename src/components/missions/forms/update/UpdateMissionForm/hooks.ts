@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useQueryClient } from "@tanstack/react-query"
 import { authHeaders } from "@/helpers/utils"
@@ -6,10 +6,10 @@ import * as AppActions from '@/context/App/AppActions'
 import MissionsCtx from "@/components/missions/context"
 import { useEnableQuery } from "@/helpers/hooks"
 import { utcToLocalDatetime, handleUpdateMission } from './utils'
+import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
 // Types
 import * as AppTypes from '@/context/App/types'
-import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
 /**
 * Returns update mission form methods, cancel button onClick handler, delete button props, and update mission form submit function
@@ -94,17 +94,19 @@ const useHandleFormSubmit = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useCallback((formData: AppTypes.MissionCreateInterface) => {
+  return async (formData: AppTypes.MissionCreateInterface) => {
     if(!enabled || !token) return
 
-    handleUpdateMission(formData, token)
-      .then(() => {
-        savedPopup('Mission Updated')
-        queryClient.invalidateQueries({ queryKey: ['getMissions'] })
-        queryClient.invalidateQueries({ queryKey: ['getMission', formData.uuid] })
-        window.scrollTo({ behavior: 'smooth', top: 0 })
-        dispatch({ type: 'RESET_CTX' })
-      })
-      .catch((err) => errorPopup(err))
-  }, [enabled, token, dispatch, queryClient])
+    const result = await handleUpdateMission(formData, token)
+
+    if(!result.success) {
+      errorPopup(result.msg)
+    } else {
+      savedPopup(result.msg)
+      queryClient.invalidateQueries({ queryKey: ['getMissions'] })
+      queryClient.invalidateQueries({ queryKey: ['getMission', formData.uuid] })
+      window.scrollTo({ behavior: 'smooth', top: 0 })
+      dispatch({ type: 'RESET_CTX' })
+    }
+  }
 }

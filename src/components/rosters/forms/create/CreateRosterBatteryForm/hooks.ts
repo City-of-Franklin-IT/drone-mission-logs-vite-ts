@@ -1,14 +1,14 @@
-import { useContext, useCallback } from "react"
+import { useContext } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useForm } from "react-hook-form"
 import { useEnableQuery } from "@/helpers/hooks"
 import RostersCtx from "@/components/rosters/context"
 import { useOnCancelBtnClick } from "../../update/UpdateRosterPersonnelForm/hooks"
 import { handleCreateRosterBattery } from './utils'
+import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
 // Types
 import * as AppTypes from '@/context/App/types'
-import { errorPopup } from "@/utils/Toast/Toast"
 
 /**
 * Returns create roster battery form methods, cancel button onClick handler, and create roster battery form submit function
@@ -46,14 +46,17 @@ const useHandleFormSubmit = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useCallback((formData: AppTypes.BatteryRosterCreateInterface) => {
+  return async (formData: AppTypes.BatteryRosterCreateInterface) => {
     if(!enabled || !token) return
 
-    handleCreateRosterBattery(formData, token)
-      .then(() => {
-        queryClient.invalidateQueries({ queryKey: ['getRosterBatteries'] })
-        dispatch({ type: 'RESET_CTX' })
-      })
-      .catch((err) => errorPopup(err))
-  }, [enabled, token, dispatch, queryClient])
+    const result = await handleCreateRosterBattery(formData, token)
+
+    if(!result.success) {
+      errorPopup(result.msg)
+    } else {
+      savedPopup(result.msg)
+      queryClient.invalidateQueries({ queryKey: ['getRosterBatteries'] })
+      dispatch({ type: 'RESET_CTX' })
+    }
+  }
 }

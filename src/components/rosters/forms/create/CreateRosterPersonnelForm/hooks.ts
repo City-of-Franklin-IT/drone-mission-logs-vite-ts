@@ -1,9 +1,9 @@
-import { useCallback, useContext, useEffect } from "react"
+import { useContext, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { useQueryClient } from "@tanstack/react-query"
 import RostersCtx from "@/components/rosters/context"
 import { useEnableQuery } from "@/helpers/hooks"
-import { errorPopup } from "@/utils/Toast/Toast"
+import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 import { useOnCancelBtnClick } from "../../update/UpdateRosterPersonnelForm/hooks"
 import { handleCreateRosterPersonnel } from './utils'
 
@@ -56,14 +56,17 @@ const useHandleFormSubmit = () => {
 
   const { enabled, token } = useEnableQuery()
 
-  return useCallback((formData: AppTypes.PersonnelRosterCreateInterface) => {
+  return async (formData: AppTypes.PersonnelRosterCreateInterface) => {
     if(!enabled || !token) return
 
-    handleCreateRosterPersonnel(formData, token)
-      .then(() => {
-        queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
-        dispatch({ type: 'RESET_CTX' })
-      })
-      .catch((err) => errorPopup(err))
-  }, [dispatch, queryClient, enabled, token])
+    const result = await handleCreateRosterPersonnel(formData, token)
+
+    if(!result.success) {
+      errorPopup(result.msg)
+    } else {
+      savedPopup(result.msg)
+      queryClient.invalidateQueries({ queryKey: ['getRosterPersonnel'] })
+      dispatch({ type: 'RESET_CTX' })
+    }
+  }
 }

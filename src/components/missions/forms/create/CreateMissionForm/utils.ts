@@ -1,6 +1,5 @@
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from '@/helpers/utils'
-import { errorPopup, savedPopup } from '@/utils/Toast/Toast'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -31,7 +30,7 @@ export const handleCreateMission = async (formData: AppTypes.MissionCreateInterf
       flights.map(item => {
         if(item.takeOffDateTime && item.landingDateTime) {
           const flight = { takeOffDateTime: new Date(item.takeOffDateTime).toISOString(), landingDateTime: new Date(item.landingDateTime).toISOString(), parentId: result.data.uuid }
-          return AppActions.createFlight(flight, authHeaders(token))  
+          return AppActions.createFlight(flight, authHeaders(token))
         }
       })
     )
@@ -63,7 +62,7 @@ export const handleCreateMission = async (formData: AppTypes.MissionCreateInterf
     if(tfr) { // Temporary flight restriction
       await AppActions.createTFR({ ...tfr, parentId: result.data.uuid }, authHeaders(token))
     }
+  }
 
-    savedPopup(result.msg)
-  } else errorPopup(result.msg)
+  return result
 }

@@ -62,7 +62,7 @@ export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterf
             if(flight._deleted) { // Delete existing
                 return AppActions.deleteFlight(flight.uuid as string, authHeaders(token))
             }
-            
+
             if(flight.uuid) { // Update existing
                 return AppActions.updateFlight(flight, authHeaders(token))
             } else { // Create new
@@ -78,7 +78,7 @@ export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterf
             if(battery._deleted) { // Delete existing
                 return AppActions.deleteBattery(battery.uuid as string, authHeaders(token))
             }
-            
+
             if(battery.uuid) { // Update existing
                 return AppActions.updateBattery(battery, authHeaders(token))
             } else { // Create new
@@ -86,4 +86,6 @@ export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterf
             }
         })
     )
+
+    return { success: true, msg: 'Mission Updated' }
 }
