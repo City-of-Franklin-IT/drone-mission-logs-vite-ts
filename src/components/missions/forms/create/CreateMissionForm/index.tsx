@@ -16,16 +16,10 @@ function CreateMissionForm() {
       <Components.Header>Create Mission</Components.Header>
       
       <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
-        <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
-          <div className="flex gap-4 flex-wrap">
-            <Components.MissionDateInput />
-            <Components.IncidentNumberInput />
-            <Components.LocationInput />
-          </div>
-          <Components.MissionDescriptionInput />
-        </div>
+        <Components.MissionDetailInputs />
         <div className="flex flex-col mx-auto w-full xl:w-4/5">
           <CreatePersonnelForm />
+          <Components.ResponseOnlyInput />
           <Components.VehicleInputs />
           <CreateWeatherForm />
           <CreateTFRForm />

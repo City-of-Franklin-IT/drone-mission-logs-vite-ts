@@ -25,9 +25,9 @@ export const Title = () => {
 };
 
 export const Buttons = () => {
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
-  if (pathname === '/') return null;
+  if(pathname === '/') return null
 
   return (
     <div className="flex gap-2 overflow-y-visible w-fit pl-4 pb-2 flex-wrap justify-around lg:pb-0">
@@ -44,26 +44,25 @@ export const HomeLink = () => {
   const label =
     window.location.host === 'pdapps.franklintn.gov'
       ? 'Back To All PD Apps'
-      : 'Back To All FFD Apps';
+      : 'Back To All FFD Apps'
 
   return (
     <a
       href={'/home'}
-      className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral"
-    >
-      {label}
+      className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral">
+        {label}
     </a>
   );
 };
 
 const HelpDoc = () => {
+
   return (
     <a
       href="https://franklintn.sharepoint.com/:b:/s/IT-ISDevelopment/IQDUtzFMdk85SpDcGHtGMDrHAaaG7E-EHii5Rx6Mi2eevu4?e=xFt6Kh"
       className="btn btn-ghost text-neutral-content rounded-none uppercase hover:bg-primary hover:shadow-none"
-      target="_blank"
-    >
-      Help
+      target="_blank">
+        Help
     </a>
   );
 };
@@ -71,15 +70,15 @@ const HelpDoc = () => {
 type HeaderBtnProps = { to: string; children: React.ReactNode };
 
 const HeaderBtn = (props: HeaderBtnProps) => {
-  const { activePage } = useContext(HeaderCtx);
+  const { activePage } = useContext(HeaderCtx)
 
-  const activeAccount = useActiveAccount();
+  const activeAccount = useActiveAccount()
 
-  const { pathname } = useLocation();
+  const { pathname } = useLocation()
 
-  if (!activeAccount || pathname === '/') return null;
+  if(!activeAccount || pathname === '/') return null
 
-  const active = activePage === props.children;
+  const active = activePage === props.children
 
   return (
     <Link

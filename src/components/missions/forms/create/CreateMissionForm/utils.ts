@@ -8,6 +8,24 @@ export const handleCreateMission = async (formData: AppTypes.MissionCreateInterf
   const result = await AppActions.createMission(formData, authHeaders(token))
 
   if(result.success) {
+    const parentId = result.data.uuid
+
+    if(formData.ResponseOnly?._checked) { // Response only
+      await AppActions.createResponseOnly({ parentId }, authHeaders(token))
+
+      const personnel = formData.Personnel || []
+
+      await Promise.all( // Personnel
+        personnel.map(item => {
+          if(item.email) {
+            return AppActions.createPersonnel({ ...item, parentId: result.data.uuid }, authHeaders(token))
+          }
+        })
+      )
+
+      return result
+    }
+
     if(formData.Vehicle?.registration) { // Vehicle
       const vehicle = await AppActions.createVehicle({ ...formData.Vehicle, parentId: result.data.uuid }, authHeaders(token))
 

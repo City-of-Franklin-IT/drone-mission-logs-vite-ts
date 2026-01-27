@@ -64,13 +64,23 @@ export const useHandleAddFlightBtn = () => {
   return onClick
 }
 
+export const useHandleResponseOnly = () => {
+  const { watch } = useCreateMissionCtx()
+
+  const isResponseOnly = watch('ResponseOnly._checked')
+
+  const visible = !isResponseOnly
+
+  return visible
+}
+
 const useCreateMissionForm = () => {
   const department = window.location.hostname === 'pdapps.franklintn.gov' ?
     'Police' :
     'Fire'
 
   const form = useForm<AppTypes.MissionCreateInterface>({
-    mode: 'onBlur',
+    mode: 'onChange',
     defaultValues: {
       missionDate: '',
       department: undefined,
@@ -106,7 +116,11 @@ const useCreateMissionForm = () => {
         wind: undefined,
         source: ''
       },
-      TemporaryFlightRestriction: undefined
+      TemporaryFlightRestriction: undefined,
+      ResponseOnly: {
+        _checked: false,
+        parentId: ''
+      }
     }
   })
 

@@ -1,5 +1,5 @@
 import styles from '@/components/form-elements/Forms.module.css'
-import { useCreateMissionCtx, useHandleBatteryInputs, useHandleAddBatteryBtn, useHandleAddFlightBtn } from "./hooks"
+import { useCreateMissionCtx, useHandleBatteryInputs, useHandleAddBatteryBtn, useHandleAddFlightBtn, useHandleResponseOnly } from "./hooks"
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -15,7 +15,132 @@ export const Header = ({ children }: { children: React.ReactNode }) => {
   )
 }
 
-export const MissionDateInput = () => {
+export const MissionDetailInputs = () => {
+
+  return (
+    <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
+      <div className="flex gap-4 flex-wrap">
+        <MissionDateInput />
+        <IncidentNumberInput />
+        <LocationInput />
+      </div>
+      <MissionDescriptionInput />
+    </div>
+  )
+}
+
+export const ResponseOnlyInput = () => {
+  const { register, watch, setValue } = useCreateMissionCtx()
+
+  const isUpdateMode = !!watch('uuid')
+  const isResponseOnly = !!watch('ResponseOnly._checked')
+
+  const onResponseOnlyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue('ResponseOnly._dirtied', true)
+
+    if(e.target.checked) {
+      setValue('Vehicle', { registration: '', parentId: '', Batteries: [{ batteryName: '', parentId: '' }, { batteryName: '', parentId: '' }] })
+      setValue('Flights', [{ takeOffDateTime: '', landingDateTime: '', parentId: '' }])
+      setValue('Inspection', { preFlight: null, postFlight: null, parentId: '' })
+      setValue('Weather', { temperature: null, visibility: null, wind: null, source: '', parentId: '' })
+      setValue('TemporaryFlightRestriction', undefined)
+    }
+  }
+
+  // Hide on update forms for normal missions, show for create or ResponseOnly updates
+  if (isUpdateMode && !isResponseOnly) return null
+
+  return (
+    <div className="flex flex-col gap-2 items-center mt-10">
+      <label className="text-xl text-neutral-content font-[play]">Response Only:</label>
+      <input
+        type="checkbox"
+        className="checkbox checkbox-primary"
+        disabled={isUpdateMode}
+        { ...register('ResponseOnly._checked', { onChange: onResponseOnlyChange }) } />
+    </div>
+  )
+}
+
+export const VehicleInputs = () => {
+  const visible = useHandleResponseOnly()
+
+  if(!visible) return null
+
+  return (
+    <div className="flex flex-col gap-4 items-center mt-10 p-6 w-full border-2 border-info/10 rounded-xl xl:p-10">
+      <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
+
+      <div className="flex flex-col gap-10 w-full">
+        <CreateVehicleForm />
+        <BatteryInputs />
+      </div>
+      
+    </div>
+  )
+}
+
+export const FlightInputs = () => {
+  const visible = useHandleResponseOnly()
+
+  if(!visible) return null
+
+  return (
+    <div className="flex flex-col gap-4 items-center mt-10 p-6 mx-auto w-full border-2 border-info/10 rounded-xl xl:p-10">
+      <h3 className="text-3xl text-neutral-content font-[play]">Flights</h3>
+
+      <Flights />
+    </div>
+  )
+}
+
+export const PreflightInspectionInput = () => {
+  const { register, watch, setValue } = useCreateMissionCtx()
+
+  const checked = !!watch('Inspection.preFlight')
+
+  const visible = useHandleResponseOnly()
+
+  if(!visible) return null
+
+  return (
+    <div className="flex flex-col gap-2 items-center mt-10">
+      <label className="text-xl text-neutral-content font-[play]">Preflight Inspection:</label>
+      <input 
+        type="checkbox"
+        className="checkbox checkbox-primary"
+        checked={checked}
+        { ...register('Inspection.preFlight', {
+          onChange: () => setValue(`Inspection._dirtied`, true)
+        }) } />
+    </div>
+  )
+}
+
+export const PostflightInspectionInput = () => {
+  const { register, watch, setValue } = useCreateMissionCtx()
+
+  const checked = !!watch('Inspection.postFlight')
+
+  const visible = useHandleResponseOnly()
+
+  if(!visible) return null
+
+  return (
+    <div className="flex flex-col gap-2 items-center my-10">
+      <label className="text-xl text-neutral-content font-[play]">Postflight Inspection:</label>
+      <input 
+        type="checkbox"
+        className="checkbox checkbox-primary"
+        checked={checked}
+        { ...register('Inspection.postFlight', {
+          onChange: () => setValue('_dirtied', true)
+        }) } />
+    </div>
+  )
+}
+
+const MissionDateInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
@@ -39,7 +164,7 @@ export const MissionDateInput = () => {
   )
 }
 
-export const IncidentNumberInput = () => {
+const IncidentNumberInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
@@ -64,31 +189,7 @@ export const IncidentNumberInput = () => {
   )
 }
 
-export const MissionDescriptionInput = () => {
-  const { register, formState: { errors }, setValue } = useCreateMissionCtx()
-
-  return (
-    <div className="flex-1 flex flex-col gap-4">
-      <div className="flex flex-col bg-neutral xl:flex-row">
-        <FormLabel 
-          name={'missionDescription'}
-          required={true}>
-            Mission Description:
-        </FormLabel>
-        <textarea 
-          className={styles.input}
-          rows={4}
-          { ...register('missionDescription', {
-            required: 'Mission description is required',
-            onChange: () => setValue('_dirtied', true)
-          }) }></textarea>
-      </div>
-      <FormError error={errors.missionDescription?.message} />
-    </div>
-  )
-}
-
-export const LocationInput = () => {
+const LocationInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
@@ -113,66 +214,26 @@ export const LocationInput = () => {
   )
 }
 
-export const VehicleInputs = () => {
+const MissionDescriptionInput = () => {
+  const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex flex-col gap-4 items-center mt-10 p-6 w-full border-2 border-info/10 rounded-xl xl:p-10">
-      <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
-
-      <div className="flex flex-col gap-10 w-full">
-        <CreateVehicleForm />
-        <BatteryInputs />
+    <div className="flex-1 flex flex-col gap-4">
+      <div className="flex flex-col bg-neutral xl:flex-row">
+        <FormLabel 
+          name={'missionDescription'}
+          required={true}>
+            Mission Description:
+        </FormLabel>
+        <textarea 
+          className={styles.input}
+          rows={4}
+          { ...register('missionDescription', {
+            required: 'Mission description is required',
+            onChange: () => setValue('_dirtied', true)
+          }) }></textarea>
       </div>
-      
-    </div>
-  )
-}
-
-export const FlightInputs = () => {
-
-  return (
-    <div className="flex flex-col gap-4 items-center mt-10 p-6 mx-auto w-full border-2 border-info/10 rounded-xl xl:p-10">
-      <h3 className="text-3xl text-neutral-content font-[play]">Flights</h3>
-
-      <Flights />
-    </div>
-  )
-}
-
-export const PreflightInspectionInput = () => {
-  const { register, watch, setValue } = useCreateMissionCtx()
-
-  const checked = !!watch('Inspection.preFlight')
-
-  return (
-    <div className="flex flex-col gap-2 items-center mt-10">
-      <label className="text-xl text-neutral-content font-[play]">Preflight Inspection:</label>
-      <input 
-        type="checkbox"
-        className="checkbox checkbox-primary"
-        checked={checked}
-        { ...register('Inspection.preFlight', {
-          onChange: () => setValue(`Inspection._dirtied`, true)
-        }) } />
-    </div>
-  )
-}
-
-export const PostflightInspectionInput = () => {
-  const { register, watch, setValue } = useCreateMissionCtx()
-
-  const checked = !!watch('Inspection.postFlight')
-
-  return (
-    <div className="flex flex-col gap-2 items-center my-10">
-      <label className="text-xl text-neutral-content font-[play]">Postflight Inspection:</label>
-      <input 
-        type="checkbox"
-        className="checkbox checkbox-primary"
-        checked={checked}
-        { ...register('Inspection.postFlight', {
-          onChange: () => setValue('_dirtied', true)
-        }) } />
+      <FormError error={errors.missionDescription?.message} />
     </div>
   )
 }

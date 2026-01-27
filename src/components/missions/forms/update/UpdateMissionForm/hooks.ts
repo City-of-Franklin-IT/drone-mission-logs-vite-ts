@@ -35,7 +35,11 @@ const useUpdateMissionForm = (mission: AppTypes.MissionInterface | undefined) =>
     mode: 'onBlur',
     defaultValues: {
       ...mission,
-      Flights: flights
+      Flights: flights,
+      ResponseOnly: {
+        ...mission?.ResponseOnly,
+        _checked: !!mission?.ResponseOnly
+      }
     }
   })
 }

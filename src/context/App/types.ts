@@ -10,9 +10,10 @@ export interface MissionInterface extends BaseInterface {
   Inspection?: InspectionInterface
   TemporaryFlightRestriction?: TemporaryFlightRestrictionInterface
   Vehicle?: VehicleInterface
+  ResponseOnly?: ResponseOnlyInterface
 }
 
-export interface MissionCreateInterface extends Omit<MissionInterface, 'department' | 'Flights' | 'Personnel' |  'Weather' | 'Inspection' | 'TemporaryFlightRestriction' | 'Vehicle' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+export interface MissionCreateInterface extends Omit<MissionInterface, 'department' | 'Flights' | 'Personnel' |  'Weather' | 'Inspection' | 'TemporaryFlightRestriction' | 'Vehicle' | 'ResponseOnly' | 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
   department: DepartmentType | undefined
   Flights?: FlightCreateInterface[]
@@ -21,6 +22,7 @@ export interface MissionCreateInterface extends Omit<MissionInterface, 'departme
   Inspection?: InspectionCreateInterface
   TemporaryFlightRestriction?: TemporaryFlightRestrictionCreateInterface
   Vehicle?: VehicleCreateInterface
+  ResponseOnly?: ResponseOnlyCreateInterface
   uuid?: string
 }
 
@@ -110,6 +112,16 @@ export interface WeatherInterface extends BaseInterface {
 
 export interface WeatherCreateInterface extends Omit<WeatherInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
   _dirtied?: boolean | null
+  uuid?: string
+}
+
+export interface ResponseOnlyInterface extends BaseInterface {
+  parentId: string
+}
+
+export interface ResponseOnlyCreateInterface extends Omit<ResponseOnlyInterface, 'uuid' | 'createdBy' | 'createdAt' | 'updatedBy' | 'updatedAt'>{
+  _dirtied?: boolean | null
+  _checked?: boolean
   uuid?: string
 }
 

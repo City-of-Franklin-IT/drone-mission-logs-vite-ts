@@ -594,3 +594,34 @@ export const deleteRosterPersonnel = async (uuid: string, headers: Headers): Pro
 
   return await res.json()
 }
+
+/**
+* Create response only mission
+* 
+* POST /api/v2/pd/drone/response-only
+**/
+export const createResponseOnly = async (formData: AppTypes.ResponseOnlyCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
+  headers.append('Content-Type', 'application/json')
+
+  const res = await fetch(`${ baseUrl }/response-only`, {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({ ...formData })
+  })
+
+  return await res.json()
+}
+
+/**
+* Delete response only mission by uuid
+*
+* DELETE /api/v2/pd/drone/response-only/:uuid
+**/
+export const deleteResponseOnly = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
+  const res = await fetch(`${ baseUrl }/response-only/${ uuid }`, {
+    method: 'DELETE',
+    headers
+  })
+
+  return await res.json()
+}

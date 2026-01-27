@@ -17,6 +17,14 @@ export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterf
         await AppActions.updateMission(formData, authHeaders(token))
     }
 
+    if(formData.ResponseOnly?._dirtied) { // Response only
+        if(formData.ResponseOnly._checked && !formData.ResponseOnly.uuid) {
+            await AppActions.createResponseOnly({ parentId: String(formData.uuid) }, authHeaders(token))
+        } else if(!formData.ResponseOnly._checked && formData.ResponseOnly.uuid) {
+            await AppActions.deleteResponseOnly(String(formData.ResponseOnly.uuid), authHeaders(token))
+        }
+    }
+
     if(formData.Vehicle?._dirtied) { // Vehicle
         await AppActions.updateVehicle(formData.Vehicle, authHeaders(token))
     }

@@ -179,29 +179,39 @@ const ExportBtn = ({ uuid }: { uuid: string }) => {
 }
 
 const MissionDetails = (props: MissionDetailsProps) => {
+  if(!props.expanded) return null
+
+  if(props.tableData.ResponseOnly) return (
+    <td colSpan={5}>
+      <div className="flex flex-col">
+        <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
+          <h3 className="text-info font-bold text-center uppercase">Response Only Mission</h3>
+          <UpdateMissionBtn uuid={props.tableData.uuid} />
+        </div>
+      </div>
+    </td>
+  )
 
   return (
     <AnimatePresence>
-      {props.expanded && (
-        <motion.tr
-          className={`text-center ${ props.index % 2 === 0 ?
-            'bg-neutral/20' :
-            null }`}
-          { ...motionProps.fadeInOut }>
-          <td colSpan={5}>
-            <div className="flex flex-col">
-              <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
-                <Vehicle vehicle={props.tableData.Vehicle} />
-                <Flights flights={props.tableData.Flights} />
-                <Weather weather={props.tableData.Weather} />
-                <Inspections inspection={props.tableData.Inspection} />
-                <TemporaryFlightRestriction tfr={props.tableData.TemporaryFlightRestriction} />
-                <UpdateMissionBtn uuid={props.tableData.uuid} />
-              </div>
+      <motion.tr
+        className={`text-center ${ props.index % 2 === 0 ?
+          'bg-neutral/20' :
+          null }`}
+        { ...motionProps.fadeInOut }>
+        <td colSpan={5}>
+          <div className="flex flex-col">
+            <div data-testid="mission-details" className="flex flex-col gap-4 mx-auto w-full p-4 border-2 border-info/10 rounded-xl lg:max-w-1/2">
+              <Vehicle vehicle={props.tableData.Vehicle} />
+              <Flights flights={props.tableData.Flights} />
+              <Weather weather={props.tableData.Weather} />
+              <Inspections inspection={props.tableData.Inspection} />
+              <TemporaryFlightRestriction tfr={props.tableData.TemporaryFlightRestriction} />
+              <UpdateMissionBtn uuid={props.tableData.uuid} />
             </div>
-          </td>
-        </motion.tr>
-      )}
+          </div>
+        </td>
+      </motion.tr>
     </AnimatePresence>
   )
 }
