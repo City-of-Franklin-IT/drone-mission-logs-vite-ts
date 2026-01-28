@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -20,13 +19,13 @@ export const EmailInput = () => {
 
   return (
     <div className="flex flex-col gap-2 w-full">
-      <div className="flex">
+      <div className="flex flex-col">
         <FormLabel name={'email'}>
           Email:
         </FormLabel>
         <input 
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('email', {
             required: 'Email is required',
             validate: (value) => {

@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -13,13 +12,13 @@ export const ModelInput = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex">
+      <div className="flex flex-col">
         <FormLabel name={'model'}>
           Make / Model:
         </FormLabel>
         <input 
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('model', {
             required: 'Make / model is required',
             maxLength: {
@@ -39,13 +38,13 @@ export const RegistrationInput = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex">
+      <div className="flex flex-col">
         <FormLabel name={'registration'}>
           Registration:
         </FormLabel>
         <input 
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('registration', {
             maxLength: {
               value: 50,

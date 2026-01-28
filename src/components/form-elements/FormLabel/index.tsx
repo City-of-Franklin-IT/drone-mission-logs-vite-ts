@@ -1,5 +1,3 @@
-import styles from '@/components/form-elements/Forms.module.css'
-
 // Types
 import { Path } from 'react-hook-form'
 import * as AppTypes from '@/context/App/types'
@@ -12,7 +10,7 @@ type FormLabelProps = { name: Path<AppTypes.MissionCreateInterface> | Path<AppTy
 function FormLabel(props: FormLabelProps) {
   
   return (
-    <label data-testid="form-label" htmlFor={props.name} className={styles.label}>{props.children}{props.required && <RequiredIcon />}</label>
+    <label data-testid="form-label" htmlFor={props.name} className="label text-neutral-content font-[play]">{props.children}{props.required && <RequiredIcon />}</label>
   )
 }
 

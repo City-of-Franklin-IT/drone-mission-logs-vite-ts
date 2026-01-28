@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -13,7 +12,7 @@ export const BatteryNameInput = () => {
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="flex">
+      <div className="flex flex-col">
         <FormLabel 
           name={'batteryName'}
           required={true}>
@@ -21,7 +20,7 @@ export const BatteryNameInput = () => {
         </FormLabel>
         <input 
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('batteryName', {
             required: 'Battery name is required',
             maxLength: {

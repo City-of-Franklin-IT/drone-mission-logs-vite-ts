@@ -1,4 +1,3 @@
-import styles from '@/components/form-elements/Forms.module.css'
 import { useCreateMissionCtx, useHandleBatteryInputs, useHandleAddBatteryBtn, useHandleAddFlightBtn, useHandleResponseOnly } from "./hooks"
 
 // Components
@@ -11,7 +10,7 @@ import CreateFlightForm from "../CreateFlightForm"
 export const Header = ({ children }: { children: React.ReactNode }) => {
 
   return (
-    <h2 className={styles.title}>{children}</h2>
+    <h2 className="text-neutral-content text-4xl font-[play] font-normal text-center py-6 whitespace-nowrap">{children}</h2>
   )
 }
 
@@ -19,7 +18,7 @@ export const MissionDetailInputs = () => {
 
   return (
     <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
-      <div className="flex gap-4 flex-wrap">
+      <div className="flex gap-6 flex-wrap justify-between">
         <MissionDateInput />
         <IncidentNumberInput />
         <LocationInput />
@@ -47,15 +46,14 @@ export const ResponseOnlyInput = () => {
     }
   }
 
-  // Hide on update forms for normal missions, show for create or ResponseOnly updates
-  if (isUpdateMode && !isResponseOnly) return null
+  if(isUpdateMode && !isResponseOnly) return null
 
   return (
     <div className="flex flex-col gap-2 items-center mt-10">
       <label className="text-xl text-neutral-content font-[play]">Response Only:</label>
       <input
         type="checkbox"
-        className="checkbox checkbox-primary"
+        className="checkbox checkbox-secondary"
         disabled={isUpdateMode}
         { ...register('ResponseOnly._checked', { onChange: onResponseOnlyChange }) } />
     </div>
@@ -108,7 +106,7 @@ export const PreflightInspectionInput = () => {
       <label className="text-xl text-neutral-content font-[play]">Preflight Inspection:</label>
       <input 
         type="checkbox"
-        className="checkbox checkbox-primary"
+        className="checkbox checkbox-secondary"
         checked={checked}
         { ...register('Inspection.preFlight', {
           onChange: () => setValue(`Inspection._dirtied`, true)
@@ -131,7 +129,7 @@ export const PostflightInspectionInput = () => {
       <label className="text-xl text-neutral-content font-[play]">Postflight Inspection:</label>
       <input 
         type="checkbox"
-        className="checkbox checkbox-primary"
+        className="checkbox checkbox-secondary"
         checked={checked}
         { ...register('Inspection.postFlight', {
           onChange: () => setValue('_dirtied', true)
@@ -145,15 +143,15 @@ const MissionDateInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-4">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel
           name={'missionDate'}
           required={true}>
             Mission Date:
         </FormLabel>
-        <input 
+        <input
           type="date"
-          className={styles.input}
+          className="input w-full hover:cursor-pointer"
           { ...register('missionDate', {
             required: 'Mission date is required',
             onChange: () => setValue('_dirtied', true)
@@ -169,13 +167,13 @@ const IncidentNumberInput = () => {
 
   return (
     <div className="flex-2 flex flex-col gap-4">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'incidentNumber'}>
           Incident #:
         </FormLabel>
-        <input 
+        <input
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('incidentNumber', {
             maxLength: {
               value: 50,
@@ -194,13 +192,13 @@ const LocationInput = () => {
 
   return (
     <div className="flex-2 flex flex-col gap-4">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'location'}>
           Location:
         </FormLabel>
-        <input 
+        <input
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('location', {
             maxLength: {
               value: 255,
@@ -218,15 +216,13 @@ const MissionDescriptionInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-1 flex flex-col gap-4">
-      <div className="flex flex-col bg-neutral xl:flex-row">
-        <FormLabel 
-          name={'missionDescription'}
-          required={true}>
-            Mission Description:
+    <div className="w-full flex flex-col gap-4">
+      <div className="flex flex-col">
+        <FormLabel name={'missionDescription'} required={true}>
+          Mission Description:
         </FormLabel>
-        <textarea 
-          className={styles.input}
+        <textarea
+          className="textarea w-full"
           rows={4}
           { ...register('missionDescription', {
             required: 'Mission description is required',
@@ -244,7 +240,7 @@ const BatteryInputs = () => {
   if(!visible) return
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col items-center gap-4">
       {batteries.map((_, index) => (
         <CreateBatteryForm
           key={`battery-form-${ index }`}

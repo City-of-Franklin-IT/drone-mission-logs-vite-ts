@@ -1,6 +1,5 @@
 import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
 import { visibilityTypeMap } from './utils'
-import styles from '@/components/form-elements/Forms.module.css'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
@@ -21,13 +20,13 @@ export const TemperatureInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'Weather.temperature'}>
           Air Temperature:
         </FormLabel>
-        <input 
+        <input
           type="number"
-          className={`${ styles.input } min-w-[100px]`}
+          className="input min-w-[100px] w-full"
           { ...register('Weather.temperature', {
             min: {
               value: 0,
@@ -49,12 +48,12 @@ export const VisibilitySelect = () => {
   const { register, setValue } = useCreateMissionCtx()
 
   return (
-    <div className="flex-1 flex flex-col bg-neutral xl:flex-row">
+    <div className="flex-1 flex flex-col">
       <FormLabel name={'Weather.visibility'}>
         Visibility:
       </FormLabel>
       <select
-        className={styles.input}
+        className="select w-full hover:cursor-pointer"
         { ...register('Weather.visibility', {
           onChange: () => setValue('Weather._dirtied', true)
         }) }>
@@ -69,13 +68,13 @@ export const WindInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'Weather.wind'}>
           Wind Speed:
         </FormLabel>
-        <input 
+        <input
           type="number"
-          className={styles.input}
+          className="input w-full"
           { ...register('Weather.wind', {
             min: {
               value: 0,
@@ -98,13 +97,13 @@ export const SourceInput = () => {
 
   return (
     <div className="flex-1 flex flex-col gap-6">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'Weather.source'}>
           Source:
         </FormLabel>
-        <input 
+        <input
           type="text"
-          className={styles.input}
+          className="input w-full"
           { ...register('Weather.source', {
             maxLength: {
               value: 50,

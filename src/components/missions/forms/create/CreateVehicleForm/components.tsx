@@ -1,4 +1,3 @@
-import styles from '@/components/form-elements/Forms.module.css'
 import { useHandleVehicleRegistrationInput, useGetVehicleRegistrations } from './hooks'
 
 // Types
@@ -21,15 +20,15 @@ export const VehicleRegistrationInput = () => {
   if(isLoading) return
 
   return (
-    <div className={styles.inputSection}>
-      <div className="flex flex-col bg-neutral w-full xl:flex-row">
-        <FormLabel
-          name={'Vehicle.registration'}
+    <div className="flex flex-col gap-4 mx-auto">
+      <div className="flex flex-col w-full">
+        <FormLabel 
+          name={'Vehicle.registration'} 
           required={true}>
             Vehicle Registration:
         </FormLabel>
         <select
-          className={styles.input}
+          className="select w-full hover:cursor-pointer"
           { ...methods.register('Vehicle.registration', {
             required: 'Vehicle registration is required',
             onChange: () => methods.setValue('Vehicle._dirtied', true, { shouldDirty: true, shouldValidate: true })

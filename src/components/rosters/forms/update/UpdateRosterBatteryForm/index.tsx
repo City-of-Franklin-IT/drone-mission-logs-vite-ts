@@ -22,7 +22,7 @@ function UpdateRosterBatteryForm({ battery }: { battery: AppTypes.BatteryRosterI
             <CreateRosterBatteryForm.BatteryNameInput />
             <FormBtns 
               onCancelBtnClick={onCancelBtnClick}
-              size={'btn-lg'} />
+              size={'btn-md'} />
           </div>
         </form>
       </div>

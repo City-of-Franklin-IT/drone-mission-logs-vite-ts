@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 import { useHandleBatteryInput, useHandleBatteryOptions } from './hooks'
 
 // Types
@@ -27,12 +26,12 @@ export const BatteryInput = ({ index }: { index: number }) => {
         control={control}
         name={`Vehicle.Batteries.${ index }.batteryName`}
         render={({ field }) => (
-          <div className="flex">
+          <div className="flex flex-col">
             <FormLabel name={field.name}>
               Battery {index + 1}:
             </FormLabel>
             <select
-              className={styles.input}
+              className="select hover:cursor-pointer"
               { ...field }
               onChange={(e) => {
                 field.onChange(e)

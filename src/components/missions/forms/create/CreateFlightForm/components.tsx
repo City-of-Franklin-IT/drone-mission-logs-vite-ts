@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 import { useHandleFlightInputs, useHandleTakeOffInput, useHandleLandingInput } from './hooks'
 
 // Components
@@ -48,13 +47,13 @@ const TakeOffInput = ({ index }: { index: number }) => {
       render={({ field, fieldState: { error } }) => (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex flex-col bg-neutral xl:flex-row">
+            <div className="flex flex-col">
               <FormLabel name={field.name}>
                 Takeoff Time:
               </FormLabel>
-              <input 
+              <input
                 type="datetime-local"
-                className={styles.input}
+                className="input w-full hover:cursor-pointer"
                 { ...field }
                 onChange={(e) => {
                   field.onChange(e)
@@ -94,13 +93,13 @@ const LandingInput = ({ index }: { index: number }) => {
       render={({ field, fieldState: { error } }) => (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <div className="flex flex-col bg-neutral xl:flex-row">
+            <div className="flex flex-col">
               <FormLabel name={field.name}>
                 Landing Time:
               </FormLabel>
-              <input 
+              <input
                 type="datetime-local"
-                className={styles.input}
+                className="input w-full hover:cursor-pointer"
                 { ...field }
                 onChange={(e) => {
                   field.onChange(e)

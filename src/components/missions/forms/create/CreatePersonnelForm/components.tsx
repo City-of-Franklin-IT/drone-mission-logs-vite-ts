@@ -1,5 +1,4 @@
 import { Controller } from "react-hook-form"
-import styles from '@/components/form-elements/Forms.module.css'
 import { useHandlePilotSelect, useHandleSupportPersonnelInput, useHandlePersonnelOptions } from "./hooks"
 
 // Types
@@ -39,14 +38,12 @@ export const PilotSelect = () => {
       }}
       render={({ field, fieldState: { error } }) => (
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col bg-neutral xl:flex-row">
-            <FormLabel
-              name={field.name}
-              required={true}>
-                Pilot Email:
+          <div className="flex flex-col">
+            <FormLabel name={field.name} required={true}>
+              Pilot Email:
             </FormLabel>
-            <select 
-              className={styles.input}
+            <select
+              className="select w-full hover:cursor-pointer"
               { ...field }
               onChange={(e) => {
                 field.onChange(e)
@@ -86,12 +83,12 @@ export const SupportPersonnelInput = () => {
         }}
         render={({ field, fieldState: { error } }) => (
           <div className="flex flex-col">
-            <div className="flex flex-col bg-neutral xl:flex-row">
+            <div className="flex flex-col">
               <FormLabel name={field.name}>
                 Support Email:
               </FormLabel>
-              <select 
-                className={styles.input}
+              <select
+                className="select w-full hover:cursor-pointer"
                 {...field}
                 onChange={(e) => {
                   field.onChange(e)

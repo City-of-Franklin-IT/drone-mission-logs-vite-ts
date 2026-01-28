@@ -1,4 +1,3 @@
-import styles from '@/components/form-elements/Forms.module.css'
 import { useHandleTFRInputs, useHandleAddTFRBtn, useHandleTFR } from './hooks'
 
 // Components
@@ -48,13 +47,13 @@ export const TFRInput = () => {
   if(!visible) return
 
   return (
-    <div className="flex flex-col bg-neutral xl:flex-row">
+    <div className="flex flex-col">
       <FormLabel name={'TemporaryFlightRestriction.temporaryFlightRestriction'}>
         Temporary Flight Restriction:
       </FormLabel>
       <textarea
         rows={4}
-        className={styles.input}
+        className="textarea w-full"
         { ...methods.register('TemporaryFlightRestriction.temporaryFlightRestriction', {
           onChange: () => methods.setValue('TemporaryFlightRestriction._dirtied', true)
         }) }>
@@ -70,14 +69,14 @@ export const TFRSourceInput = () => {
 
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col bg-neutral xl:flex-row">
+      <div className="flex flex-col">
         <FormLabel name={'TemporaryFlightRestriction.source'}>
           Source:
         </FormLabel>
-        <input 
+        <input
           type="text"
-          className={styles.input}
-          {  ...methods.register('TemporaryFlightRestriction.source', {
+          className="input w-full"
+          { ...methods.register('TemporaryFlightRestriction.source', {
             maxLength: {
               value: 50,
               message: 'TFR source must be 50 characters or less'

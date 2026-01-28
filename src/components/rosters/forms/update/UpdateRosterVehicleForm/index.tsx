@@ -25,7 +25,7 @@ function UpdateRosterVehicleForm({ vehicle }: { vehicle: AppTypes.VehicleRosterI
             </div>
             <FormBtns 
               onCancelBtnClick={onCancelBtnClick}
-              size={'btn-lg'} />
+              size={'btn-md'} />
           </div>
         </form>
       </div>

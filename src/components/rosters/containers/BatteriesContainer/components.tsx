@@ -12,7 +12,7 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
   if(!visible) return
 
   if(!formUUID) return ( // Create new
-    <div ref={formRef}>
+    <div ref={formRef} className="w-full">
       <CreateRosterBatteryForm />
     </div>
   )

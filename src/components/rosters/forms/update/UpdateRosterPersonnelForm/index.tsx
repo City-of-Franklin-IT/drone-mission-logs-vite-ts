@@ -21,7 +21,7 @@ function UpdateRosterPersonnelForm({ personnel }: { personnel: AppTypes.Personne
             <CreateRosterPersonnelForm.EmailInput />
             <FormBtns 
               onCancelBtnClick={onCancelBtnClick}
-              size={'btn-lg'} />
+              size={'btn-md'} />
           </div>
         </form>
       </div>
