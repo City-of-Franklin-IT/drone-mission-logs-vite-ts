@@ -10,6 +10,7 @@ import Missions from "./pages/Missions"
 import Redirect from "./pages/Redirect"
 import Create from "./pages/Create"
 import Rosters from "./pages/Rosters"
+import Docs from "./pages/Docs"
 
 const queryClient = new QueryClient()
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/missions" element={<Missions />} />
           <Route path="/create/:formtype" element={<Create />} />
           <Route path="/rosters" element={<Rosters />} />
+          <Route path="/docs" element={<Docs />} />
           <Route path="/*" element={<Redirect />} />
         </Routes>
       </Router>

@@ -625,3 +625,14 @@ export const deleteResponseOnly = async (uuid: string, headers: Headers): Promis
 
   return await res.json()
 }
+
+/**
+* Get documentation
+*
+* GET /api/v2/pd/drone/docs
+**/
+export const getDocs = async (headers: Headers) => {
+  const res = await fetch(`${ baseUrl }/docs`, { headers })
+
+  return await res.json()
+}
