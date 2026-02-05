@@ -15,7 +15,7 @@ function Documentation() {
 
   return (
     <Layout>
-      <HandleLoading isLoaded={isSuccess}>
+      <HandleLoading isSuccess={isSuccess}>
         <Motion animation={'slideInRight'}>
           <div className="container font-[play] text-primary-content mx-auto mt-4 mb-6 p-6 max-w-5xl">
             <h1 className="text-3xl font-bold mb-2">{collection?.info.name} API</h1>

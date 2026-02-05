@@ -162,6 +162,8 @@ export const useActiveAccount = () => {
   const [state, setState] = useState<{ authenticated: boolean }>({ authenticated: false })
   const { instance, inProgress } = useMsal()
 
+  if(NODE_ENV === 'development') return true
+
   useEffect(() => {
     if(inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()

@@ -8,8 +8,9 @@ export const DocsBtn = () => {
   if(!show) return null
 
   return (
-    <Link to={'/docs'} className="absolute bottom-4 right-4 btn btn-ghost btn-sm">
-      <img src={apiIcon} alt="API" className="w-6 h-6" />
+    <Link to={'/docs'} className="absolute flex flex-col items-center text-neutral-content bottom-4 right-6 hover:text-secondary">
+      <img src={apiIcon} alt="API docs icon" className="w-8" />
+      <small className="uppercase">API Docs</small>
     </Link>
   )
 }
