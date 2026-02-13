@@ -9,7 +9,7 @@ import UpdateRosterBatteryForm from '../../forms/update/UpdateRosterBatteryForm'
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
   const { formUUID, deleteBtnProps, visible } = useHandleForm()
 
-  if(!visible) return
+  if(!visible) return null
 
   if(!formUUID) return ( // Create new
     <div ref={formRef} className="w-full">
@@ -32,7 +32,7 @@ export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) 
 export const CreateBtn = () => {
   const { visible, onClick } = useHandleCreateBtn()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <PersonnelContainer.CreateBtn onClick={onClick}>

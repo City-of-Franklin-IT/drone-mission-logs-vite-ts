@@ -24,7 +24,7 @@ export const Table = ({ tableData }: { tableData: AppTypes.BatteryRosterInterfac
 const TableHeaders = () => {
   const { batteryRosterFilter } = useContext(RostersCtx)
 
-  if(!batteryRosterFilter) return
+  if(!batteryRosterFilter) return null
 
   return (
     <thead>

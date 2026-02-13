@@ -9,7 +9,7 @@ import UpdateRosterVehicleForm from '../../forms/update/UpdateRosterVehicleForm'
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
   const { formUUID, deleteBtnProps, visible } = useHandleForm()
 
-  if(!visible) return
+  if(!visible) return null
 
   if(!formUUID) return ( // Create new
     <div ref={formRef} className="w-full">

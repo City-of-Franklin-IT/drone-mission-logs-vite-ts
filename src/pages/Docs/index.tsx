@@ -1,10 +1,10 @@
-import Layout from "@/components/layout/Layout"
 import { useGetDocs } from './hooks'
 
 // Types
 import { CollectionType } from './utils'
 
 // Components
+import Layout from "@/components/layout/Layout"
 import Motion from "@/utils/Motion"
 import HandleLoading from "@/utils/HandleLoading"
 import ErrorBoundary from "@/components/error/ErrorBoundary"

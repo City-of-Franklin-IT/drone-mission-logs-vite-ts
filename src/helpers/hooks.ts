@@ -225,7 +225,7 @@ export const useGetUserDepartment = () => {
           console.log(err)
           setState(prev => ({ ...prev, isLoading: false }))
         })
-    } else if (inProgress === 'none' && !activeAccount) {
+    } else if(inProgress === 'none' && !activeAccount) {
       setState(prev => ({ ...prev, isLoading: false }))
     }
   }, [inProgress, state.department])

@@ -19,7 +19,7 @@ export const Header = () => {
 export const PilotSelect = () => {
   const { methods, isLoading } = useHandlePilotSelect()
 
-  if(isLoading) return
+  if(isLoading) return null
 
   return (
     <Controller
@@ -62,7 +62,7 @@ export const PilotSelect = () => {
 export const SupportPersonnelInput = () => {
   const { methods, visible, removeBtnProps } = useHandleSupportPersonnelInput()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col gap-2">
@@ -92,7 +92,7 @@ export const SupportPersonnelInput = () => {
                 {...field}
                 onChange={(e) => {
                   field.onChange(e)
-                  methods.setValue(`Personnel.${1}._dirtied`, true)
+                  methods.setValue(`Personnel.${ 1 }._dirtied`, true)
                 }}>
                   <PersonnelOptions />
               </select>
@@ -108,7 +108,7 @@ export const SupportPersonnelInput = () => {
 export const PersonnelOptions = () => {
   const { isLoading, personnel } = useHandlePersonnelOptions()
 
-  if(isLoading) return
+  if(isLoading) return null
 
   return (
     <>
@@ -123,7 +123,7 @@ export const PersonnelOptions = () => {
 }
 
 export const PersonnelOption = ({ personnel }: { personnel: AppTypes.PersonnelRosterInterface }) => {
-  if(!personnel) return
+  if(!personnel) return null
 
   return (
     <option value={personnel.email}>{personnel.email}</option>

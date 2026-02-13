@@ -1,6 +1,6 @@
+import { useEffect, useState } from "react"
 import { PublicClientApplication } from "@azure/msal-browser"
 import { MsalProvider } from "@azure/msal-react"
-import { useEffect, useState } from "react"
 import { NODE_ENV } from "@/config"
 import { msalConfig } from "../config"
 

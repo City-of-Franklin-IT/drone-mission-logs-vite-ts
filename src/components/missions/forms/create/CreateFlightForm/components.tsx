@@ -9,7 +9,7 @@ import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 export const FlightInputs = ({ index }: { index: number }) => {
   const { visible, removeBtnProps } = useHandleFlightInputs(index)
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col gap-2">

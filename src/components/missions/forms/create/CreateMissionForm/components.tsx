@@ -237,7 +237,7 @@ const MissionDescriptionInput = () => {
 const BatteryInputs = () => {
   const { visible, batteries } = useHandleBatteryInputs()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col items-center gap-4">

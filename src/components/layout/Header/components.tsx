@@ -1,13 +1,13 @@
-import { useContext } from 'react';
-import { useLocation, Link } from 'react-router';
-import { APP_TITLE } from '../../../config';
-import { useActiveAccount } from '@/helpers/hooks';
-import useHandleLogoutRedirect from '@/context/Auth/hooks/useHandleLogoutRedirect';
-import HeaderCtx from './context';
-import { handleTitleIconSrc } from './utils';
+import { useContext } from 'react'
+import { useLocation, Link } from 'react-router'
+import { APP_TITLE } from '../../../config'
+import { useActiveAccount } from '@/helpers/hooks'
+import useHandleLogoutRedirect from '@/context/Auth/hooks/useHandleLogoutRedirect'
+import HeaderCtx from './context'
+import { handleTitleIconSrc } from './utils'
 
 export const Title = () => {
-  const iconSrc = handleTitleIconSrc();
+  const iconSrc = handleTitleIconSrc()
 
   return (
     <Link
@@ -21,8 +21,8 @@ export const Title = () => {
         </h1>
       </div>
     </Link>
-  );
-};
+  )
+}
 
 export const Buttons = () => {
   const { pathname } = useLocation()
@@ -37,8 +37,8 @@ export const Buttons = () => {
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
       <LogoutBtn />
     </div>
-  );
-};
+  )
+}
 
 export const HomeLink = () => {
   const label =
@@ -52,8 +52,8 @@ export const HomeLink = () => {
       className="text-neutral-content uppercase p-3 m-auto bg-neutral/20 w-fit rounded-b-lg hover:bg-warning/50 hover:text-neutral">
         {label}
     </a>
-  );
-};
+  )
+}
 
 const HelpDoc = () => {
 
@@ -64,10 +64,10 @@ const HelpDoc = () => {
       target="_blank">
         Help
     </a>
-  );
-};
+  )
+}
 
-type HeaderBtnProps = { to: string; children: React.ReactNode };
+type HeaderBtnProps = { to: string, children: React.ReactNode }
 
 const HeaderBtn = (props: HeaderBtnProps) => {
   const { activePage } = useContext(HeaderCtx)
@@ -89,16 +89,15 @@ const HeaderBtn = (props: HeaderBtnProps) => {
     >
       {props.children}
     </Link>
-  );
-};
+  )
+}
 
 const LogoutBtn = () => {
-  // Logout button
-  const activeAccount = useActiveAccount();
+  const activeAccount = useActiveAccount()
 
-  const handleLogoutRedirect = useHandleLogoutRedirect();
+  const handleLogoutRedirect = useHandleLogoutRedirect()
 
-  if (!activeAccount) return null;
+  if(!activeAccount) return null
 
   return (
     <button
@@ -108,5 +107,5 @@ const LogoutBtn = () => {
     >
       Logout
     </button>
-  );
-};
+  )
+}

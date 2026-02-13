@@ -29,7 +29,7 @@ export const CreateBtn = (props: CreateBtnProps) => {
 export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
   const { formUUID, formType, onDeleteBtnClick, deleteBtnLabel } = useHandleForm()
 
-  if(formType !== 'personnel') return
+  if(formType !== 'personnel') return null
 
   if(!formUUID) return ( // Create new
     <div ref={formRef} className="w-full">

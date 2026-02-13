@@ -1,8 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { APP_BASE } from "./config"
 import { ToastContainer } from "react-toastify"
+import { APP_BASE } from "./config"
 
 // Components
 import Login from "./pages/Login"

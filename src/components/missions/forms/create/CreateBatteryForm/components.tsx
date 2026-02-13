@@ -18,7 +18,7 @@ export const Header = () => {
 export const BatteryInput = ({ index }: { index: number }) => {
   const { control, setValue, visible, removeBtnProps } = useHandleBatteryInput(index)
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col gap-2">
@@ -54,7 +54,7 @@ const BatteryOptions = () => {
       <option value=""></option>
       {batteries.map(battery => (
         <BatteryOption
-          key={`battery-option-${battery.uuid}`}
+          key={`battery-option-${ battery.uuid }`}
           battery={battery} />
       ))}
     </>
@@ -62,7 +62,7 @@ const BatteryOptions = () => {
 }
 
 const BatteryOption = ({ battery }: { battery: AppTypes.BatteryRosterInterface }) => {
-  if(!battery) return
+  if(!battery) return null
 
   return (
     <option value={battery.batteryName}>{battery.batteryName}</option>

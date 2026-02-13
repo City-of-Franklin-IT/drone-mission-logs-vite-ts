@@ -1,5 +1,5 @@
 function RemoveBtn({ onClick, visible }: { onClick: React.MouseEventHandler<HTMLButtonElement>, visible: boolean }) {
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <button

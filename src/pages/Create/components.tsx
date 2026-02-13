@@ -6,7 +6,7 @@ import FormContainer from "@/components/form-elements/FormContainer"
 export const CreateContainer = () => {
   const Form = useSetForm()
 
-  if(!Form) return
+  if(!Form) return null
 
   return (
     <FormContainer>

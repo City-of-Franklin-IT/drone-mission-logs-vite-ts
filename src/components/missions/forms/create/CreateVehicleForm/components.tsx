@@ -17,7 +17,7 @@ export const Header = () => {
 export const VehicleRegistrationInput = () => {
   const { methods, isLoading } = useHandleVehicleRegistrationInput()
 
-  if(isLoading) return
+  if(isLoading) return null
 
   return (
     <div className="flex flex-col gap-4 mx-auto">
@@ -46,14 +46,14 @@ export const RegistrationOptions = () => {
 
   const registrations = data?.data ?? []
 
-  if(isLoading) return
+  if(isLoading) return null
 
   return (
     <>
       <option value="">Select vehicle..</option>
       {registrations.map(registration => (
         <RegistrationOption
-          key={`registration-option-${registration.uuid}`}
+          key={`registration-option-${ registration.uuid }`}
           registration={registration} />
       ))}
     </>
@@ -61,7 +61,7 @@ export const RegistrationOptions = () => {
 }
 
 const RegistrationOption = ({ registration }: { registration: AppTypes.VehicleRosterInterface }) => {
-  if(!registration) return
+  if(!registration) return null
 
   return (
     <option value={registration.registration}>{registration.model} - {registration.registration}</option>

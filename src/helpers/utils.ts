@@ -1,4 +1,3 @@
-// Types
 import { AccountInfo, IPublicClientApplication } from "@azure/msal-browser"
 
 export const authHeaders = (token: string | undefined) => {

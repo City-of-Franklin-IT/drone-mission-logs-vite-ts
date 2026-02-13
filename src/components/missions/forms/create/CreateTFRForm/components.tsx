@@ -15,7 +15,7 @@ export const Header = () => {
 export const TFRInputs = () => {
   const { visible, removeBtnProps } = useHandleTFRInputs()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col gap-4 w-full">
@@ -29,7 +29,7 @@ export const TFRInputs = () => {
 export const AddTFRBtn = () => {
   const { visible, onClick } = useHandleAddTFRBtn()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <button 
@@ -44,7 +44,7 @@ export const AddTFRBtn = () => {
 export const TFRInput = () => {
   const { methods, visible } = useHandleTFR()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col">
@@ -65,7 +65,7 @@ export const TFRInput = () => {
 export const TFRSourceInput = () => {
   const { methods, visible } = useHandleTFR()
 
-  if(!visible) return
+  if(!visible) return null
 
   return (
     <div className="flex flex-col gap-6">

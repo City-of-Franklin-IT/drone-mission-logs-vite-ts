@@ -12,7 +12,7 @@ export const Form = () => {
 
   const ref = useScrollToRef()
 
-  if(!missionUUID) return
+  if(!missionUUID) return null
 
   return (
     <div ref={ref}>

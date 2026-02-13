@@ -1,5 +1,6 @@
-// Types
 import { Path } from 'react-hook-form'
+
+// Types
 import * as AppTypes from '@/context/App/types'
 
 // Components

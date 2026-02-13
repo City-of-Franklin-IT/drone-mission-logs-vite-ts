@@ -123,7 +123,7 @@ const ShowDetailsBtn = (props: ShowDetailsBtnProps) => {
 }
 
 const PersonnelTableData = ({ personnel }: { personnel: AppTypes.PersonnelInterface[] | undefined }) => {
-  if(!personnel) return
+  if(!personnel) return null
 
   return (
     <td>
@@ -152,7 +152,7 @@ const Personnel = ({ personnel }: { personnel: AppTypes.PersonnelInterface }) =>
 }
 
 const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
-  if(!isPilot) return
+  if(!isPilot) return null
 
   return (
     <img src={iconMap.get('pilot')} alt="pilot icon" className="w-[30px]" title="Pilot" />
@@ -229,7 +229,7 @@ const DetailItemContent = (props: DetailItemContentProps) => {
 }
 
 const Vehicle = ({ vehicle }: { vehicle: AppTypes.VehicleInterface | undefined }) => {
-  if(!vehicle) return
+  if(!vehicle) return null
 
   return (
     <div className="flex flex-col gap-2 items-center mx-auto p-2 px-3 bg-info/10 rounded w-full">
@@ -245,7 +245,7 @@ const Vehicle = ({ vehicle }: { vehicle: AppTypes.VehicleInterface | undefined }
 }
 
 const VehicleModel = ({ model }: { model: string | undefined }) => {
-  if(!model) return
+  if(!model) return null
 
   return (
     <DetailItemContent icon={'drone'}>
@@ -264,7 +264,7 @@ const VehicleRegistration = ({ registration }: { registration: string }) => {
 }
 
 const Batteries = ({ batteries }: { batteries: AppTypes.BatteryInterface[] | undefined }) => {
-  if(!batteries) return
+  if(!batteries) return null
 
   return (
     <DetailItemContent icon={'battery'}>
@@ -278,7 +278,7 @@ const Batteries = ({ batteries }: { batteries: AppTypes.BatteryInterface[] | und
 }
 
 const Flights = ({ flights }: { flights: AppTypes.FlightInterface[] | undefined }) => {
-  if(!flights) return
+  if(!flights) return null
 
   return (
     <div className="flex flex-col gap-2 items-center mx-auto p-2 px-3 bg-info/10 rounded w-full">
@@ -337,7 +337,7 @@ const Duration = ({ duration }: { duration: string }) => {
 }
 
 const Weather = ({ weather }: { weather: AppTypes.WeatherInterface | undefined }) => {
-  if(!weather) return
+  if(!weather) return null
 
   return (
     <div className="flex flex-col gap-2 mx-auto p-2 px-3 bg-info/10 rounded w-full">
@@ -356,7 +356,7 @@ const Weather = ({ weather }: { weather: AppTypes.WeatherInterface | undefined }
 }
 
 const Temperature = ({ temperature }: { temperature: number | null }) => {
-  if(!temperature) return
+  if(!temperature) return null
 
   return (
     <DetailItemContent icon={'temperature'}>
@@ -366,7 +366,7 @@ const Temperature = ({ temperature }: { temperature: number | null }) => {
 }
 
 const WindSpeed = ({ wind }: { wind: number | null }) => {
-  if(!wind) return
+  if(!wind) return null
 
   return (
     <DetailItemContent icon={'wind'}>
@@ -376,7 +376,7 @@ const WindSpeed = ({ wind }: { wind: number | null }) => {
 }
 
 const Visibility = ({ visibility }: { visibility: AppTypes.VisibilityType | null }) => {
-  if(!visibility) return
+  if(!visibility) return null
 
   return (
     <DetailItemContent icon={'clouds'}>
@@ -386,7 +386,7 @@ const Visibility = ({ visibility }: { visibility: AppTypes.VisibilityType | null
 }
 
 const Inspections = ({ inspection }: { inspection: AppTypes.InspectionInterface | undefined }) => {
-  if(!inspection) return
+  if(!inspection) return null
 
   return (
     <div className="flex flex-col gap-2 items-center mx-auto p-2 px-3 bg-info/10 rounded w-full">
@@ -411,7 +411,7 @@ const Inspection = (props: InspectionType) => {
     'not passed' :
     'passed'
 
-  if(!iconSrc) return
+  if(!iconSrc) return null
 
   return (
     <DetailItemContent icon={iconSrc}>
@@ -421,7 +421,7 @@ const Inspection = (props: InspectionType) => {
 }
 
 const TemporaryFlightRestriction = ({ tfr }: { tfr: AppTypes.TemporaryFlightRestrictionInterface | undefined }) => {
-  if(!tfr) return
+  if(!tfr) return null
 
   return (
     <div className="flex flex-col gap-2 items-center mx-auto p-2 px-3 bg-info/10 rounded w-full">
