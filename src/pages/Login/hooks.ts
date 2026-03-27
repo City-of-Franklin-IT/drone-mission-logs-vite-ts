@@ -21,10 +21,8 @@ export const useHandleAuth = () => {
           instance.setActiveAccount(response.account)
           navigate('/missions')
         }
-      }).catch(error => {
-        if(error.errorCode === "interaction_required") {
-          window.location.href = '/'
-        }
+      }).catch(() => {
+        instance.loginRedirect({ scopes: ["openid", "profile"] })
       })
     } else navigate('/missions')
   }, [instance, accounts.length, inProgress, navigate])

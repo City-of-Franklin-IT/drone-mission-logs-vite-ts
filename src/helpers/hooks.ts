@@ -65,8 +65,12 @@ export const useGetToken = () => {
           } else throw error
         }
       } else {
-        const response = await instance.acquireTokenSilent(request)
-        setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        try {
+          const response = await instance.acquireTokenSilent(request)
+          setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        } catch {
+          instance.loginRedirect({ scopes: ["openid", "profile"] })
+        }
       }
 
       return
@@ -89,8 +93,12 @@ export const useGetToken = () => {
           } else throw error
         }
       } else {
-        const response = await instance.acquireTokenSilent(request)
-        setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        try {
+          const response = await instance.acquireTokenSilent(request)
+          setState({ token: response.idToken, isLoading: false, popupBlocked: false })
+        } catch {
+          instance.loginRedirect({ scopes: ["openid", "profile"] })
+        }
       }
 
       return
