@@ -8,9 +8,9 @@ export const DateRangeFilterInputs = () => {
   const { startInputProps, endInputProps, clearBtnProps } = useHandleDateRangeFilterInputs()
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
-      <span className="text-neutral-content uppercase font-bold">Date Range Filter</span>
-      <div className="flex flex-col items-center gap-4 font-[play] px-2 justify-center flex-wrap">
+    <div className="flex flex-col gap-1 items-center w-xs">
+      <span className="text-secondary font-[play] uppercase underline">Date Range</span>
+      <div className="flex flex-row items-center gap-4 font-[play] px-2 justify-center flex-wrap w-full md:flex-nowrap">
         <DateRangeInput inputProps={startInputProps}>
           Start:
         </DateRangeInput>
@@ -29,11 +29,11 @@ export const PersonnelFilter = () => {
   if(loading) return <Loading />
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 shadow-xl w-full">
-      <span className="text-neutral-content uppercase font-bold">Personnel Filter</span>
+    <div className="flex flex-col gap-1 items-center w-55">
+      <span className="text-secondary font-[play] uppercase underline">Personnel Filter</span>
 
       <select
-        className="select mx-auto truncate hover:cursor-pointer"
+        className="select select-sm text-neutral-content mx-auto truncate bg-neutral hover:cursor-pointer"
         { ...selectProps }>
           <CreatePersonnelForm.PersonnelOptions />
       </select>
@@ -46,12 +46,12 @@ export const Search = () => {
   const { inputProps, clearBtnProps } = useHandleSearch()
 
   return (
-    <div className="flex flex-col gap-2 items-center p-3 pb-4 border-2 border-b-3 border-r-3 border-neutral-content rounded-lg bg-neutral/50 w-full shadow-xl">
-      <span className="text-neutral-content uppercase font-bold">Search</span>
+    <div className="flex flex-col gap-1 items-center w-55">
+      <span className="text-secondary font-[play] uppercase underline">Search</span>
 
       <input
         type="text"
-        className="input"
+        className="input input-sm text-neutral-content bg-neutral"
         placeholder="by mission description.."
         { ...inputProps } />
       <ClearFilterBtn { ...clearBtnProps } />
@@ -64,12 +64,12 @@ type DateRangeInputProps = { inputProps: { onChange: React.ChangeEventHandler<HT
 const DateRangeInput = (props: DateRangeInputProps) => {
 
   return (
-    <div className="flex gap-2 items-center font-[play]">
-      <label className="label text-neutral-content">{props.children}</label>
+    <div className="flex flex-row gap-2 items-center flex-1 font-[play]">
+      <label className="label text-sm text-neutral-content">{props.children}</label>
       <input
         data-testid="date-range-input"
         type="date"
-        className="input hover:cursor-pointer" 
+        className="input input-sm text-neutral-content bg-neutral hover:cursor-pointer w-full"
         { ...props.inputProps } />
     </div>
   )
@@ -82,7 +82,7 @@ const ClearFilterBtn = (props: ClearFilterBtnProps) => {
   return (
     <button
       type="button"
-      className="btn btn-secondary btn-sm font-[play] uppercase w-full"
+      className="btn btn-secondary btn-sm font-[play] mt-1 uppercase w-full"
       disabled={props.disabled}
       onClick={props.onClick}>
         Clear

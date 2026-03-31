@@ -17,7 +17,7 @@ function CreateMissionForm() {
       
       <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
         <Components.MissionDetailInputs />
-        <div className="flex flex-col mx-auto w-full xl:w-4/5">
+        <div className="flex flex-col mx-auto w-full lg:w-4/5">
           <CreatePersonnelForm />
           <Components.ResponseOnlyInput />
           <Components.VehicleInputs />

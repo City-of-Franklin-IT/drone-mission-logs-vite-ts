@@ -1,9 +1,10 @@
 import icon from '@/assets/icons/loading/loading.svg'
 
 function Loading() {
+  
   return (
     <div className="fixed inset-0 flex items-center justify-center pointer-events-none">
-      <img src={icon} alt="loading icon" className="w-40 animate-pulse" />
+      <img src={icon} alt="loading icon" className="w-30 animate-pulse pointer-events-none lg:w-40" />
     </div>
   )
 }

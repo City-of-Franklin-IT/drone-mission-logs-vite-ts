@@ -21,7 +21,7 @@ function UpdateMissionForm({ mission }: { mission: AppTypes.MissionInterface | u
       
       <form onSubmit={methods.handleSubmit(handleFormSubmit)}>
         <MissionCreate.MissionDetailInputs />
-        <div className="flex flex-col mx-auto w-4/5">
+        <div className="flex flex-col mx-auto w-full lg:w-4/5">
           <CreatePersonnelForm />
           <MissionCreate.ResponseOnlyInput />
           <MissionCreate.VehicleInputs />

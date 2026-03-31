@@ -18,7 +18,7 @@ export const MissionDetailInputs = () => {
 
   return (
     <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
-      <div className="flex gap-6 flex-wrap justify-between">
+      <div className="flex flex-col gap-6 md:flex-row md:justify-between">
         <MissionDateInput />
         <IncidentNumberInput />
         <LocationInput />
