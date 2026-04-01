@@ -40,8 +40,7 @@ export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterf
     if(formData.TemporaryFlightRestriction?._dirtied || formData.TemporaryFlightRestriction?._deleted) {
         if(formData.TemporaryFlightRestriction._deleted) { // Delete existing
             await AppActions.deleteTFR(formData.TemporaryFlightRestriction.uuid as string, authHeaders(token))
-        }
-        if(formData.TemporaryFlightRestriction.uuid) { // Update existing
+        } else if(formData.TemporaryFlightRestriction.uuid) { // Update existing
             await AppActions.updateTFR(formData.TemporaryFlightRestriction, authHeaders(token))
         } else { // Create new
             await AppActions.createTFR({ ...formData.TemporaryFlightRestriction, parentId: formData.uuid as string }, authHeaders(token))
