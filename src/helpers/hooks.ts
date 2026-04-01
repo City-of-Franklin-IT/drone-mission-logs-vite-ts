@@ -14,10 +14,6 @@ export const useGetToken = () => {
 
   const { instance, accounts, inProgress } = useMsal()
 
-  if(NODE_ENV === 'development') {
-    return { token: 'dev-token', isLoading: false, popupBlocked: false }
-  }
-
   const checkToken = async () => {
     setState(prevState => ({ ...prevState, isLoading: true }))
 
@@ -108,6 +104,8 @@ export const useGetToken = () => {
   }
 
   useEffect(() => {
+    if(NODE_ENV === 'development') return
+
     if(inProgress !== 'none') { // Wait for instance to fully initialize
       return
     }
@@ -115,9 +113,13 @@ export const useGetToken = () => {
     checkToken()
 
     const intervalId = setInterval(checkToken, 4 * 60 * 1000) // Check every 4 minutes
-    
+
     return () => clearInterval(intervalId)
   }, [inProgress, accounts.length])
+
+  if(NODE_ENV === 'development') {
+    return { token: 'dev-token', isLoading: false, popupBlocked: false }
+  }
 
   return state
 }
@@ -170,14 +172,16 @@ export const useActiveAccount = () => {
   const [state, setState] = useState<{ authenticated: boolean }>({ authenticated: false })
   const { instance, inProgress } = useMsal()
 
-  if(NODE_ENV === 'development') return true
-
   useEffect(() => {
+    if(NODE_ENV === 'development') return
+
     if(inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()
       setState({ authenticated: !!activeAccount })
     }
   }, [instance, inProgress])
+
+  if(NODE_ENV === 'development') return true
 
   return state.authenticated
 }
@@ -200,18 +204,20 @@ export const useUnauthRedirect = () => {
   const { instance, inProgress } = useMsal()
   const navigate = useNavigate()
 
-  if(NODE_ENV === 'development') return
-
   useEffect(() => {
+    if(NODE_ENV === 'development') return
+
     if(inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()
-      
+
       if(!activeAccount) {
         infoPopup('Unauthorized: Please Login')
         navigate('/')
       }
     }
   }, [inProgress, instance, navigate])
+
+  if(NODE_ENV === 'development') return
 }
 
 export const useGetUserDepartment = () => {
