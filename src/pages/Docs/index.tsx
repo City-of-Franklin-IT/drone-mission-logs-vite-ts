@@ -4,7 +4,6 @@ import { useGetDocs } from './hooks'
 import { CollectionType } from './utils'
 
 // Components
-import Layout from "@/components/layout/Layout"
 import Motion from "@/utils/Motion"
 import HandleLoading from "@/utils/HandleLoading"
 import ErrorBoundary from "@/components/error/ErrorBoundary"
@@ -15,21 +14,19 @@ function Documentation() {
   const collection = data as CollectionType
 
   return (
-    <Layout>
-      <ErrorBoundary href={'/'}>
-        <HandleLoading isSuccess={isSuccess}>
-          <Motion animation={'slideInRight'}>
-            <div className="container font-[play] text-primary-content mx-auto mt-4 mb-6 p-6 max-w-5xl">
-              <h1 className="text-3xl font-bold mb-2">{collection?.info.name} API</h1>
-              <p className="italic mb-6 max-w-3/4">{collection?.info.description}</p>
+    <ErrorBoundary href={'/'}>
+      <HandleLoading isSuccess={isSuccess}>
+        <Motion animation={'slideInRight'}>
+          <div className="container font-[play] text-primary-content mx-auto mt-4 mb-6 p-6 max-w-5xl">
+            <h1 className="text-3xl font-bold mb-2">{collection?.info.name} API</h1>
+            <p className="italic mb-6 max-w-3/4">{collection?.info.description}</p>
 
-              <Components.EndpointItems collection={collection} />
-              <Components.CloseDocsBtn />
-            </div>
-          </Motion>
-        </HandleLoading>
-      </ErrorBoundary>
-    </Layout>
+            <Components.EndpointItems collection={collection} />
+            <Components.CloseDocsBtn />
+          </div>
+        </Motion>
+      </HandleLoading>
+    </ErrorBoundary>
   )
 }
 

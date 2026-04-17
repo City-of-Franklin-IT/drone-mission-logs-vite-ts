@@ -1,6 +1,7 @@
 import { useContext } from 'react'
+import { Dispatch } from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
-import MissionsCtx, { MissionsProvider } from '../../../context'
+import MissionsCtx, { MissionsProvider, MissionsAction } from '../../../context'
 import { useSetTableData } from '../hooks'
 
 const makeMission = (overrides = {}) => ({
@@ -33,7 +34,7 @@ const FilteringTestComponent = ({
   dispatchFn
 }: {
   missions: ReturnType<typeof makeMission>[]
-  dispatchFn: (dispatch: ReturnType<typeof useContext<typeof MissionsCtx>['dispatch']>) => void
+  dispatchFn: (dispatch: Dispatch<MissionsAction>) => void
 }) => {
   const { dispatch } = useContext(MissionsCtx)
   const { tableData, filteredCount } = useSetTableData(missions as any)

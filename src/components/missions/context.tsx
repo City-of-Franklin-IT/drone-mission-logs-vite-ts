@@ -106,4 +106,5 @@ export const MissionsProvider = ({ children }: { children: ReactNode }) => {
   )
 }
 
+export type { MissionsAction }
 export default MissionsCtx

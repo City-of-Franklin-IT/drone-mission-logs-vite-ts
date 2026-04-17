@@ -5,6 +5,7 @@ import { ToastContainer } from "react-toastify"
 import { APP_BASE } from "./config"
 
 // Components
+import Layout from "./components/layout/Layout"
 import Login from "./pages/Login"
 import Missions from "./pages/Missions"
 import Redirect from "./pages/Redirect"
@@ -21,11 +22,13 @@ function App() {
       <Router basename={APP_BASE}>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/missions" element={<Missions />} />
-          <Route path="/create/:formtype" element={<Create />} />
-          <Route path="/rosters" element={<Rosters />} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/*" element={<Redirect />} />
+          <Route element={<Layout />}>
+            <Route path="/missions" element={<Missions />} />
+            <Route path="/create/:formtype" element={<Create />} />
+            <Route path="/rosters" element={<Rosters />} />
+            <Route path="/docs" element={<Docs />} />
+            <Route path="/*" element={<Redirect />} />
+          </Route>
         </Routes>
       </Router>
       <ToastContainer />

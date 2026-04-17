@@ -31,7 +31,7 @@ describe('handleCreateRosterBattery', () => {
   })
 
   it('should return a failed result when the API call fails', async () => {
-    const mockResult = { success: false, msg: 'Server error' }
+    const mockResult = { success: false, msg: 'Server error', data: {} as any }
     vi.mocked(AppActions.createRosterBattery).mockResolvedValue(mockResult)
 
     const formData = {
