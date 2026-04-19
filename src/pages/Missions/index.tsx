@@ -7,14 +7,13 @@ import ErrorBoundary from "@/components/error/ErrorBoundary"
 import MissionsContainer from "@/components/missions/containers/MissionsContainer"
 
 function Missions() {
-
   const { data, isSuccess } = useGetMissions()
 
   return (
     <ErrorBoundary href={'/'}>
       <HandleLoading isSuccess={isSuccess}>
         <MissionsProvider>
-          <MissionsContainer missions={data?.data || []} />
+          <MissionsContainer missions={data?.data ?? []} />
         </MissionsProvider>
       </HandleLoading>
     </ErrorBoundary>

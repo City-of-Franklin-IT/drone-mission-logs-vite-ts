@@ -2,19 +2,16 @@ import { Controller } from "react-hook-form"
 import { useHandlePilotSelect, useHandleSupportPersonnelInput, useHandlePersonnelOptions } from "./hooks"
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
 import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
-export const Header = () => {
-
-  return (
-    <h3 className="text-3xl text-neutral-content font-[play]">Personnel</h3>
-  )
-}
+export const Header = () => (
+  <h3 className="text-3xl text-neutral-content font-[play]">Personnel</h3>
+)
 
 export const PilotSelect = () => {
   const { methods, isLoading } = useHandlePilotSelect()

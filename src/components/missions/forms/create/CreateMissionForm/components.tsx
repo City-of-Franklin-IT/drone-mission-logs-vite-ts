@@ -7,26 +7,20 @@ import CreateVehicleForm from "../CreateVehicleForm"
 import CreateBatteryForm from "../CreateBatteryForm"
 import CreateFlightForm from "../CreateFlightForm"
 
-export const Header = ({ children }: { children: React.ReactNode }) => {
+export const Header = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="text-neutral-content text-4xl font-[play] font-normal text-center py-6 whitespace-nowrap">{children}</h2>
+)
 
-  return (
-    <h2 className="text-neutral-content text-4xl font-[play] font-normal text-center py-6 whitespace-nowrap">{children}</h2>
-  )
-}
-
-export const MissionDetailInputs = () => {
-
-  return (
-    <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
-      <div className="flex flex-col gap-6 md:flex-row md:justify-between">
-        <MissionDateInput />
-        <IncidentNumberInput />
-        <LocationInput />
-      </div>
-      <MissionDescriptionInput />
+export const MissionDetailInputs = () => (
+  <div className="flex flex-col gap-4 mx-auto p-6 border-2 border-info/10 w-full rounded-xl xl:p-10 xl:w-4/5">
+    <div className="flex flex-col gap-6 md:flex-row md:justify-between">
+      <MissionDateInput />
+      <IncidentNumberInput />
+      <LocationInput />
     </div>
-  )
-}
+    <MissionDescriptionInput />
+  </div>
+)
 
 export const ResponseOnlyInput = () => {
   const { register, watch, setValue } = useCreateMissionCtx()

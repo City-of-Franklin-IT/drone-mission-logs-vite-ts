@@ -6,33 +6,27 @@ import { setFlightTimes, iconMap, motionProps, setLastName } from './utils'
 import { useSetColumnVisibility, useHandleTableRow } from './hooks'
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
-export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => {
+export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => (
+  <motion.table
+    className="table text-neutral-content font-[play] w-full"
+    { ...motionProps.slideInLeft }>
+      <TableHeaders />
+      <TableBody tableData={tableData} />
+  </motion.table>
+)
 
-  return (
-    <motion.table
-      className="table text-neutral-content font-[play] w-full"
-      { ...motionProps.slideInLeft }>
-        <TableHeaders />
-        <TableBody tableData={tableData} />
-    </motion.table>
-  )
-}
-
-export const NoMissions = () => {
-
-  return (
-    <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center p-10 m-auto outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
-      <span className="text-xl uppercase font-bold">No Missions</span>
-      <Link 
-        to={'/create/mission'} 
-        className="text-lg text-warning font-bold hover:text-info">
-          Click to create mission
-      </Link>
-    </div>
-  )
-}
+export const NoMissions = () => (
+  <div className="flex flex-col gap-4 font-[play] text-neutral-content text-center p-10 m-auto outline-2 outline-dashed outline-neutral-content w-fit rounded-xl">
+    <span className="text-xl uppercase font-bold">No Missions</span>
+    <Link 
+      to={'/create/mission'} 
+      className="text-lg text-warning font-bold hover:text-info">
+        Click to create mission
+    </Link>
+  </div>
+)
 
 const TableHeaders = () => {
   const visible = useSetColumnVisibility()
@@ -52,23 +46,23 @@ const TableHeaders = () => {
   )
 }
 
-const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => {
+const TableBody = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => (
+  <tbody>
+    {tableData.map((mission, index) => {
+      return (
+        <TableRow
+          key={`table-row-${ mission.uuid }`}
+          tableData={mission}
+          index={index} />
+      )
+    })}
+  </tbody>
+)
 
-  return (
-    <tbody>
-      {tableData.map((mission, index) => {
-        return (
-          <TableRow
-            key={`table-row-${ mission.uuid }`}
-            tableData={mission}
-            index={index} />
-        )
-      })}
-    </tbody>
-  )
+type TableRowProps = { 
+  tableData: AppTypes.MissionInterface
+  index: number 
 }
-
-type TableRowProps = { tableData: AppTypes.MissionInterface, index: number }
 
 const TableRow = (props: TableRowProps) => {
   const { expanded, onDetailsBtnClick, visible, btnIconSrc } = useHandleTableRow()
@@ -99,28 +93,29 @@ const TableRow = (props: TableRowProps) => {
   )
 }
 
-type ShowDetailsBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>, index: number, children: React.ReactNode }
+type ShowDetailsBtnProps = { 
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+  index: number
+  children: React.ReactNode 
+}
 
-const ShowDetailsBtn = (props: ShowDetailsBtnProps) => {
-
-  return (
-    <tr className={`${ props.index % 2 === 0 ?
+const ShowDetailsBtn = (props: ShowDetailsBtnProps) => (
+  <tr className={`${ props.index % 2 === 0 ?
       'bg-neutral/20' :
       null }`}>
-      <td colSpan={5}>
-        <div className="flex justify-around">
-          <button
-            data-testid="show-details-btn"
-            type="button"
-            className="hover:cursor-pointer"
-            onClick={props.onClick}>
-              {props.children}
-          </button>
-        </div>
-      </td>
-    </tr>
-  )
-}
+    <td colSpan={5}>
+      <div className="flex justify-around">
+        <button
+          data-testid="show-details-btn"
+          type="button"
+          className="hover:cursor-pointer"
+          onClick={props.onClick}>
+            {props.children}
+        </button>
+      </div>
+    </td>
+  </tr>
+)
 
 const PersonnelTableData = ({ personnel }: { personnel: AppTypes.PersonnelInterface[] | undefined }) => {
   if(!personnel) return null
@@ -142,9 +137,7 @@ const Personnel = ({ personnel }: { personnel: AppTypes.PersonnelInterface }) =>
   const lastName = setLastName(personnel.email)
 
   return (
-    <div className={`flex gap-2 items-center uppercase ${ personnel.isPilot ?
-      'font-bold' :
-      'italic' }`}>
+    <div className={`flex gap-2 items-center uppercase ${personnel.isPilot ? 'font-bold' : 'italic'}`}>
       <span>{lastName}</span>
       <PilotIcon isPilot={personnel.isPilot} />
     </div>
@@ -158,8 +151,6 @@ const PilotIcon = ({ isPilot }: { isPilot: boolean | null }) => {
     <img src={iconMap.get('pilot')} alt="pilot icon" className="w-[30px]" title="Pilot" />
   )
 }
-
-type MissionDetailsProps = { expanded: boolean, tableData: AppTypes.MissionInterface, index: number }
 
 const ExportBtn = ({ uuid }: { uuid: string }) => {
   const href = window.location.hostname === 'pdapps.franklintn.gov' ? 
@@ -176,6 +167,12 @@ const ExportBtn = ({ uuid }: { uuid: string }) => {
       </a>
     </td>
   )
+}
+
+type MissionDetailsProps = { 
+  expanded: boolean
+  tableData: AppTypes.MissionInterface
+  index: number 
 }
 
 const MissionDetails = (props: MissionDetailsProps) => {
@@ -216,17 +213,17 @@ const MissionDetails = (props: MissionDetailsProps) => {
   )
 }
 
-type DetailItemContentProps = { icon: string, children: React.ReactNode }
-
-const DetailItemContent = (props: DetailItemContentProps) => {
-
-  return (
-    <div className="flex gap-2 items-center" title={props.icon.toUpperCase()}>
-      <img src={iconMap.get(props.icon)} alt={`${ props.icon } icon`} className="w-[20px]" />  
-      <small>{props.children}</small>
-    </div>
-  )
+type DetailItemContentProps = { 
+  icon: string
+  children: React.ReactNode 
 }
+
+const DetailItemContent = (props: DetailItemContentProps) => (
+  <div className="flex gap-2 items-center" title={props.icon.toUpperCase()}>
+    <img src={iconMap.get(props.icon)} alt={`${ props.icon } icon`} className="w-[20px]" />  
+    <small>{props.children}</small>
+  </div>
+)
 
 const Vehicle = ({ vehicle }: { vehicle: AppTypes.VehicleInterface | undefined }) => {
   if(!vehicle) return null
@@ -254,14 +251,11 @@ const VehicleModel = ({ model }: { model: string | undefined }) => {
   )
 }
 
-const VehicleRegistration = ({ registration }: { registration: string }) => {
-
-  return (
-    <DetailItemContent icon={'registration'}>
-      {registration}
-    </DetailItemContent>
-  )
-}
+const VehicleRegistration = ({ registration }: { registration: string }) => (
+  <DetailItemContent icon={'registration'}>
+    {registration}
+  </DetailItemContent>
+)
 
 const Batteries = ({ batteries }: { batteries: AppTypes.BatteryInterface[] | undefined }) => {
   if(!batteries) return null
@@ -309,32 +303,23 @@ const Flight = ({ flight }: { flight: AppTypes.FlightInterface }) => {
   )
 }
 
-const Takeoff = ({ takeOffTime }: { takeOffTime: string }) => {
+const Takeoff = ({ takeOffTime }: { takeOffTime: string }) => (
+  <DetailItemContent icon={'takeoff'}>
+    {takeOffTime}
+  </DetailItemContent>
+)
 
-  return (
-    <DetailItemContent icon={'takeoff'}>
-      {takeOffTime}
-    </DetailItemContent>
-  )
-}
+const Landing = ({ landingTime }: { landingTime: string }) => (
+  <DetailItemContent icon={'landing'}>
+    {landingTime}
+  </DetailItemContent>
+)
 
-const Landing = ({ landingTime }: { landingTime: string }) => {
-
-  return (
-    <DetailItemContent icon={'landing'}>
-      {landingTime}
-    </DetailItemContent>
-  )
-}
-
-const Duration = ({ duration }: { duration: string }) => {
-
-  return (
-    <DetailItemContent icon={'time'}>
-      {duration}
-    </DetailItemContent>
-  )
-}
+const Duration = ({ duration }: { duration: string }) => (
+  <DetailItemContent icon={'time'}>
+    {duration}
+  </DetailItemContent>
+)
 
 const Weather = ({ weather }: { weather: AppTypes.WeatherInterface | undefined }) => {
   if(!weather) return null
@@ -404,7 +389,10 @@ const Inspections = ({ inspection }: { inspection: AppTypes.InspectionInterface 
   )
 }
 
-type InspectionType = { checked: boolean | null, children: React.ReactNode }
+type InspectionType = { 
+  checked: boolean | null
+  children: React.ReactNode 
+}
 
 const Inspection = (props: InspectionType) => {
   const iconSrc = !props.checked ?

@@ -5,12 +5,9 @@ import FormLabel from "@/components/form-elements/FormLabel"
 import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
-export const Header = () => {
-
-  return (
-    <h3 className="text-3xl text-neutral-content text-center font-[play]">Temporary Flight Restriction</h3>
-  )
-}
+export const Header = () => (
+  <h3 className="text-3xl text-neutral-content text-center font-[play]">Temporary Flight Restriction</h3>
+)
 
 export const TFRInputs = () => {
   const { visible, removeBtnProps } = useHandleTFRInputs()

@@ -1,7 +1,7 @@
 import { useSetTableData } from './hooks'
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
 // Components
 import MissionsTable from '../../tables/MissionsTable'

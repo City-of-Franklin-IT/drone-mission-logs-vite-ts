@@ -2,18 +2,15 @@ import { Controller } from "react-hook-form"
 import { useHandleBatteryInput, useHandleBatteryOptions } from './hooks'
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
-export const Header = () => {
-
-  return (
-    <h3 className="text-3xl text-neutral-content font-[play]">Batteries</h3>
-  )
-}
+export const Header = () => (
+  <h3 className="text-3xl text-neutral-content font-[play]">Batteries</h3>
+)
 
 export const BatteryInput = ({ index }: { index: number }) => {
   const { control, setValue, visible, removeBtnProps } = useHandleBatteryInput(index)
@@ -58,6 +55,14 @@ const BatteryOptions = () => {
           battery={battery} />
       ))}
     </>
+  )
+}
+
+const BatteryOption = ({ battery }: { battery: AppTypes.BatteryRosterInterface }) => {
+  if(!battery) return null
+
+  return (
+    <option value={battery.batteryName}>{battery.batteryName}</option>
   )
 }
 

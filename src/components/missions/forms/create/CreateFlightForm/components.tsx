@@ -114,16 +114,11 @@ const LandingInput = ({ index }: { index: number }) => {
   )
 }
 
-type CurrentDateTimeBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement> }
-
-const CurrentDateTimeBtn = (props: CurrentDateTimeBtnProps) => {
-
-  return (
-    <button 
-      type="button"
-      className="btn btn-sm btn-info uppercase"
-      onClick={props.onClick}>
-        Use Current Time
-    </button>
-  )
-}
+const CurrentDateTimeBtn = ({ onClick }: { onClick: () => void }) => (
+  <button
+    type="button"
+    className="btn btn-sm btn-info uppercase"
+    onClick={onClick}>
+      Use Current Time
+  </button>
+)

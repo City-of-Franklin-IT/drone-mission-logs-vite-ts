@@ -2,7 +2,7 @@ import { FormProvider } from 'react-hook-form'
 import { useHandleUpdateMissionForm } from './hooks'
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
 // Components
 import CreatePersonnelForm from '../../create/CreatePersonnelForm'

@@ -6,14 +6,11 @@ import FormLabel from "@/components/form-elements/FormLabel"
 import FormError from "@/components/form-elements/FormError"
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
-export const Header = () => {
-
-  return (
-    <h3 className="text-3xl text-neutral-content font-[play]">Weather</h3>
-  )
-}
+export const Header = () => (
+  <h3 className="text-3xl text-neutral-content font-[play]">Weather</h3>
+)
 
 export const TemperatureInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
@@ -132,9 +129,6 @@ const VisibilityOptions = () => {
   )
 }
 
-const VisibilityOption = ({ option }: { option: { value: AppTypes.VisibilityType, label: string } }) => {
-
-  return (
-    <option value={option.value}>{option.label}</option>
-  )
-}
+const VisibilityOption = ({ option }: { option: { value: AppTypes.VisibilityType, label: string } }) => (
+  <option value={option.value}>{option.label}</option>
+)

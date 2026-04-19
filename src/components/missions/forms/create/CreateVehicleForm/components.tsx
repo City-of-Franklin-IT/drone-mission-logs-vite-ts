@@ -1,18 +1,15 @@
 import { useHandleVehicleRegistrationInput, useGetVehicleRegistrations } from './hooks'
 
 // Types
-import * as AppTypes from '@/context/App/types'
+import type * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
 import FormError from "@/components/form-elements/FormError"
 
-export const Header = () => {
-
-  return (
-    <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
-  )
-}
+export const Header = () => (
+  <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
+)
 
 export const VehicleRegistrationInput = () => {
   const { methods, isLoading } = useHandleVehicleRegistrationInput()
@@ -43,7 +40,6 @@ export const VehicleRegistrationInput = () => {
 
 export const RegistrationOptions = () => {
   const { data, isLoading } = useGetVehicleRegistrations()
-
   const registrations = data?.data ?? []
 
   if(isLoading) return null

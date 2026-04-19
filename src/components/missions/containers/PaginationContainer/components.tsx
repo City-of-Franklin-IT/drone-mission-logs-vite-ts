@@ -4,7 +4,7 @@ import { useHandlePageNav } from "./hooks"
 import PrevPageBtn from "@/components/layout/buttons/nav/PrevPageBtn"
 import NextPageBtn from "@/components/layout/buttons/nav/NextPageBtn"
 
-export const PageNavBtns = ({ count }: { count: number }) => { // Page nav buttons
+export const PageNavBtns = ({ count }: { count: number }) => {
   const { pageBtnProps, label } = useHandlePageNav(count)
 
   return (

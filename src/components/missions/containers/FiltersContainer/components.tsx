@@ -59,33 +59,36 @@ export const Search = () => {
   )
 }
 
-type DateRangeInputProps = { inputProps: { onChange: React.ChangeEventHandler<HTMLInputElement>, value: string }, children: React.ReactNode }
-
-const DateRangeInput = (props: DateRangeInputProps) => {
-
-  return (
-    <div className="flex flex-row gap-2 items-center flex-1 font-[play]">
-      <label className="label text-sm text-neutral-content">{props.children}</label>
-      <input
-        data-testid="date-range-input"
-        type="date"
-        className="input input-sm text-neutral-content bg-neutral hover:cursor-pointer w-full"
-        { ...props.inputProps } />
-    </div>
-  )
+type DateRangeInputProps = {
+  inputProps: {
+    onChange: React.ChangeEventHandler<HTMLInputElement>
+    value: string
+  }
+  children: React.ReactNode
 }
 
-type ClearFilterBtnProps = { onClick: React.MouseEventHandler<HTMLButtonElement>, disabled: boolean }
+const DateRangeInput = (props: DateRangeInputProps) => (
+  <div className="flex flex-row gap-2 items-center flex-1 font-[play]">
+    <label className="label text-sm text-neutral-content">{props.children}</label>
+    <input
+      data-testid="date-range-input"
+      type="date"
+      className="input input-sm text-neutral-content bg-neutral hover:cursor-pointer w-full"
+      { ...props.inputProps } />
+  </div>
+)
 
-const ClearFilterBtn = (props: ClearFilterBtnProps) => {
-
-  return (
-    <button
-      type="button"
-      className="btn btn-secondary btn-sm font-[play] mt-1 uppercase w-full"
-      disabled={props.disabled}
-      onClick={props.onClick}>
-        Clear
-    </button>
-  )
+type ClearFilterBtnProps = {
+  onClick: React.MouseEventHandler<HTMLButtonElement>
+  disabled: boolean
 }
+
+const ClearFilterBtn = (props: ClearFilterBtnProps) => (
+  <button
+    type="button"
+    className="btn btn-secondary btn-sm font-[play] mt-1 uppercase w-full"
+    disabled={props.disabled}
+    onClick={props.onClick}>
+      Clear
+  </button>
+)
