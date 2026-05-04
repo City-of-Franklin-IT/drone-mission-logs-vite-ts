@@ -15,17 +15,17 @@ describe('FormLabel', () => {
 
     it('should render RequiredIcon when required is true', () => {
       render(<FormLabel name="missionDate" required>Mission Date</FormLabel>)
-      expect(screen.getByAltText('required icon')).toBeInTheDocument()
+      expect(screen.getByText('*')).toBeInTheDocument()
     })
 
     it('should not render RequiredIcon when required is not set', () => {
       render(<FormLabel name="missionDate">Mission Date</FormLabel>)
-      expect(screen.queryByAltText('required icon')).not.toBeInTheDocument()
+      expect(screen.queryByText('*')).not.toBeInTheDocument()
     })
 
     it('should not render RequiredIcon when required is false', () => {
       render(<FormLabel name="missionDate" required={false}>Mission Date</FormLabel>)
-      expect(screen.queryByAltText('required icon')).not.toBeInTheDocument()
+      expect(screen.queryByText('*')).not.toBeInTheDocument()
     })
   })
 })
