@@ -65,11 +65,3 @@ const BatteryOption = ({ battery }: { battery: AppTypes.BatteryRosterInterface }
     <option value={battery.batteryName}>{battery.batteryName}</option>
   )
 }
-
-const BatteryOption = ({ battery }: { battery: AppTypes.BatteryRosterInterface }) => {
-  if(!battery) return null
-
-  return (
-    <option value={battery.batteryName}>{battery.batteryName}</option>
-  )
-}

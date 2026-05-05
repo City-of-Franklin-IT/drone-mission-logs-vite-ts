@@ -7,6 +7,8 @@ vi.mock('@/helpers/utils', () => ({ authHeaders: vi.fn(() => ({ Authorization: '
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from '@/helpers/utils'
 
+const mockRefreshToken = vi.fn().mockResolvedValue('new-token')
+
 beforeEach(() => {
   vi.clearAllMocks()
 })
@@ -23,7 +25,7 @@ describe('handleCreateRosterBattery', () => {
     }
     const token = 'test-token'
 
-    const result = await handleCreateRosterBattery(formData, token)
+    const result = await handleCreateRosterBattery(formData, token, mockRefreshToken)
 
     expect(authHeaders).toHaveBeenCalledWith(token)
     expect(AppActions.createRosterBattery).toHaveBeenCalledWith(formData, { Authorization: 'Bearer test' })
@@ -41,7 +43,7 @@ describe('handleCreateRosterBattery', () => {
     }
     const token = 'test-token'
 
-    const result = await handleCreateRosterBattery(formData, token)
+    const result = await handleCreateRosterBattery(formData, token, mockRefreshToken)
 
     expect(AppActions.createRosterBattery).toHaveBeenCalledWith(formData, { Authorization: 'Bearer test' })
     expect(result).toEqual(mockResult)

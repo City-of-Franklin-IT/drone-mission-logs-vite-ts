@@ -15,6 +15,7 @@ const baseFormData = {
 
 const mockSuccess = { success: true, data: { uuid: 'mission-uuid' } }
 const mockNestedSuccess = { success: true, data: {} }
+const mockRefreshToken = vi.fn().mockResolvedValue('new-token')
 
 beforeEach(() => vi.clearAllMocks())
 
@@ -22,7 +23,7 @@ describe('handleCreateMission', () => {
   it('returns the result of createMission on success with no nested data', async () => {
     vi.mocked(AppActions.createMission).mockResolvedValue(mockSuccess as any)
 
-    const result = await handleCreateMission(baseFormData as any, 'test-token')
+    const result = await handleCreateMission(baseFormData as any, 'test-token', mockRefreshToken)
 
     expect(result).toEqual(mockSuccess)
     expect(AppActions.createMission).toHaveBeenCalledTimes(1)
@@ -38,7 +39,7 @@ describe('handleCreateMission', () => {
     const failResult = { success: false, msg: 'Error', data: {} }
     vi.mocked(AppActions.createMission).mockResolvedValue(failResult as any)
 
-    const result = await handleCreateMission(baseFormData as any, 'test-token')
+    const result = await handleCreateMission(baseFormData as any, 'test-token', mockRefreshToken)
 
     expect(result).toEqual(failResult)
     expect(AppActions.createFlight).not.toHaveBeenCalled()
@@ -63,7 +64,7 @@ describe('handleCreateMission', () => {
       ]
     }
 
-    const result = await handleCreateMission(formData as any, 'test-token')
+    const result = await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(result).toEqual(mockSuccess)
     expect(AppActions.createResponseOnly).toHaveBeenCalledWith(
@@ -99,7 +100,7 @@ describe('handleCreateMission', () => {
       }
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createVehicle).toHaveBeenCalledWith(
       expect.objectContaining({ registration: 'ABC', parentId: 'mission-uuid' }),
@@ -126,7 +127,7 @@ describe('handleCreateMission', () => {
       }
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createVehicle).toHaveBeenCalledTimes(1)
     expect(AppActions.createBattery).not.toHaveBeenCalled()
@@ -144,7 +145,7 @@ describe('handleCreateMission', () => {
       ]
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createFlight).toHaveBeenCalledTimes(1)
     expect(AppActions.createFlight).toHaveBeenCalledWith(
@@ -165,7 +166,7 @@ describe('handleCreateMission', () => {
       ]
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createPersonnel).toHaveBeenCalledTimes(1)
     expect(AppActions.createPersonnel).toHaveBeenCalledWith(
@@ -183,7 +184,7 @@ describe('handleCreateMission', () => {
       Weather: { visibility: 'clear', temperature: 75 }
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createWeather).toHaveBeenCalledTimes(1)
     expect(AppActions.createWeather).toHaveBeenCalledWith(
@@ -201,7 +202,7 @@ describe('handleCreateMission', () => {
       TemporaryFlightRestriction: { temporaryFlightRestriction: 'TFR123', source: 'FAA' }
     }
 
-    await handleCreateMission(formData as any, 'test-token')
+    await handleCreateMission(formData as any, 'test-token', mockRefreshToken)
 
     expect(AppActions.createTFR).toHaveBeenCalledTimes(1)
     expect(AppActions.createTFR).toHaveBeenCalledWith(

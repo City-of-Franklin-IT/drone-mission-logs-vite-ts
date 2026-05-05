@@ -15,6 +15,8 @@ import * as AppTypes from '@/context/App/types'
 export const getMissions = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface[] }> => {
   const res = await fetch(`${ baseUrl }/mission?${ params }`, { headers })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -25,6 +27,8 @@ export const getMissions = async (params: URLSearchParams, headers: Headers): Pr
 **/
 export const getMission = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface }> => {
   const res = await fetch(`${ baseUrl }/mission/${ uuid }`, { headers })
+  
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -43,6 +47,8 @@ export const createMission = async (formData: AppTypes.MissionCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -60,6 +66,8 @@ export const updateMission = async (formData: AppTypes.MissionCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -73,6 +81,8 @@ export const deleteMission = async (uuid: string, headers: Headers): Promise<App
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -91,6 +101,8 @@ export const createFlight = async (formData: AppTypes.FlightCreateInterface, hea
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -108,6 +120,8 @@ export const updateFlight = async (formData: AppTypes.FlightCreateInterface, hea
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -121,6 +135,8 @@ export const deleteFlight = async (uuid: string, headers: Headers): Promise<AppT
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -139,6 +155,8 @@ export const createVehicle = async (formData: AppTypes.VehicleCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -156,6 +174,8 @@ export const updateVehicle = async (formData: AppTypes.VehicleCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -169,6 +189,8 @@ export const deleteVehicle = async (uuid: string, headers: Headers): Promise<App
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -187,6 +209,8 @@ export const createBattery = async (formData: AppTypes.BatteryCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -204,6 +228,8 @@ export const updateBattery = async (formData: AppTypes.BatteryCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -217,6 +243,8 @@ export const deleteBattery = async (uuid: string, headers: Headers): Promise<App
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -235,6 +263,8 @@ export const createPersonnel = async (formData: AppTypes.PersonnelCreateInterfac
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -252,6 +282,8 @@ export const updatePersonnel = async (formData: AppTypes.PersonnelCreateInterfac
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -265,6 +297,8 @@ export const deletePersonnel = async (uuid: string, headers: Headers): Promise<A
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -283,6 +317,8 @@ export const createInspection = async (formData: AppTypes.InspectionCreateInterf
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -299,6 +335,8 @@ export const updateInspection = async (formData: AppTypes.InspectionCreateInterf
     headers,
     body: JSON.stringify({ ...formData })
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -317,6 +355,8 @@ export const createTFR = async (formData: AppTypes.TemporaryFlightRestrictionCre
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -334,6 +374,8 @@ export const updateTFR = async (formData: AppTypes.TemporaryFlightRestrictionCre
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -347,6 +389,8 @@ export const deleteTFR = async (uuid: string, headers: Headers): Promise<AppType
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -365,6 +409,8 @@ export const createWeather = async (formData: AppTypes.WeatherCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -382,6 +428,8 @@ export const updateWeather = async (formData: AppTypes.WeatherCreateInterface, h
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -392,6 +440,8 @@ export const updateWeather = async (formData: AppTypes.WeatherCreateInterface, h
 **/
 export const getRosterVehicles = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/vehicle-roster?${ params }`, { headers })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -404,6 +454,8 @@ export const getRosterVehicles = async (params: URLSearchParams, headers: Header
 export const getVehicle = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/vehicle-roster/${ uuid }`, { headers })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -414,12 +466,14 @@ export const getVehicle = async (uuid: string, headers: Headers): Promise<AppTyp
 **/
 export const createRosterVehicle = async (formData: AppTypes.VehicleRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
-  
+
   const res = await fetch(`${ baseUrl }/vehicle-roster`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ ...formData })
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -438,6 +492,8 @@ export const updateRosterVehicle = async (formData: AppTypes.VehicleRosterCreate
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -452,6 +508,8 @@ export const deleteRosterVehicle = async (uuid: string, headers: Headers): Promi
     headers
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -462,6 +520,8 @@ export const deleteRosterVehicle = async (uuid: string, headers: Headers): Promi
 **/
 export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/battery-roster`, { headers })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -474,6 +534,8 @@ export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.Ser
 export const getBattery = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/battery-roster/${ uuid }`, { headers })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -484,12 +546,14 @@ export const getBattery = async (uuid: string, headers: Headers): Promise<AppTyp
 **/
 export const createRosterBattery = async (formData: AppTypes.BatteryRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
-  
+
   const res = await fetch(`${ baseUrl }/battery-roster`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ ...formData })
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -508,6 +572,8 @@ export const updateRosterBattery = async (formData: AppTypes.BatteryRosterCreate
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -522,6 +588,8 @@ export const deleteRosterBattery = async (uuid: string, headers: Headers): Promi
     headers
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -532,6 +600,8 @@ export const deleteRosterBattery = async (uuid: string, headers: Headers): Promi
 **/
 export const getRosterPersonnel = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/personnel-roster?${ params }`, { headers })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -544,6 +614,8 @@ export const getRosterPersonnel = async (params: URLSearchParams, headers: Heade
 export const getPerson = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/personnel-roster/${ uuid }`, { headers })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -554,12 +626,14 @@ export const getPerson = async (uuid: string, headers: Headers): Promise<AppType
 **/
 export const createRosterPersonnel = async (formData: AppTypes.PersonnelRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
-  
+
   const res = await fetch(`${ baseUrl }/personnel-roster`, {
     method: 'POST',
     headers,
     body: JSON.stringify({ ...formData })
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -578,6 +652,8 @@ export const updateRosterPersonnel = async (formData: AppTypes.PersonnelRosterCr
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -591,6 +667,8 @@ export const deleteRosterPersonnel = async (uuid: string, headers: Headers): Pro
     method: 'DELETE',
     headers
   })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }
@@ -609,6 +687,8 @@ export const createResponseOnly = async (formData: AppTypes.ResponseOnlyCreateIn
     body: JSON.stringify({ ...formData })
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -623,6 +703,8 @@ export const deleteResponseOnly = async (uuid: string, headers: Headers): Promis
     headers
   })
 
+  if (res.status === 401) throw new Error('401')
+
   return await res.json()
 }
 
@@ -633,6 +715,8 @@ export const deleteResponseOnly = async (uuid: string, headers: Headers): Promis
 **/
 export const getDocs = async (headers: Headers) => {
   const res = await fetch(`${ baseUrl }/docs`, { headers })
+
+  if (res.status === 401) throw new Error('401')
 
   return await res.json()
 }

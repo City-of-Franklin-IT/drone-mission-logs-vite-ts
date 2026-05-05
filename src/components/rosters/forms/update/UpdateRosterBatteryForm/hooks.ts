@@ -43,12 +43,12 @@ const useHandleFormSubmit = () => {
 
   const queryClient = useQueryClient()
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   return async (formData: AppTypes.BatteryRosterCreateInterface) => {
     if(!enabled || !token) return
 
-    const result = await handleUpdateBattery(formData, token)
+    const result = await handleUpdateBattery(formData, token, refreshToken)
 
     if(!result.success) {
       errorPopup(result.msg)

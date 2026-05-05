@@ -49,14 +49,14 @@ const useUpdateRosterPersonnel = (personnel: AppTypes.PersonnelRosterInterface |
 const useHandleFormSubmit = () => {
   const { dispatch } = useContext(RostersCtx)
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   const queryClient = useQueryClient()
 
   return async (formData: AppTypes.PersonnelRosterCreateInterface) => {
     if(!enabled || !token) return
 
-    const result = await handleUpdatePersonnel(formData, token)
+    const result = await handleUpdatePersonnel(formData, token, refreshToken)
 
     if(!result.success) {
       errorPopup(result.msg)

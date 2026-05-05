@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useWatch } from "react-hook-form"
 import { useCreateMissionCtx } from "../CreateMissionForm/hooks"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 
@@ -51,11 +51,14 @@ export const useHandleBatteryOptions = () => {
 * Returns roster vehicle batteries from server
 **/
 const useGetBatteries = () => {
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
-  return useQuery({ 
-      queryKey: ['getRosterBatteries'], 
-      queryFn: () => AppActions.getRosterBatteries(authHeaders(token)), 
-      enabled: enabled && !!token 
+  return useQuery({
+    queryKey: ['getRosterBatteries'],
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getRosterBatteries(authHeaders(token)),
+      refreshToken
+    ),
+    enabled: enabled && !!token
   })
 }

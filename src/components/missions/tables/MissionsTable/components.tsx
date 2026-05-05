@@ -11,7 +11,7 @@ import type * as AppTypes from '@/context/App/types'
 export const Table = ({ tableData }: { tableData: AppTypes.MissionInterface[] }) => (
   <motion.table
     className="table text-neutral-content font-[play] w-full"
-    { ...motionProps.slideInLeft }>
+    { ...motionProps.fadeInOut }>
       <TableHeaders />
       <TableBody tableData={tableData} />
   </motion.table>

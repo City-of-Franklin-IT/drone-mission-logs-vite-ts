@@ -1,7 +1,7 @@
 import { useContext, useEffect, useRef, useMemo } from "react"
 import { useQuery } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import MissionsCtx from "../../context"
 
@@ -14,12 +14,15 @@ import * as AppTypes from '@/context/App/types'
 export const useGetMission = () => {
   const { missionUUID } = useContext(MissionsCtx)
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
-  return useQuery({ 
-    queryKey: ['getMission', missionUUID], 
-    queryFn: () => AppActions.getMission(missionUUID, authHeaders(token)), 
-    enabled: enabled && !!token && !!missionUUID 
+  return useQuery({
+    queryKey: ['getMission', missionUUID],
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getMission(missionUUID, authHeaders(token)),
+      refreshToken
+    ),
+    enabled: enabled && !!token && !!missionUUID
   })
 }
 

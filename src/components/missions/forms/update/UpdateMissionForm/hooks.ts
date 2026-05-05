@@ -96,12 +96,12 @@ const useHandleFormSubmit = () => {
 
   const queryClient = useQueryClient()
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   return async (formData: AppTypes.MissionCreateInterface) => {
     if(!enabled || !token) return
 
-    const result = await handleUpdateMission(formData, token)
+    const result = await handleUpdateMission(formData, token, refreshToken)
 
     if(!result.success) {
       errorPopup(result.msg)

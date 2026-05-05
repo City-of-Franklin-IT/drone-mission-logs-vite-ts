@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect, useRef } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import RostersCtx from "../../context"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 
@@ -39,12 +39,15 @@ export const useOnCreateBtnClick = (formType: FormType) => {
 export const useGetPersonnel = () => {
   const { formUUID } = useContext(RostersCtx)
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
-  return useQuery({ 
-    queryKey: ['getPerson', formUUID], 
-    queryFn: () => AppActions.getPerson(formUUID, authHeaders(token)), 
-    enabled: enabled && !!token 
+  return useQuery({
+    queryKey: ['getPerson', formUUID],
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getPerson(formUUID, authHeaders(token)),
+      refreshToken
+    ),
+    enabled: enabled && !!token
   })
 }
 

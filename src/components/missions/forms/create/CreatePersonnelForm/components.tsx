@@ -6,7 +6,6 @@ import type * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
 export const Header = () => (
@@ -36,8 +35,11 @@ export const PilotSelect = () => {
       render={({ field, fieldState: { error } }) => (
         <div className="flex flex-col gap-4">
           <div className="flex flex-col">
-            <FormLabel name={field.name} required={true}>
-              Pilot Email:
+            <FormLabel 
+              name={field.name} 
+              required 
+              error={error?.message}>
+                Pilot Email:
             </FormLabel>
             <select
               className="select w-full hover:cursor-pointer"
@@ -50,7 +52,6 @@ export const PilotSelect = () => {
                 <PersonnelOptions />
             </select>
           </div>
-          <FormError error={error?.message} />
         </div>
       )} />
   )
@@ -81,8 +82,10 @@ export const SupportPersonnelInput = () => {
         render={({ field, fieldState: { error } }) => (
           <div className="flex flex-col">
             <div className="flex flex-col">
-              <FormLabel name={field.name}>
-                Support Email:
+              <FormLabel 
+                name={field.name} 
+                error={error?.message}>
+                  Support Email:
               </FormLabel>
               <select
                 className="select w-full hover:cursor-pointer"
@@ -94,7 +97,6 @@ export const SupportPersonnelInput = () => {
                   <PersonnelOptions />
               </select>
             </div>
-            <FormError error={error?.message} />
           </div>
         )} />
         <RemoveBtn { ...removeBtnProps } />

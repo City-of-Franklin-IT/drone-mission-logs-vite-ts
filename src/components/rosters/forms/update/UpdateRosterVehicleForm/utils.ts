@@ -1,12 +1,20 @@
 import * as AppActions from '@/context/App/AppActions'
+import { withTokenRefresh } from '@/helpers/hooks'
 import { authHeaders } from '@/helpers/utils'
 
 // Types
 import * as AppTypes from '@/context/App/types'
 
-export const handleUpdateVehicle = async (formData: AppTypes.VehicleRosterCreateInterface, token: string) => {
+export const handleUpdateVehicle = async (
+  formData: AppTypes.VehicleRosterCreateInterface,
+  token: string,
+  refreshToken: () => Promise<string | undefined>
+) => {
   if(formData._dirtied) {
-    const result = await AppActions.updateRosterVehicle(formData, authHeaders(token))
+    const result = await withTokenRefresh(
+      () => AppActions.updateRosterVehicle(formData, authHeaders(token)),
+      refreshToken
+    )
 
     return result
   }

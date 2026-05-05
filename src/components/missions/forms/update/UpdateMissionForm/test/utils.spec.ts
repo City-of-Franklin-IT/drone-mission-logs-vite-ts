@@ -28,6 +28,8 @@ vi.mock("@/helpers/utils", () => ({
 
 import * as AppActions from "@/context/App/AppActions"
 
+const mockRefreshToken = vi.fn().mockResolvedValue('new-token')
+
 beforeEach(() => {
   vi.clearAllMocks()
 })
@@ -67,22 +69,22 @@ describe("handleUpdateMission", () => {
   }
 
   it("should always return { success: true, msg: 'Mission Updated' }", async () => {
-    const result = await handleUpdateMission({ ...baseFormData, _dirtied: false }, token)
+    const result = await handleUpdateMission({ ...baseFormData, _dirtied: false }, token, mockRefreshToken)
     expect(result).toEqual({ success: true, msg: "Mission Updated" })
   })
 
   it("should call updateMission when _dirtied is true", async () => {
-    await handleUpdateMission({ ...baseFormData, _dirtied: true }, token)
+    await handleUpdateMission({ ...baseFormData, _dirtied: true }, token, mockRefreshToken)
     expect(AppActions.updateMission).toHaveBeenCalledTimes(1)
   })
 
   it("should not call updateMission when _dirtied is false", async () => {
-    await handleUpdateMission({ ...baseFormData, _dirtied: false }, token)
+    await handleUpdateMission({ ...baseFormData, _dirtied: false }, token, mockRefreshToken)
     expect(AppActions.updateMission).not.toHaveBeenCalled()
   })
 
   it("should not call updateMission when _dirtied is undefined", async () => {
-    await handleUpdateMission({ ...baseFormData }, token)
+    await handleUpdateMission({ ...baseFormData }, token, mockRefreshToken)
     expect(AppActions.updateMission).not.toHaveBeenCalled()
   })
 
@@ -91,7 +93,7 @@ describe("handleUpdateMission", () => {
       ...baseFormData,
       uuid: "mission-uuid-1",
       ResponseOnly: { _dirtied: true, _checked: true, uuid: undefined, parentId: "mission-uuid-1" },
-    }, token)
+    }, token, mockRefreshToken)
     expect(AppActions.createResponseOnly).toHaveBeenCalledTimes(1)
     expect(AppActions.deleteResponseOnly).not.toHaveBeenCalled()
   })
@@ -101,7 +103,7 @@ describe("handleUpdateMission", () => {
       ...baseFormData,
       uuid: "mission-uuid-1",
       ResponseOnly: { _dirtied: true, _checked: false, uuid: "response-uuid-1", parentId: "mission-uuid-1" },
-    }, token)
+    }, token, mockRefreshToken)
     expect(AppActions.deleteResponseOnly).toHaveBeenCalledTimes(1)
     expect(AppActions.createResponseOnly).not.toHaveBeenCalled()
   })
@@ -110,7 +112,7 @@ describe("handleUpdateMission", () => {
     await handleUpdateMission({
       ...baseFormData,
       ResponseOnly: { _dirtied: false, _checked: true, uuid: undefined, parentId: "mission-uuid-1" },
-    }, token)
+    }, token, mockRefreshToken)
     expect(AppActions.createResponseOnly).not.toHaveBeenCalled()
     expect(AppActions.deleteResponseOnly).not.toHaveBeenCalled()
   })
@@ -121,7 +123,7 @@ describe("handleUpdateMission", () => {
       _dirtied: true,
       uuid: "mission-uuid-2",
       ResponseOnly: { _dirtied: true, _checked: true, uuid: undefined, parentId: "mission-uuid-2" },
-    }, token)
+    }, token, mockRefreshToken)
     expect(result).toEqual({ success: true, msg: "Mission Updated" })
     expect(AppActions.updateMission).toHaveBeenCalledTimes(1)
     expect(AppActions.createResponseOnly).toHaveBeenCalledTimes(1)

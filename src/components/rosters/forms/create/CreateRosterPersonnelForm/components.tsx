@@ -5,7 +5,6 @@ import * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 
 export const Header = ({ children }: { children: React.ReactNode }) => {
 
@@ -20,10 +19,10 @@ export const EmailInput = () => {
   return (
     <div className="flex flex-col gap-2 w-full">
       <div className="flex flex-col">
-        <FormLabel name={'email'}>
+        <FormLabel name={'email'} required={true} error={errors.email?.message}>
           Email:
         </FormLabel>
-        <input 
+        <input
           type="text"
           className="input w-full"
           { ...register('email', {
@@ -35,7 +34,6 @@ export const EmailInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.email?.message} />
     </div>
   )
 }

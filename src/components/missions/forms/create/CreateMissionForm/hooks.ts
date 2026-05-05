@@ -80,7 +80,7 @@ const useCreateMissionForm = () => {
     'Fire'
 
   const form = useForm<AppTypes.MissionCreateInterface>({
-    mode: 'onChange',
+    mode: "all",
     defaultValues: {
       missionDate: '',
       department: undefined,
@@ -144,12 +144,12 @@ const useHandleFormSubmit = () => {
 
   const queryClient = useQueryClient()
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   return async (formData: AppTypes.MissionCreateInterface) => {
     if(!enabled || !token) return
 
-    const result = await handleCreateMission(formData, token)
+    const result = await handleCreateMission(formData, token, refreshToken)
 
     if(!result.success) {
       errorPopup(result.msg)

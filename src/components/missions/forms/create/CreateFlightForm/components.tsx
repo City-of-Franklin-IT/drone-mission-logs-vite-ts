@@ -3,7 +3,6 @@ import { useHandleFlightInputs, useHandleTakeOffInput, useHandleLandingInput } f
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
 export const FlightInputs = ({ index }: { index: number }) => {
@@ -48,8 +47,10 @@ const TakeOffInput = ({ index }: { index: number }) => {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">
-              <FormLabel name={field.name}>
-                Takeoff Time:
+              <FormLabel 
+                name={field.name} 
+                error={error?.message}>
+                  Takeoff Time:
               </FormLabel>
               <input
                 type="datetime-local"
@@ -62,7 +63,6 @@ const TakeOffInput = ({ index }: { index: number }) => {
             </div>
             <CurrentDateTimeBtn onClick={() => onClick(field.name)} />
           </div>
-          <FormError error={error?.message} />
         </div>
       )} />
   )
@@ -94,8 +94,10 @@ const LandingInput = ({ index }: { index: number }) => {
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex flex-col">
-              <FormLabel name={field.name}>
-                Landing Time:
+              <FormLabel 
+                name={field.name} 
+                error={error?.message}>
+                  Landing Time:
               </FormLabel>
               <input
                 type="datetime-local"
@@ -108,7 +110,6 @@ const LandingInput = ({ index }: { index: number }) => {
             </div>
             <CurrentDateTimeBtn onClick={() => onClick(field.name)} />
           </div>
-          <FormError error={error?.message} />
         </div>
       )} />
   )

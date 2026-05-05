@@ -3,7 +3,6 @@ import { visibilityTypeMap } from './utils'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 
 // Types
 import type * as AppTypes from '@/context/App/types'
@@ -18,8 +17,10 @@ export const TemperatureInput = () => {
   return (
     <div className="flex-1 flex flex-col gap-6">
       <div className="flex flex-col">
-        <FormLabel name={'Weather.temperature'}>
-          Air Temperature:
+        <FormLabel 
+          name={'Weather.temperature'} 
+          error={errors.Weather?.temperature?.message}>
+            Air Temperature:
         </FormLabel>
         <input
           type="number"
@@ -36,7 +37,6 @@ export const TemperatureInput = () => {
             onChange: () => setValue('Weather._dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.Weather?.temperature?.message} />
     </div>
   )
 }
@@ -66,7 +66,7 @@ export const WindInput = () => {
   return (
     <div className="flex-1 flex flex-col gap-6">
       <div className="flex flex-col">
-        <FormLabel name={'Weather.wind'}>
+        <FormLabel name={'Weather.wind'} error={errors.Weather?.wind?.message}>
           Wind Speed:
         </FormLabel>
         <input
@@ -84,7 +84,6 @@ export const WindInput = () => {
             onChange: () => setValue('Weather._dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.Weather?.wind?.message} />
     </div>
   )
 }
@@ -95,8 +94,10 @@ export const SourceInput = () => {
   return (
     <div className="flex-1 flex flex-col gap-6">
       <div className="flex flex-col">
-        <FormLabel name={'Weather.source'}>
-          Source:
+        <FormLabel 
+          name={'Weather.source'} 
+          error={errors.Weather?.source?.message}>
+            Source:
         </FormLabel>
         <input
           type="text"
@@ -109,7 +110,6 @@ export const SourceInput = () => {
             onChange: () => setValue('Weather._dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.Weather?.source?.message} />
     </div>
   )
 }

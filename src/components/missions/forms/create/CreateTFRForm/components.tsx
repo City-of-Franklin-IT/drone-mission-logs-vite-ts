@@ -2,7 +2,6 @@ import { useHandleTFRInputs, useHandleAddTFRBtn, useHandleTFR } from './hooks'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 import RemoveBtn from "@/components/form-elements/buttons/RemoveBtn"
 
 export const Header = () => (
@@ -67,8 +66,10 @@ export const TFRSourceInput = () => {
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col">
-        <FormLabel name={'TemporaryFlightRestriction.source'}>
-          Source:
+        <FormLabel 
+          name={'TemporaryFlightRestriction.source'} 
+          error={methods.formState.errors.TemporaryFlightRestriction?.source?.message}>
+            Source:
         </FormLabel>
         <input
           type="text"
@@ -81,7 +82,6 @@ export const TFRSourceInput = () => {
             onChange: () => methods.setValue('TemporaryFlightRestriction._dirtied', true)
           }) } />
       </div>
-      <FormError error={methods.formState.errors.TemporaryFlightRestriction?.source?.message} />
     </div>
   )
 }

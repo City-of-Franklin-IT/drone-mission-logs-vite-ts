@@ -5,7 +5,6 @@ import * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 
 export const BatteryNameInput = () => {
   const { register, formState: { errors }, setValue } = useFormContext<AppTypes.BatteryRosterCreateInterface>()
@@ -13,12 +12,13 @@ export const BatteryNameInput = () => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <FormLabel 
+        <FormLabel
           name={'batteryName'}
-          required={true}>
+          required
+          error={errors.batteryName?.message}>
             Battery Name:
         </FormLabel>
-        <input 
+        <input
           type="text"
           className="input w-full"
           { ...register('batteryName', {
@@ -30,7 +30,6 @@ export const BatteryNameInput = () => {
             onChange: () => setValue('_dirtied', true, { shouldDirty: true, shouldValidate: true })
           }) } />
       </div>
-      <FormError error={errors.batteryName?.message} />
     </div>
   )
 }

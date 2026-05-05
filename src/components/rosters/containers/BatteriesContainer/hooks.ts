@@ -2,7 +2,7 @@ import { useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
 import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
 import RostersCtx from "../../context"
@@ -13,12 +13,15 @@ import RostersCtx from "../../context"
 export const useGetBattery = () => {
   const { formUUID } = useContext(RostersCtx)
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
-  return useQuery({ 
-    queryKey: ['getBattery', formUUID], 
-    queryFn: () => AppActions.getBattery(formUUID, authHeaders(token)), 
-    enabled: enabled && !!token 
+  return useQuery({
+    queryKey: ['getBattery', formUUID],
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getBattery(formUUID, authHeaders(token)),
+      refreshToken
+    ),
+    enabled: enabled && !!token
   })
 }
 

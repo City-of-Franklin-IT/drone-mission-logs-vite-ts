@@ -5,7 +5,6 @@ import type * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 
 export const Header = () => (
   <h3 className="text-3xl text-neutral-content font-[play]">Vehicle</h3>
@@ -19,9 +18,10 @@ export const VehicleRegistrationInput = () => {
   return (
     <div className="flex flex-col gap-4 mx-auto">
       <div className="flex flex-col w-full">
-        <FormLabel 
-          name={'Vehicle.registration'} 
-          required={true}>
+        <FormLabel
+          name={'Vehicle.registration'}
+          required={true}
+          error={methods.formState.errors.Vehicle?.registration?.message}>
             Vehicle Registration:
         </FormLabel>
         <select
@@ -33,7 +33,6 @@ export const VehicleRegistrationInput = () => {
             <RegistrationOptions />
         </select>
       </div>
-      <FormError error={methods.formState.errors.Vehicle?.registration?.message} />
     </div>
   )
 }

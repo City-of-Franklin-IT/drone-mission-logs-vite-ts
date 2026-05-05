@@ -2,7 +2,6 @@ import { useCreateMissionCtx, useHandleBatteryInputs, useHandleAddBatteryBtn, us
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 import CreateVehicleForm from "../CreateVehicleForm"
 import CreateBatteryForm from "../CreateBatteryForm"
 import CreateFlightForm from "../CreateFlightForm"
@@ -135,12 +134,15 @@ export const PostflightInspectionInput = () => {
 const MissionDateInput = () => {
   const { register, formState: { errors }, setValue } = useCreateMissionCtx()
 
+  console.log(errors.missionDate?.message)
+
   return (
     <div className="flex-1 flex flex-col gap-4">
       <div className="flex flex-col">
         <FormLabel
           name={'missionDate'}
-          required={true}>
+          required
+          error={errors.missionDate?.message}>
             Mission Date:
         </FormLabel>
         <input
@@ -151,7 +153,6 @@ const MissionDateInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.missionDate?.message} />
     </div>
   )
 }
@@ -162,8 +163,10 @@ const IncidentNumberInput = () => {
   return (
     <div className="flex-2 flex flex-col gap-4">
       <div className="flex flex-col">
-        <FormLabel name={'incidentNumber'}>
-          Incident #:
+        <FormLabel 
+          name={'incidentNumber'}
+          error={errors.incidentNumber?.message}>
+            Incident #:
         </FormLabel>
         <input
           type="text"
@@ -176,7 +179,6 @@ const IncidentNumberInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.incidentNumber?.message} />
     </div>
   )
 }
@@ -187,8 +189,10 @@ const LocationInput = () => {
   return (
     <div className="flex-2 flex flex-col gap-4">
       <div className="flex flex-col">
-        <FormLabel name={'location'}>
-          Location:
+        <FormLabel 
+          name={'location'} 
+          error={errors.location?.message}>
+            Location:
         </FormLabel>
         <input
           type="text"
@@ -201,7 +205,6 @@ const LocationInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.location?.message} />
     </div>
   )
 }
@@ -212,8 +215,11 @@ const MissionDescriptionInput = () => {
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="flex flex-col">
-        <FormLabel name={'missionDescription'} required={true}>
-          Mission Description:
+        <FormLabel 
+          name={'missionDescription'} 
+          required={true} 
+          error={errors.missionDescription?.message}>
+            Mission Description:
         </FormLabel>
         <textarea
           className="textarea w-full"
@@ -223,7 +229,6 @@ const MissionDescriptionInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) }></textarea>
       </div>
-      <FormError error={errors.missionDescription?.message} />
     </div>
   )
 }

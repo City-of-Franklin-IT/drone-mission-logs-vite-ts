@@ -6,6 +6,7 @@ vi.mock('@/helpers/utils', () => ({ authHeaders: vi.fn(() => ({ Authorization: '
 
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from '@/helpers/utils'
+const mockRefreshToken = vi.fn().mockResolvedValue('new-token')
 
 beforeEach(() => {
   vi.clearAllMocks()
@@ -23,7 +24,7 @@ describe('handleUpdatePersonnel', () => {
     }
     const token = 'test-token'
 
-    const result = await handleUpdatePersonnel(formData, token)
+    const result = await handleUpdatePersonnel(formData, token, mockRefreshToken)
 
     expect(authHeaders).toHaveBeenCalledWith(token)
     expect(AppActions.updateRosterPersonnel).toHaveBeenCalledWith(formData, { Authorization: 'Bearer test' })
@@ -41,7 +42,7 @@ describe('handleUpdatePersonnel', () => {
     }
     const token = 'test-token'
 
-    const result = await handleUpdatePersonnel(formData, token)
+    const result = await handleUpdatePersonnel(formData, token, mockRefreshToken)
 
     expect(AppActions.updateRosterPersonnel).toHaveBeenCalledWith(formData, { Authorization: 'Bearer test' })
     expect(result).toEqual(mockResult)

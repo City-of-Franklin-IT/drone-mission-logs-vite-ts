@@ -3,7 +3,7 @@ import { useQuery, useQueryClient } from "@tanstack/react-query"
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from "@/helpers/utils"
 import { errorPopup, savedPopup } from "@/utils/Toast/Toast"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import { useOnCreateBtnClick } from "../PersonnelContainer/hooks"
 import RostersCtx from "../../context"
 
@@ -25,12 +25,15 @@ export const useHandleVehiclesContainer = () => {
 export const useGetVehicle = () => {
   const { formUUID } = useContext(RostersCtx)
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
-  return useQuery({ 
-    queryKey: ['getVehicle', formUUID], 
-    queryFn: () => AppActions.getVehicle(formUUID, authHeaders(token)), 
-    enabled: enabled && !!token 
+  return useQuery({
+    queryKey: ['getVehicle', formUUID],
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getVehicle(formUUID, authHeaders(token)),
+      refreshToken
+    ),
+    enabled: enabled && !!token
   })
 }
 

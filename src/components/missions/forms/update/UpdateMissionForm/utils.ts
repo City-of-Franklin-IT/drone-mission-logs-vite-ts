@@ -1,4 +1,5 @@
 import * as AppActions from '@/context/App/AppActions'
+import { withTokenRefresh } from '@/helpers/hooks'
 import { authHeaders } from '@/helpers/utils'
 
 // Types
@@ -12,9 +13,16 @@ export const utcToLocalDatetime = (utcDateTime: string) => {
     return localDate.toISOString().slice(0, 16)
 }
 
-export const handleUpdateMission = async (formData: AppTypes.MissionCreateInterface, token: string) => {
+export const handleUpdateMission = async (
+    formData: AppTypes.MissionCreateInterface,
+    token: string,
+    refreshToken: () => Promise<string | undefined>
+) => {
     if(formData._dirtied) { // Mission
-        await AppActions.updateMission(formData, authHeaders(token))
+        await withTokenRefresh(
+            () => AppActions.updateMission(formData, authHeaders(token)),
+            refreshToken
+        )
     }
 
     if(formData.ResponseOnly?._dirtied) { // Response only

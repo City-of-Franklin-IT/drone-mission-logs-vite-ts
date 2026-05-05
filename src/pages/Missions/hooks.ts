@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useEnableQuery } from "@/helpers/hooks"
+import { useEnableQuery, withTokenRefresh } from "@/helpers/hooks"
 import { authHeaders } from "@/helpers/utils"
 import * as AppActions from '@/context/App/AppActions'
 import { setParams } from "./utils"
@@ -8,7 +8,7 @@ import { setParams } from "./utils"
 * Get missions by department from server
 **/
 export const useGetMissions = () => {
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   const department = window.location.hostname === 'pdapps.franklintn.gov' ?
     'Police' :
@@ -20,7 +20,10 @@ export const useGetMissions = () => {
 
   return useQuery({
     queryKey: ['getMissions', department],
-    queryFn: () => AppActions.getMissions(params!, authHeaders(token)),
+    queryFn: () => withTokenRefresh(
+      () => AppActions.getMissions(params!, authHeaders(token)),
+      refreshToken
+    ),
     enabled: isReady
   })
 }

@@ -5,7 +5,6 @@ import * as AppTypes from '@/context/App/types'
 
 // Components
 import FormLabel from "@/components/form-elements/FormLabel"
-import FormError from "@/components/form-elements/FormError"
 
 export const ModelInput = () => {
   const { register, formState: { errors }, setValue } = useFormContext<AppTypes.VehicleRosterCreateInterface>()
@@ -13,10 +12,13 @@ export const ModelInput = () => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <FormLabel name={'model'}>
-          Make / Model:
+        <FormLabel 
+          name={'model'} 
+          required 
+          error={errors.model?.message}>
+            Make / Model:
         </FormLabel>
-        <input 
+        <input
           type="text"
           className="input w-full"
           { ...register('model', {
@@ -28,7 +30,6 @@ export const ModelInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.model?.message} />
     </div>
   )
 }
@@ -39,10 +40,12 @@ export const RegistrationInput = () => {
   return (
     <div className="flex flex-col gap-2">
       <div className="flex flex-col">
-        <FormLabel name={'registration'}>
-          Registration:
+        <FormLabel 
+          name={'registration'} 
+          error={errors.registration?.message}>
+            Registration:
         </FormLabel>
-        <input 
+        <input
           type="text"
           className="input w-full"
           { ...register('registration', {
@@ -53,7 +56,6 @@ export const RegistrationInput = () => {
             onChange: () => setValue('_dirtied', true)
           }) } />
       </div>
-      <FormError error={errors.registration?.message} />
     </div>
   )
 }

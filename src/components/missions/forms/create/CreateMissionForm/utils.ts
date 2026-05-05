@@ -1,11 +1,19 @@
 import * as AppActions from '@/context/App/AppActions'
+import { withTokenRefresh } from '@/helpers/hooks'
 import { authHeaders } from '@/helpers/utils'
 
 // Types
 import * as AppTypes from '@/context/App/types'
 
-export const handleCreateMission = async (formData: AppTypes.MissionCreateInterface, token: string) => {
-  const result = await AppActions.createMission(formData, authHeaders(token))
+export const handleCreateMission = async (
+  formData: AppTypes.MissionCreateInterface,
+  token: string,
+  refreshToken: () => Promise<string | undefined>
+) => {
+  const result = await withTokenRefresh(
+    () => AppActions.createMission(formData, authHeaders(token)),
+    refreshToken
+  )
 
   if(result.success) {
     const parentId = result.data.uuid

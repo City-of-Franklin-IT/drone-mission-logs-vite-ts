@@ -6,6 +6,7 @@ vi.mock('@/helpers/utils', () => ({ authHeaders: vi.fn(() => ({ Authorization: '
 
 import * as AppActions from '@/context/App/AppActions'
 import { authHeaders } from '@/helpers/utils'
+const mockRefreshToken = vi.fn().mockResolvedValue('new-token')
 
 beforeEach(() => {
   vi.clearAllMocks()
@@ -25,7 +26,7 @@ describe('handleUpdateVehicle', () => {
     }
     const token = 'test-token'
 
-    const result = await handleUpdateVehicle(formData, token)
+    const result = await handleUpdateVehicle(formData, token, mockRefreshToken)
 
     expect(authHeaders).toHaveBeenCalledWith(token)
     expect(AppActions.updateRosterVehicle).toHaveBeenCalledWith(formData, { Authorization: 'Bearer test' })
@@ -42,7 +43,7 @@ describe('handleUpdateVehicle', () => {
     }
     const token = 'test-token'
 
-    const result = await handleUpdateVehicle(formData, token)
+    const result = await handleUpdateVehicle(formData, token, mockRefreshToken)
 
     expect(AppActions.updateRosterVehicle).not.toHaveBeenCalled()
     expect(result).toEqual({ success: true, msg: 'No changes to save' })
@@ -57,7 +58,7 @@ describe('handleUpdateVehicle', () => {
     }
     const token = 'test-token'
 
-    const result = await handleUpdateVehicle(formData, token)
+    const result = await handleUpdateVehicle(formData, token, mockRefreshToken)
 
     expect(AppActions.updateRosterVehicle).not.toHaveBeenCalled()
     expect(result).toEqual({ success: true, msg: 'No changes to save' })

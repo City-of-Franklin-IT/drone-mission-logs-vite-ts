@@ -54,12 +54,12 @@ const useHandleFormSubmit = () => {
 
   const queryClient = useQueryClient()
 
-  const { enabled, token } = useEnableQuery()
+  const { enabled, token, refreshToken } = useEnableQuery()
 
   return async (formData: AppTypes.VehicleRosterCreateInterface) => {
     if(!enabled || !token) return
 
-    const result = await handleCreateRosterVehicle(formData, token)
+    const result = await handleCreateRosterVehicle(formData, token, refreshToken)
 
     if(!result.success) {
       errorPopup(result.msg)
