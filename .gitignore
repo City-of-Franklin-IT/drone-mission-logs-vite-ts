@@ -21,6 +21,7 @@ lib
 src/**/*.js
 src/**/*.jsx
 src/**/*.js.map
+*.d.ts
 *.d.ts.map
 *.tsbuildinfo
 tsconfig.tsbuildinfo
