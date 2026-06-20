@@ -2,20 +2,22 @@ import { MissionsProvider } from "@/components/missions/context"
 import { useGetMissions } from "./hooks"
 
 // Components
-import HandleLoading from "@/utils/HandleLoading"
+import Loading from "@/components/layout/loading/Loading"
 import ErrorBoundary from "@/components/error/ErrorBoundary"
 import MissionsContainer from "@/components/missions/containers/MissionsContainer"
 
 function Missions() {
-  const { data, isSuccess } = useGetMissions()
+  const { data, isLoading } = useGetMissions()
+
+  if(isLoading) return (
+    <Loading />
+  )
 
   return (
     <ErrorBoundary href={'/'}>
-      <HandleLoading isSuccess={isSuccess}>
-        <MissionsProvider>
-          <MissionsContainer missions={data?.data ?? []} />
-        </MissionsProvider>
-      </HandleLoading>
+      <MissionsProvider>
+        <MissionsContainer missions={data?.data ?? []} />
+      </MissionsProvider>
     </ErrorBoundary>
   )
 }

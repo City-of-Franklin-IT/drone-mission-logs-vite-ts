@@ -5,7 +5,7 @@ import { motionProps } from '../../tables/MissionsTable/utils'
 import * as Components from './components'
 
 function FiltersContainer({ visible }: { visible: boolean }) {
-  if(!visible) return 
+  if(!visible) return null
 
   return (
     <motion.div 

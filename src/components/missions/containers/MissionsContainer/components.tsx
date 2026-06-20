@@ -9,7 +9,6 @@ import UpdateMissionForm from "../../forms/update/UpdateMissionForm"
 
 export const Form = () => {
   const { missionUUID } = useContext(MissionsCtx)
-
   const ref = useScrollToRef()
 
   if(!missionUUID) return null
