@@ -60,6 +60,6 @@ export const loginRequest = {
 }
 
 export const acquireRequest = (account: AccountInfo) => ({
-    scopes: ENTRA_CLIENT_ID ? [`${ ENTRA_CLIENT_ID }/.default`] : ['openid', 'profile'],
+    scopes: [`${ ENTRA_CLIENT_ID }/.default`],
     account
 })
