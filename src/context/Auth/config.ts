@@ -1,5 +1,5 @@
 import { LogLevel, AccountInfo } from '@azure/msal-browser'
-import { CLIENT_ID } from '@/config'
+import { CLIENT_ID, ENTRA_CLIENT_ID } from '@/config'
 
 export const setAuth = () => {
     const auth = {
@@ -60,6 +60,6 @@ export const loginRequest = {
 }
 
 export const acquireRequest = (account: AccountInfo) => ({
-    scopes: ["openid", "email", "profile"],
+    scopes: ENTRA_CLIENT_ID ? [`${ ENTRA_CLIENT_ID }/.default`] : ['openid', 'profile'],
     account
 })

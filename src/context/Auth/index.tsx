@@ -45,7 +45,7 @@ export function AuthCtxProvider({ children }: { children: ReactNode }) {
           ...acquireRequest(newActiveAccount),
           account: newActiveAccount
         }).then((response) => {
-          setToken(response.idToken)
+          setToken(response.accessToken)
           setIsReady(true)
         }).catch(() => {
           instance.loginRedirect(loginRequest)
@@ -59,7 +59,7 @@ export function AuthCtxProvider({ children }: { children: ReactNode }) {
         ...acquireRequest(activeAccount),
         account: activeAccount
       }).then((response) => {
-        setToken(response.idToken)
+        setToken(response.accessToken)
         setIsReady(true)
       }).catch(() => {
         instance.loginRedirect(loginRequest)
@@ -78,12 +78,12 @@ export function AuthCtxProvider({ children }: { children: ReactNode }) {
 
     try {
       const result = await instance.acquireTokenSilent({
-        ...loginRequest,
+        ...acquireRequest(activeAccount),
         account: activeAccount,
         forceRefresh: true
       })
-      setToken(result.idToken)
-      return result.idToken
+      setToken(result.accessToken)
+      return result.accessToken
     } catch {
       setToken(undefined)
       return undefined
