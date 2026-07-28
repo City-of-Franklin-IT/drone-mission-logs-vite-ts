@@ -1,8 +1,8 @@
 import { NODE_ENV } from "@/config"
 
 const baseUrl = NODE_ENV === 'development' ?
-  'https://cofasv38.franklin-gov.com/api/v2/pd/drone' :
-  'https://pdapps.franklintn.gov/api/v2/pd/drone'
+  'https://cofasv38.franklin-gov.com/api/v3/pd/drone' :
+  'https://pdapps.franklintn.gov/api/v3/pd/drone'
 
 // Types
 import * as AppTypes from '@/context/App/types'
@@ -10,7 +10,7 @@ import * as AppTypes from '@/context/App/types'
 /**
 * Get missions by department
 * 
-* GET /api/v2/pd/drone/mission?department=
+* GET /api/v3/pd/drone/mission?department=
 **/
 export const getMissions = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface[] }> => {
   const res = await fetch(`${ baseUrl }/mission?${ params }`, { headers })
@@ -23,7 +23,7 @@ export const getMissions = async (params: URLSearchParams, headers: Headers): Pr
 /**
 * Get mission by uuid
 *
-* GET /api/v2/pd/drone/mission/:uuid
+* GET /api/v3/pd/drone/mission/:uuid
 **/
 export const getMission = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface }> => {
   const res = await fetch(`${ baseUrl }/mission/${ uuid }`, { headers })
@@ -36,7 +36,7 @@ export const getMission = async (uuid: string, headers: Headers): Promise<AppTyp
 /**
 * Create mission
 *
-* POST /api/v2/pd/drone/mission
+* POST /api/v3/pd/drone/mission
 **/
 export const createMission = async (formData: AppTypes.MissionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.MissionInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -55,7 +55,7 @@ export const createMission = async (formData: AppTypes.MissionCreateInterface, h
 /**
 * Update mission by uuid
 *
-* PUT /api/v2/pd/drone/mission/:uuid
+* PUT /api/v3/pd/drone/mission/:uuid
 **/
 export const updateMission = async (formData: AppTypes.MissionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -74,7 +74,7 @@ export const updateMission = async (formData: AppTypes.MissionCreateInterface, h
 /**
 * Delete mission by uuid
 *
-* DELETE /api/v2/pd/drone/mission/:uuid
+* DELETE /api/v3/pd/drone/mission/:uuid
 **/
 export const deleteMission = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/mission/${ uuid }`, {
@@ -90,7 +90,7 @@ export const deleteMission = async (uuid: string, headers: Headers): Promise<App
 /**
 * Create flight
 *
-* POST /api/v2/pd/drone/flight
+* POST /api/v3/pd/drone/flight
 **/
 export const createFlight = async (formData: AppTypes.FlightCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.FlightInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -109,7 +109,7 @@ export const createFlight = async (formData: AppTypes.FlightCreateInterface, hea
 /**
 * Update flight by uuid
 *
-* PUT /api/v2/pd/drone/flight/:uuid
+* PUT /api/v3/pd/drone/flight/:uuid
 **/
 export const updateFlight = async (formData: AppTypes.FlightCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -128,7 +128,7 @@ export const updateFlight = async (formData: AppTypes.FlightCreateInterface, hea
 /**
 * Delete flight by uuid
 *
-* DELETE /api/v2/pd/drone/flight/:uuid
+* DELETE /api/v3/pd/drone/flight/:uuid
 **/
 export const deleteFlight = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/flight/${ uuid }`, {
@@ -144,7 +144,7 @@ export const deleteFlight = async (uuid: string, headers: Headers): Promise<AppT
 /**
 * Create vehicle
 *
-* POST /api/v2/pd/drone/vehicle
+* POST /api/v3/pd/drone/vehicle
 **/
 export const createVehicle = async (formData: AppTypes.VehicleCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -163,7 +163,7 @@ export const createVehicle = async (formData: AppTypes.VehicleCreateInterface, h
 /**
 * Update vehicle by uuid
 *
-* PUT /api/v2/pd/drone/vehicle/:uuid
+* PUT /api/v3/pd/drone/vehicle/:uuid
 **/
 export const updateVehicle = async (formData: AppTypes.VehicleCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -182,7 +182,7 @@ export const updateVehicle = async (formData: AppTypes.VehicleCreateInterface, h
 /**
 * Delete vehicle by uuid
 *
-* DELETE /api/v2/pd/drone/vehicle/:uuid
+* DELETE /api/v3/pd/drone/vehicle/:uuid
 **/
 export const deleteVehicle = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/vehicle/${ uuid }`, {
@@ -198,7 +198,7 @@ export const deleteVehicle = async (uuid: string, headers: Headers): Promise<App
 /**
 * Create battery
 *
-* POST /api/v2/pd/drone/battery
+* POST /api/v3/pd/drone/battery
 **/
 export const createBattery = async (formData: AppTypes.BatteryCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BaseInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -217,7 +217,7 @@ export const createBattery = async (formData: AppTypes.BatteryCreateInterface, h
 /**
 * Update battery by uuid
 *
-* PUT /api/v2/pd/drone/battery/:uuid
+* PUT /api/v3/pd/drone/battery/:uuid
 **/
 export const updateBattery = async (formData: AppTypes.BatteryCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -236,7 +236,7 @@ export const updateBattery = async (formData: AppTypes.BatteryCreateInterface, h
 /**
 * Delete battery by uuid
 *
-* DELETE /api/v2/pd/drone/battery/:uuid
+* DELETE /api/v3/pd/drone/battery/:uuid
 **/
 export const deleteBattery = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/battery/${ uuid }`, {
@@ -252,7 +252,7 @@ export const deleteBattery = async (uuid: string, headers: Headers): Promise<App
 /**
 * Create personnel
 *
-* POST /api/v2/pd/drone/personnel
+* POST /api/v3/pd/drone/personnel
 **/
 export const createPersonnel = async (formData: AppTypes.PersonnelCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -271,7 +271,7 @@ export const createPersonnel = async (formData: AppTypes.PersonnelCreateInterfac
 /**
 * Update personnel by uuid
 *
-* PUT /api/v2/pd/drone/personnel/:uuid
+* PUT /api/v3/pd/drone/personnel/:uuid
 **/
 export const updatePersonnel = async (formData: AppTypes.PersonnelCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -290,7 +290,7 @@ export const updatePersonnel = async (formData: AppTypes.PersonnelCreateInterfac
 /**
 * Delete personnel by uuid
 *
-* DELETE /api/v2/pd/drone/personnel/:uuid
+* DELETE /api/v3/pd/drone/personnel/:uuid
 **/
 export const deletePersonnel = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/personnel/${ uuid }`, {
@@ -306,7 +306,7 @@ export const deletePersonnel = async (uuid: string, headers: Headers): Promise<A
 /**
 * Create inspection
 *
-* POST /api/v2/pd/drone/inspection
+* POST /api/v3/pd/drone/inspection
 **/
 export const createInspection = async (formData: AppTypes.InspectionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.InspectionInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -325,7 +325,7 @@ export const createInspection = async (formData: AppTypes.InspectionCreateInterf
 /**
 * Update inspection by uuid
 *
-* PUT /api/v2/pd/drone/inspection/:uuid
+* PUT /api/v3/pd/drone/inspection/:uuid
 **/
 export const updateInspection = async (formData: AppTypes.InspectionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -344,7 +344,7 @@ export const updateInspection = async (formData: AppTypes.InspectionCreateInterf
 /**
 * Create temporary flight restriction (TFR)
 *
-* POST /api/v2/pd/drone/tfr
+* POST /api/v3/pd/drone/tfr
 **/
 export const createTFR = async (formData: AppTypes.TemporaryFlightRestrictionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.TemporaryFlightRestrictionInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -363,7 +363,7 @@ export const createTFR = async (formData: AppTypes.TemporaryFlightRestrictionCre
 /**
 * Update temporary flight restriction (TFR) by uuid
 *
-* PUT /api/v2/pd/drone/tfr/:uuid
+* PUT /api/v3/pd/drone/tfr/:uuid
 **/
 export const updateTFR = async (formData: AppTypes.TemporaryFlightRestrictionCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -382,7 +382,7 @@ export const updateTFR = async (formData: AppTypes.TemporaryFlightRestrictionCre
 /**
 * Delete temporary flight restriction (TFR) by uuid
 *
-* DELETE /api/v2/pd/drone/tfr/:uuid
+* DELETE /api/v3/pd/drone/tfr/:uuid
 **/
 export const deleteTFR = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/tfr/${ uuid }`, {
@@ -398,7 +398,7 @@ export const deleteTFR = async (uuid: string, headers: Headers): Promise<AppType
 /**
 * Create weather
 *
-* POST /api/v2/pd/drone/weather
+* POST /api/v3/pd/drone/weather
 **/
 export const createWeather = async (formData: AppTypes.WeatherCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.WeatherInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -417,7 +417,7 @@ export const createWeather = async (formData: AppTypes.WeatherCreateInterface, h
 /**
 * Update weather by uuid
 *
-* PUT /api/v2/pd/drone/weather/:uuid
+* PUT /api/v3/pd/drone/weather/:uuid
 **/
 export const updateWeather = async (formData: AppTypes.WeatherCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -436,7 +436,7 @@ export const updateWeather = async (formData: AppTypes.WeatherCreateInterface, h
 /**
 * Get roster vehicles by department
 *
-* GET /api/v2/pd/drone/vehicle-roster?department=
+* GET /api/v3/pd/drone/vehicle-roster?department=
 **/
 export const getRosterVehicles = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/vehicle-roster?${ params }`, { headers })
@@ -449,7 +449,7 @@ export const getRosterVehicles = async (params: URLSearchParams, headers: Header
 /**
 * Get vehicle by uuid
 *
-* GET /api/v2/pd/drone/vehicle-roster/:uuid
+* GET /api/v3/pd/drone/vehicle-roster/:uuid
 **/
 export const getVehicle = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/vehicle-roster/${ uuid }`, { headers })
@@ -462,7 +462,7 @@ export const getVehicle = async (uuid: string, headers: Headers): Promise<AppTyp
 /**
 * Create roster vehicle
 *
-* POST /api/v2/pd/drone/vehicle-roster
+* POST /api/v3/pd/drone/vehicle-roster
 **/
 export const createRosterVehicle = async (formData: AppTypes.VehicleRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.VehicleRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -481,7 +481,7 @@ export const createRosterVehicle = async (formData: AppTypes.VehicleRosterCreate
 /**
 * Update roster vehicle by uuid
 *
-* PUT /api/v2/pd/drone/vehicle-roster/:uuid
+* PUT /api/v3/pd/drone/vehicle-roster/:uuid
 **/
 export const updateRosterVehicle = async (formData: AppTypes.VehicleRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -500,7 +500,7 @@ export const updateRosterVehicle = async (formData: AppTypes.VehicleRosterCreate
 /**
 * Delete roster vehicle by uuid
 *
-* DELETE /api/v2/pd/drone/vehicle-roster/:uuid
+* DELETE /api/v3/pd/drone/vehicle-roster/:uuid
 **/
 export const deleteRosterVehicle = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/vehicle-roster/${ uuid }`, {
@@ -516,7 +516,7 @@ export const deleteRosterVehicle = async (uuid: string, headers: Headers): Promi
 /**
 * Get roster batteries
 *
-* GET /api/v2/api/pd/drone/battery-roster
+* GET /api/v3/api/pd/drone/battery-roster
 **/
 export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/battery-roster`, { headers })
@@ -529,7 +529,7 @@ export const getRosterBatteries = async (headers: Headers): Promise<AppTypes.Ser
 /**
 * Get battery by uuid
 *
-* GET /api/v2/api/pd/drone/battery-roster/:uuid
+* GET /api/v3/api/pd/drone/battery-roster/:uuid
 **/
 export const getBattery = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/battery-roster/${ uuid }`, { headers })
@@ -542,7 +542,7 @@ export const getBattery = async (uuid: string, headers: Headers): Promise<AppTyp
 /**
 * Create roster battery
 *
-* POST /api/v2/pd/drone/battery-roster
+* POST /api/v3/pd/drone/battery-roster
 **/
 export const createRosterBattery = async (formData: AppTypes.BatteryRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.BatteryRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -561,7 +561,7 @@ export const createRosterBattery = async (formData: AppTypes.BatteryRosterCreate
 /**
 * Update roster battery by uuid
 *
-* PUT /api/v2/pd/drone/battery-roster/:uuid
+* PUT /api/v3/pd/drone/battery-roster/:uuid
 **/
 export const updateRosterBattery = async (formData: AppTypes.BatteryRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -580,7 +580,7 @@ export const updateRosterBattery = async (formData: AppTypes.BatteryRosterCreate
 /**
 * Delete roster battery by uuid
 *
-* DELETE /api/v2/pd/drone/battery-roster/:uuid
+* DELETE /api/v3/pd/drone/battery-roster/:uuid
 **/
 export const deleteRosterBattery = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/battery-roster/${ uuid }`, {
@@ -596,7 +596,7 @@ export const deleteRosterBattery = async (uuid: string, headers: Headers): Promi
 /**
 * Get roster personnel by department
 *
-* GET /api/v2/api/pd/drone/personnel-roster?department=
+* GET /api/v3/api/pd/drone/personnel-roster?department=
 **/
 export const getRosterPersonnel = async (params: URLSearchParams, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface[] }> => {
   const res = await fetch(`${ baseUrl }/personnel-roster?${ params }`, { headers })
@@ -609,7 +609,7 @@ export const getRosterPersonnel = async (params: URLSearchParams, headers: Heade
 /**
 * Get person by uuid
 *
-* GET /api/v2/pd/drone/personnel-roster/:uuid
+* GET /api/v3/pd/drone/personnel-roster/:uuid
 **/
 export const getPerson = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface }> => {
   const res = await fetch(`${ baseUrl }/personnel-roster/${ uuid }`, { headers })
@@ -622,7 +622,7 @@ export const getPerson = async (uuid: string, headers: Headers): Promise<AppType
 /**
 * Create roster personnel
 *
-* POST /api/v2/pd/drone/personnel-roster
+* POST /api/v3/pd/drone/personnel-roster
 **/
 export const createRosterPersonnel = async (formData: AppTypes.PersonnelRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse & { data: AppTypes.PersonnelRosterInterface }> => {
   headers.append('Content-Type', 'application/json')
@@ -641,7 +641,7 @@ export const createRosterPersonnel = async (formData: AppTypes.PersonnelRosterCr
 /**
 * Update roster personnel by uuid
 *
-* PUT /api/v2/pd/drone/personnel-roster/:uuid
+* PUT /api/v3/pd/drone/personnel-roster/:uuid
 **/
 export const updateRosterPersonnel = async (formData: AppTypes.PersonnelRosterCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -660,7 +660,7 @@ export const updateRosterPersonnel = async (formData: AppTypes.PersonnelRosterCr
 /**
 * Delete roster personnel by uuid
 *
-* DELETE /api/v2/pd/drone/personnel-roster/:uuid
+* DELETE /api/v3/pd/drone/personnel-roster/:uuid
 **/
 export const deleteRosterPersonnel = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/personnel-roster/${ uuid }`, {
@@ -676,7 +676,7 @@ export const deleteRosterPersonnel = async (uuid: string, headers: Headers): Pro
 /**
 * Create response only mission
 * 
-* POST /api/v2/pd/drone/response-only
+* POST /api/v3/pd/drone/response-only
 **/
 export const createResponseOnly = async (formData: AppTypes.ResponseOnlyCreateInterface, headers: Headers): Promise<AppTypes.ServerResponse> => {
   headers.append('Content-Type', 'application/json')
@@ -695,7 +695,7 @@ export const createResponseOnly = async (formData: AppTypes.ResponseOnlyCreateIn
 /**
 * Delete response only mission by uuid
 *
-* DELETE /api/v2/pd/drone/response-only/:uuid
+* DELETE /api/v3/pd/drone/response-only/:uuid
 **/
 export const deleteResponseOnly = async (uuid: string, headers: Headers): Promise<AppTypes.ServerResponse> => {
   const res = await fetch(`${ baseUrl }/response-only/${ uuid }`, {
@@ -711,7 +711,7 @@ export const deleteResponseOnly = async (uuid: string, headers: Headers): Promis
 /**
 * Get documentation
 *
-* GET /api/v2/pd/drone/docs
+* GET /api/v3/pd/drone/docs
 **/
 export const getDocs = async (headers: Headers) => {
   const res = await fetch(`${ baseUrl }/docs`, { headers })
