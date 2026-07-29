@@ -1,3 +1,5 @@
+import { JSX } from "react"
+
 // Components
 import CreateMissionForm from "@/components/missions/forms/create/CreateMissionForm"
 

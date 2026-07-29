@@ -23,8 +23,8 @@ function App() {
       <AuthCtxProvider>
         <Router basename={APP_BASE}>
           <Routes>
-            <Route path="/" element={<Login />} />
             <Route element={<Layout />}>
+              <Route path="/" element={<Login />} />
               <Route path="/missions" element={<Missions />} />
               <Route path="/create/:formtype" element={<Create />} />
               <Route path="/rosters" element={<Rosters />} />

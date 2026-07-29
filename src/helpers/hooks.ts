@@ -85,7 +85,7 @@ export const useGetUserDepartment = () => {
   })
 
   const { instance, inProgress } = useMsal()
-  const activeAccount = instance.getActiveAccount()
+  const activeAccount = MOCK_AUTH ? undefined : instance.getActiveAccount()
 
   useEffect(() => {
     if(MOCK_AUTH) {

@@ -8,12 +8,15 @@ function FiltersContainer({ visible }: { visible: boolean }) {
   if(!visible) return null
 
   return (
-    <motion.div 
-      className="flex flex-col gap-4 items-center mx-auto w-full md:flex-row md:gap-6 md:mr-auto md:mx-0 md:flex-1 md:items-end"
+    <motion.div
+      className="card rounded-box w-full mx-auto p-6 shadow-xl md:mr-auto md:mx-0 md:flex-1"
       { ...motionProps.slideInRight }>
-        <Components.PersonnelFilter />
-        <Components.Search />
-        <Components.DateRangeFilterInputs />
+        <div className="flex flex-col gap-4 items-center md:flex-row md:gap-6 md:items-end">
+          <Components.PersonnelFilter />
+          <Components.Search />
+          <Components.DateRangeFilterInputs />
+          <Components.ClearAllFiltersBtn />
+        </div>
     </motion.div>
   )
 }

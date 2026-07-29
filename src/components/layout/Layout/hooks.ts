@@ -1,15 +1,16 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { useMsal } from '@azure/msal-react'
-import { NODE_ENV } from '@/config'
+import { MOCK_AUTH } from '@/context/Auth/constants'
 import { infoPopup } from '@/utils/Toast/Toast'
 
 export const useAuthCheck = () => {
   const { instance, inProgress } = useMsal()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
 
   useEffect(() => {
-    if (NODE_ENV === 'development') return
+    if (MOCK_AUTH || pathname === '/') return
 
     if (inProgress === 'none') {
       const activeAccount = instance.getActiveAccount()
@@ -18,5 +19,5 @@ export const useAuthCheck = () => {
         navigate('/')
       }
     }
-  }, [inProgress, instance, navigate])
+  }, [inProgress, instance, navigate, pathname])
 }

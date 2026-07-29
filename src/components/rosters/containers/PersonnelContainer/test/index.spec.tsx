@@ -52,7 +52,7 @@ const SetupComponent = ({ formType, formUUID }: SetupProps) => {
   return null
 }
 
-const formRef = { current: null } as React.RefObject<HTMLDivElement>
+const formRef = { current: null } as React.RefObject<HTMLDivElement | null>
 
 const Wrapper = ({ children }: { children: React.ReactNode }) => (
   <QueryClientProvider client={createQueryClient()}>

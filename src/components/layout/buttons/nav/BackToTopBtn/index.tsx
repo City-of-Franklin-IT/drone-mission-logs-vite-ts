@@ -1,6 +1,6 @@
 import { handleClick } from "./utils"
 
-function BackToTopBtn({ topRef }: { topRef: React.RefObject<HTMLDivElement> }) {
+function BackToTopBtn({ topRef }: { topRef: React.RefObject<HTMLDivElement | null> }) {
   
   return (
     <button 

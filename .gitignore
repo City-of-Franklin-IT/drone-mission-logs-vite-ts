@@ -41,3 +41,6 @@ tsconfig.tsbuildinfo
 .env
 .env.local
 .env.*.local
+
+# Local planning notes not meant for the repo
+AUTH_FLOW_FIXES.md

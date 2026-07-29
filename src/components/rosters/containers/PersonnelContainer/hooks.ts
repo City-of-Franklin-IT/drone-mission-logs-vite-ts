@@ -89,7 +89,7 @@ export const useHandleForm = () => {
 /**
 * Scrolls to form ref when available
 **/
-export const useScrollToFormRef = (refs: { topRef: React.RefObject<HTMLDivElement>, formRef: React.RefObject<HTMLDivElement> }, target: FormType): void => {
+export const useScrollToFormRef = (refs: { topRef: React.RefObject<HTMLDivElement | null>, formRef: React.RefObject<HTMLDivElement | null> }, target: FormType): void => {
   const { formType } = useContext(RostersCtx)
 
   const active = formType === target

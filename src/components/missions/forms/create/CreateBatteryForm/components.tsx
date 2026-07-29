@@ -18,12 +18,12 @@ export const BatteryInput = ({ index }: { index: number }) => {
   if(!visible) return null
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 items-center w-full">
       <Controller
         control={control}
         name={`Vehicle.Batteries.${ index }.batteryName`}
         render={({ field }) => (
-          <div className="flex flex-col">
+          <div className="flex flex-col items-center w-full">
             <FormLabel name={field.name}>
               Battery {index + 1}:
             </FormLabel>

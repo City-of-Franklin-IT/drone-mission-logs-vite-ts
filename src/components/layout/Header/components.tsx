@@ -31,10 +31,10 @@ export const Buttons = () => {
 
   return (
     <div className="flex gap-2 overflow-y-visible w-fit pl-4 pb-2 flex-wrap justify-around lg:pb-0">
-      <HelpDoc />
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
+      <HelpDoc />
       <LogoutBtn />
     </div>
   )

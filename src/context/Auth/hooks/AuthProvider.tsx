@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { PublicClientApplication } from "@azure/msal-browser"
 import { MsalProvider } from "@azure/msal-react"
-import { NODE_ENV } from "@/config"
+import { MOCK_AUTH } from "@/context/Auth/constants"
 import { msalConfig } from "../config"
+import Loading from "@/components/layout/loading/Loading"
 
 // Types
 import { AuthenticationResult, EventType } from "@azure/msal-browser"
@@ -10,14 +11,12 @@ import { AuthenticationResult, EventType } from "@azure/msal-browser"
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [msalInstance, setMsalInstance] = useState<PublicClientApplication | null>(null)
   const [isInitialized, setIsInitialized] = useState(false)
-
-  if(NODE_ENV === 'development') return (
-    <>
-      {children}
-    </>
-  )
+  const hasInitializedRef = useRef(false)
 
   useEffect(() => {
+    if(MOCK_AUTH || hasInitializedRef.current) return
+    hasInitializedRef.current = true
+
     const initializeMsal = async () => {
       const instance = new PublicClientApplication(msalConfig)
       
@@ -45,8 +44,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     initializeMsal()
   }, [])
 
+  if(MOCK_AUTH) {
+    return <>{children}</>
+  }
+
   if(!isInitialized || !msalInstance) {
-    return <div>Initializing authentication...</div>
+    return <Loading />
   }
 
   return <MsalProvider instance={msalInstance}>

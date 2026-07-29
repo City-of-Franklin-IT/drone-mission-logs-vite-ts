@@ -34,15 +34,7 @@ export const useHandleDateRangeFilterInputs = () => {
     value: dateRangeFilter.end
   }
 
-  const clearBtnProps = {
-    onClick: () => {
-      dispatch({ type: 'SET_DATE_RANGE_FILTER_START', payload: '' })
-      dispatch({ type: 'SET_DATE_RANGE_FILTER_END', payload: '' })
-    },
-    disabled: !dateRangeFilter.start && !dateRangeFilter.end
-  }
-
-  return { startInputProps, endInputProps, clearBtnProps }
+  return { startInputProps, endInputProps }
 }
 
 /**
@@ -58,12 +50,7 @@ export const useHandlePersonnelFilter = () => {
     onChange: (e: React.ChangeEvent<HTMLSelectElement>) => dispatch({ type: 'SET_PERSONNEL_FILTER', payload: e.currentTarget.value })
   }
 
-  const clearBtnProps = {
-    onClick: () => dispatch({ type: 'SET_PERSONNEL_FILTER', payload: '' }),
-    disabled: !personnelFilter
-  }
-
-  return { loading: isLoading, selectProps, clearBtnProps }
+  return { loading: isLoading, selectProps }
 }
 
 /**
@@ -77,10 +64,19 @@ export const useHandleSearch = () => {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: 'SET_SEARCH_VALUE', payload: e.currentTarget.value })
   }
 
-  const clearBtnProps = {
-    onClick: () => dispatch({ type: 'SET_SEARCH_VALUE', payload: '' }),
-    disabled: !searchValue
-  }
+  return { inputProps }
+}
 
-  return { inputProps, clearBtnProps }
+/**
+* Returns clear-all-filters button props, disabled unless at least one filter is active
+**/
+export const useHandleClearAllFilters = () => {
+  const { dateRangeFilter, personnelFilter, searchValue, dispatch } = useContext(MissionsCtx)
+
+  const hasActiveFilter = !!dateRangeFilter.start || !!dateRangeFilter.end || !!personnelFilter || !!searchValue
+
+  return {
+    onClick: () => dispatch({ type: 'CLEAR_ALL_FILTERS' }),
+    disabled: !hasActiveFilter
+  }
 }

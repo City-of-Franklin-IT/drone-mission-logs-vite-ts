@@ -6,7 +6,7 @@ import * as PersonnelContainer from '../../containers/PersonnelContainer/compone
 import CreateRosterVehicleForm from '../../forms/create/CreateRosterVehicleForm'
 import UpdateRosterVehicleForm from '../../forms/update/UpdateRosterVehicleForm'
 
-export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement> }) => {
+export const Form = ({ formRef }: { formRef: React.RefObject<HTMLDivElement | null> }) => {
   const { formUUID, deleteBtnProps, visible } = useHandleForm()
 
   if(!visible) return null
