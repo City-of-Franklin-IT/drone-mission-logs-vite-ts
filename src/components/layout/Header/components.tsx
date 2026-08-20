@@ -1,6 +1,5 @@
 import { useContext } from 'react'
 import { useLocation, Link } from 'react-router'
-import { APP_TITLE } from '../../../config'
 import { useActiveAccount } from '@/helpers/hooks'
 import useHandleLogoutRedirect from '@/context/Auth/hooks/useHandleLogoutRedirect'
 import HeaderCtx from './context'
@@ -17,7 +16,7 @@ export const Title = () => {
       <div className="flex gap-4 text-primary-content items-center justify-center">
         <img src={iconSrc} alt="department icon" className="w-18" />
         <h1 className="text-xl font-bold text-center md:text-2xl lg:text-4xl">
-          {APP_TITLE}
+          {import.meta.env.VITE_APP_TITLE}
         </h1>
       </div>
     </Link>

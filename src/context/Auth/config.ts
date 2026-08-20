@@ -1,9 +1,8 @@
 import { LogLevel, AccountInfo } from '@azure/msal-browser'
-import { CLIENT_ID, ENTRA_CLIENT_ID } from '@/config'
 
 export const setAuth = () => {
     const auth = {
-        clientId: CLIENT_ID,
+        clientId: import.meta.env.VITE_CLIENT_ID,
         authority: 'https://login.microsoftonline.com/f6644f52-f834-4a2f-a433-e6bc40d7c17f/',
         redirectUri: '',
         postLogoutRedirectUri: '',
@@ -60,6 +59,6 @@ export const loginRequest = {
 }
 
 export const acquireRequest = (account: AccountInfo) => ({
-    scopes: [`${ ENTRA_CLIENT_ID }/.default`],
+    scopes: [`${ import.meta.env.VITE_ENTRA_CLIENT_ID }/.default`],
     account
 })

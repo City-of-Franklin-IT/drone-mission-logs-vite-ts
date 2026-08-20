@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ToastContainer } from "react-toastify"
-import { APP_BASE } from "./config"
 import { AuthCtxProvider } from "@/context/Auth"
 
 // Components
@@ -21,7 +20,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthCtxProvider>
-        <Router basename={APP_BASE}>
+        <Router basename={import.meta.env.VITE_APP_BASE}>
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Login />} />
