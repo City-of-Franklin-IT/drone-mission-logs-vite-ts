@@ -1,4 +1,4 @@
-import "@testing-library/jest-dom"
+import "@testing-library/jest-dom/vitest"
 import { vi } from "vitest"
 
 vi.mock("@/context/Auth", () => ({
@@ -8,8 +8,7 @@ vi.mock("@/context/Auth", () => ({
     isLoading: false,
     refreshToken: vi.fn()
   })),
-  AuthCtxProvider: ({ children }: any) => children,
-  MOCK_AUTH: false
+  AuthCtxProvider: ({ children }: any) => children
 }))
 
 global.ResizeObserver = vi.fn().mockImplementation(() => ({

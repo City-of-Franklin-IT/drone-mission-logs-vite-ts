@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router"
 import { useMsal } from "@azure/msal-react"
 import { useAuth } from "@/context/Auth"
-import { MOCK_AUTH } from "@/context/Auth/constants"
 
 export const useHandleAuth = () => {
   const { instance, inProgress } = useMsal()
@@ -11,7 +10,7 @@ export const useHandleAuth = () => {
   const hasAttemptedSsoRef = useRef(false)
 
   useEffect(() => {
-    if(MOCK_AUTH) {
+    if(import.meta.env.DEV) {
       navigate('/missions')
       return
     }

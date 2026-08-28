@@ -2,12 +2,8 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router"
 import { useMsal } from "@azure/msal-react"
 import { useAuth } from "@/context/Auth"
-import { MOCK_AUTH } from "@/context/Auth/constants"
 import { infoPopup } from "@/utils/Toast/Toast"
 import { getUserDepartment } from "./utils"
-
-// Types
-import { AccountInfo } from "@azure/msal-browser"
 
 export const useGetToken = () => {
   const { token } = useAuth()
@@ -31,7 +27,7 @@ export const useRedirectAfterLogin = () => {
   const { instance, inProgress } = useMsal()
 
   useEffect(() => {
-    if(MOCK_AUTH) return
+    if(import.meta.env.DEV) return
 
     if(inProgress === "none") {
       const activeAccount = instance.getActiveAccount()
@@ -85,16 +81,16 @@ export const useGetUserDepartment = () => {
   })
 
   const { instance, inProgress } = useMsal()
-  const activeAccount = MOCK_AUTH ? undefined : instance.getActiveAccount()
+  const activeAccount = import.meta.env.DEV ? undefined : instance.getActiveAccount()
 
   useEffect(() => {
-    if(MOCK_AUTH) {
+    if(import.meta.env.DEV) {
       setState({ department: "Police", isLoading: false })
       return
     }
 
     if(activeAccount && inProgress === "none" && !state.department) {
-      getUserDepartment(instance, activeAccount as AccountInfo)
+      getUserDepartment(instance, activeAccount)
         .then((department) => setState({ department, isLoading: false }))
         .catch((err) => {
           console.log(err)

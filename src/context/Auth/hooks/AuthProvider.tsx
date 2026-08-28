@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { PublicClientApplication } from "@azure/msal-browser"
 import { MsalProvider } from "@azure/msal-react"
-import { MOCK_AUTH } from "@/context/Auth/constants"
 import { msalConfig } from "../config"
 import Loading from "@/components/layout/loading/Loading"
 
@@ -14,7 +13,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const hasInitializedRef = useRef(false)
 
   useEffect(() => {
-    if(MOCK_AUTH || hasInitializedRef.current) return
+    if(import.meta.env.DEV || hasInitializedRef.current) return
     hasInitializedRef.current = true
 
     const initializeMsal = async () => {
@@ -44,7 +43,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     initializeMsal()
   }, [])
 
-  if(MOCK_AUTH) {
+  if(import.meta.env.DEV) {
     return <>{children}</>
   }
 

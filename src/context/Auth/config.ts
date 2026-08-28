@@ -3,7 +3,7 @@ import { LogLevel, AccountInfo } from '@azure/msal-browser'
 export const setAuth = () => {
     const auth = {
         clientId: import.meta.env.VITE_CLIENT_ID,
-        authority: 'https://login.microsoftonline.com/f6644f52-f834-4a2f-a433-e6bc40d7c17f/',
+        authority: import.meta.env.VITE_AUTH_AUTHORITY,
         redirectUri: '',
         postLogoutRedirectUri: '',
         navigateToLoginRequestUrl: true,
@@ -11,11 +11,11 @@ export const setAuth = () => {
     }
 
     if(window.location.host === 'pdapps.franklintn.gov') {
-        auth.redirectUri = 'https://pdapps.franklintn.gov/drone-missions'
-        auth.postLogoutRedirectUri = 'https://pdapps.franklintn.gov/'
+        auth.redirectUri = import.meta.env.VITE_AUTH_REDIRECT_URI_PDAPPS
+        auth.postLogoutRedirectUri = import.meta.env.VITE_AUTH_POST_LOGOUT_REDIRECT_URI_PDAPPS
     } else {
-        auth.redirectUri = 'https://fireapps.franklintn.gov/drone-missions'
-        auth.postLogoutRedirectUri = 'https://fireapps.franklintn.gov/'
+        auth.redirectUri = import.meta.env.VITE_AUTH_REDIRECT_URI_FIREAPPS
+        auth.postLogoutRedirectUri = import.meta.env.VITE_AUTH_POST_LOGOUT_REDIRECT_URI_FIREAPPS
     }
 
     return auth
