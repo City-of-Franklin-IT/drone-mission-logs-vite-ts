@@ -13,14 +13,12 @@ export const Title = () => {
   return (
     <Link
       to={'/missions'}
-      className="flex flex-col text-primary-content text-center w-fit"
+      className="flex items-center gap-3 flex-shrink-0 overflow-hidden md:flex-1 md:gap-4 lg:gap-6"
     >
-      <div className="flex gap-2 text-primary-content items-center justify-center lg:gap-4">
-        <img src={iconSrc} alt="department icon" className="w-10 lg:w-18" />
-        <h1 className="text-xl font-bold text-center md:text-2xl lg:text-4xl">
-          {import.meta.env.VITE_APP_TITLE}
-        </h1>
-      </div>
+      <img src={iconSrc} alt="department icon" className="w-8 flex-shrink-0 md:w-10 lg:w-18" />
+      <h1 className="font-bold text-xl text-primary-content truncate md:text-2xl lg:text-5xl">
+        {import.meta.env.VITE_APP_TITLE}
+      </h1>
     </Link>
   )
 }
@@ -72,7 +70,7 @@ export const MobileMenu = () => {
         aria-label="Menu"
         aria-expanded={open}
         onClick={onBtnClick}
-        className="btn btn-ghost btn-square text-primary-content hover:bg-primary/60 hover:shadow-none">
+        className="btn btn-ghost btn-square text-primary-content bg-transparent border-transparent shadow-none hover:bg-primary/60 hover:shadow-none">
           { open ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" /> }
       </button>
       <MenuItems visible={open} onNavigate={close} onLogout={handleLogoutRedirect} />
@@ -94,13 +92,11 @@ const MenuItems = ({ visible, onNavigate, onLogout }: MenuItemsProps) => {
 
   if(!visible) return null
 
+  // Nested groups go in as <details className="group"> with a <summary className="uppercase
+  // cursor-pointer">, wrapping their <ul> in bg-primary-content text-primary so the sub-level
+  // inverts against this menu, and indenting each item with ps-4.
   return (
-    <ul className="dropdown-content menu z-50 bg-base-100 rounded-box w-56 p-2 shadow border border-base-300 tracking-normal">
-      <li>
-        <a href={'/home'} onClick={onNavigate} className="uppercase">
-          {label}
-        </a>
-      </li>
+    <ul className="dropdown-content menu z-50 bg-primary rounded-box w-56 p-2 shadow border border-primary tracking-normal text-primary-content">
       <li>
         <Link to={'/missions'} onClick={onNavigate} className="uppercase">
           Missions
@@ -119,6 +115,11 @@ const MenuItems = ({ visible, onNavigate, onLogout }: MenuItemsProps) => {
       <li>
         <a href="https://franklintn.sharepoint.com/:b:/s/IT-ISDevelopment/IQDUtzFMdk85SpDcGHtGMDrHAaaG7E-EHii5Rx6Mi2eevu4?e=xFt6Kh" target="_blank" rel="noreferrer" onClick={onNavigate} className="uppercase">
           Help
+        </a>
+      </li>
+      <li>
+        <a href={'/home'} onClick={onNavigate} className="uppercase">
+          {label}
         </a>
       </li>
       <li>

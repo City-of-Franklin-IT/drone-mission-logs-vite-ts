@@ -15,7 +15,7 @@ function Header() {
       <div className="flex flex-row gap-1 lg:gap-4 justify-between font-[Play] tracking-[.25rem] items-center bg-primary px-4 py-2 lg:px-8 lg:py-4 w-full shadow-xl 2xl:min-h-[10vh]">
         <Components.Title />
 
-        <div className="hidden gap-2 overflow-hidden w-fit md:flex">
+        <div className="hidden gap-2 w-fit md:flex">
           <Components.Buttons />
         </div>
 
