@@ -13,7 +13,7 @@ export const Title = () => {
   return (
     <Link
       to={'/missions'}
-      className="flex items-center gap-3 flex-shrink-0 overflow-hidden md:flex-1 md:gap-4 lg:gap-6"
+      className="flex items-center gap-3 flex-shrink-0 overflow-hidden md:gap-4 lg:gap-6"
     >
       <img src={iconSrc} alt="department icon" className="w-8 flex-shrink-0 md:w-10 lg:w-18" />
       <h1 className="font-bold text-xl text-primary-content truncate md:text-2xl lg:text-5xl">
@@ -29,7 +29,7 @@ export const Buttons = () => {
   if(pathname === '/') return null
 
   return (
-    <div className="flex gap-2 overflow-y-visible w-fit pl-4 flex-wrap justify-around">
+    <div className="flex gap-2 overflow-y-visible pl-4 flex-wrap justify-end">
       <HeaderBtn to={'/missions'}>Missions</HeaderBtn>
       <HeaderBtn to={'/create/mission'}>Create Mission</HeaderBtn>
       <HeaderBtn to={'/rosters'}>Manage Rosters</HeaderBtn>
