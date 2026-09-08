@@ -1,5 +1,6 @@
-import { useContext, useEffect } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useLocation } from "react-router"
+import { useDismissOnOutside } from "@/helpers/hooks"
 import HeaderCtx from "./context"
 
 // Types
@@ -36,4 +37,19 @@ export const useSetActivePage = () => {
       dispatch({ type: 'SET_ACTIVE_PAGE', payload })
     }
   }, [dispatch, location, activePage])
+}
+
+export const useHandleMobileMenu = () => {
+  const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
+  const ref = useDismissOnOutside(open, () => setOpen(false))
+
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
+  const onBtnClick = () => setOpen(o => !o)
+  const close = () => setOpen(false)
+
+  return { ref, open, onBtnClick, close }
 }
