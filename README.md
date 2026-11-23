@@ -45,20 +45,27 @@ The application will be available at `http://localhost:6000/drone-missions`
 
 ## Configuration
 
-### Environment Variables
+### Application Config
 
-The application uses hardcoded configuration in `src/config/index.ts`. Update the following constants as needed:
+There are no `.env` files. All configuration is hardcoded in `src/config.ts` and imported with `@/config`:
 
-| Constant | Description | Default Value |
-|----------|-------------|---------------|
-| `APP_BASE` | Base path for routing | `/drone-missions` |
-| `APP_TITLE` | Application title | `Drone Missions` |
-| `NODE_ENV` | Environment mode | `production` |
-| `CLIENT_ID` | Azure AD client ID | `ff3cbe5e-f332-4013-8fd5-d2e121c39af9` |
+| Constant | Description |
+|----------|-------------|
+| `NODE_ENV` | Vite mode (`development` or `production`) |
+| `APP_BASE` | Base path for routing (`/drone-missions`) |
+| `APP_TITLE` | Application title (`Drone Missions`) |
+| `API_URL` | Backend API base URL (switches on `import.meta.env.DEV`) |
+| `MOCK_TOKEN` | Mock token used in development, where authentication is bypassed |
+| `CLIENT_ID` | Azure AD client ID |
+| `ENTRA_CLIENT_ID` | Entra client ID used for the API token scope |
+| `AUTH_AUTHORITY` | Azure AD authority URL |
+| `AUTH_REDIRECT_URI_*` / `AUTH_POST_LOGOUT_REDIRECT_URI_*` | MSAL redirect URIs for the `PDAPPS` and `FIREAPPS` hosts |
+
+Edit `src/config.ts` and rebuild to change any of these.
 
 ### Azure MSAL Configuration
 
-Authentication configuration is in `src/context/Auth/config.ts`. The redirect URIs are environment-based:
+Authentication configuration is in `src/context/Auth/config.ts`, using values from `src/config.ts`. The redirect URI is chosen by host:
 
 - **Production (pdapps.franklintn.gov)**: `https://pdapps.franklintn.gov/drone-missions`
 - **Production (fireapps.franklintn.gov)**: `https://fireapps.franklintn.gov/drone-missions`
@@ -66,10 +73,10 @@ Authentication configuration is in `src/context/Auth/config.ts`. The redirect UR
 
 ### API Endpoints
 
-Base URLs are configured in `src/context/App/AppActions.ts`:
+`API_URL` in `src/config.ts` is used as the base URL by `src/context/App/AppActions.ts`:
 
-- **Development**: `https://cofasv38.franklin-gov.com/api/v2/pd/drone`
-- **Production**: `https://pdapps.franklintn.gov/api/v2/pd/drone`
+- **Development**: `https://cofasv38.franklin-gov.com/api/v3/pd/drone`
+- **Production**: `https://pdapps.franklintn.gov/api/v3/pd/drone`
 
 ## Usage
 
@@ -115,9 +122,9 @@ src/
 ├── pages/              # Top-level page components
 ├── helpers/            # Custom hooks and utilities
 ├── utils/              # Utility functions and wrappers
-├── config/             # Application configuration
 ├── assets/             # Static assets
-└── test/               # Test setup and mocks
+├── test/               # Test setup and mocks
+└── config.ts           # Application configuration constants
 ```
 
 ## Components
@@ -175,6 +182,17 @@ npm run deploy
 ```
 
 This command uses SCP to deploy the `dist/` directory to the configured remote server. Requires SSH access to `andrew@cofasv32`.
+
+### Docker
+
+The `Dockerfile` builds the app and serves it with nginx on port **8003** under `/drone-missions`.
+
+```bash
+docker build -t drone-mission-logs .
+docker run -d -p 8003:8003 drone-mission-logs
+```
+
+The app is then available at `http://localhost:8003/drone-missions/`.
 
 ## API Structure
 

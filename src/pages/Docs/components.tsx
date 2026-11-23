@@ -67,7 +67,7 @@ const EndpointItem = ({ item }: { item: RequestItemType }) => {
           <span className="font-medium">{item.name}</span>
         </div>
         <code className="text-sm p-2 rounded mt-2 block overflow-x-auto">
-          {item.request.url.raw.replace("{{URL}}", "https://pdapps.franklintn.gov")}
+          {item.request.url.raw.replace("{{URL}}", "")}
         </code>
         <RequestDescription description={item.request?.description} />
         <RequestBody body={item.request.body?.raw} />

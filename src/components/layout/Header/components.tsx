@@ -2,6 +2,7 @@ import { Menu, X } from "lucide-react"
 import { useContext } from 'react'
 import { useLocation, Link } from 'react-router'
 import { useActiveAccount } from '@/helpers/hooks'
+import { APP_TITLE } from '@/config'
 import useHandleLogoutRedirect from '@/context/Auth/hooks/useHandleLogoutRedirect'
 import { useHandleMobileMenu } from './hooks'
 import HeaderCtx from './context'
@@ -17,7 +18,7 @@ export const Title = () => {
     >
       <img src={iconSrc} alt="department icon" className="w-8 flex-shrink-0 md:w-10 lg:w-18" />
       <h1 className="font-bold text-xl text-primary-content truncate md:text-2xl lg:text-5xl">
-        {import.meta.env.VITE_APP_TITLE}
+        {APP_TITLE}
       </h1>
     </Link>
   )

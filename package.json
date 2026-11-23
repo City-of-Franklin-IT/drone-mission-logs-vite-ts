@@ -3,6 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "image": "ghcr.io/city-of-franklin-it/drone-mission-logs-vite-ts:1.0.0",
   "scripts": {
     "dev": "vite --port 6000",
     "build": "tsc -b && vite build",

@@ -1,9 +1,10 @@
 import { LogLevel, AccountInfo } from '@azure/msal-browser'
+import { CLIENT_ID, AUTH_AUTHORITY, ENTRA_CLIENT_ID, AUTH_REDIRECT_URI_PDAPPS, AUTH_POST_LOGOUT_REDIRECT_URI_PDAPPS, AUTH_REDIRECT_URI_FIREAPPS, AUTH_POST_LOGOUT_REDIRECT_URI_FIREAPPS } from '@/config'
 
 export const setAuth = () => {
     const auth = {
-        clientId: import.meta.env.VITE_CLIENT_ID,
-        authority: import.meta.env.VITE_AUTH_AUTHORITY,
+        clientId: CLIENT_ID,
+        authority: AUTH_AUTHORITY,
         redirectUri: '',
         postLogoutRedirectUri: '',
         navigateToLoginRequestUrl: true,
@@ -11,11 +12,11 @@ export const setAuth = () => {
     }
 
     if(window.location.host === 'pdapps.franklintn.gov') {
-        auth.redirectUri = import.meta.env.VITE_AUTH_REDIRECT_URI_PDAPPS
-        auth.postLogoutRedirectUri = import.meta.env.VITE_AUTH_POST_LOGOUT_REDIRECT_URI_PDAPPS
+        auth.redirectUri = AUTH_REDIRECT_URI_PDAPPS
+        auth.postLogoutRedirectUri = AUTH_POST_LOGOUT_REDIRECT_URI_PDAPPS
     } else {
-        auth.redirectUri = import.meta.env.VITE_AUTH_REDIRECT_URI_FIREAPPS
-        auth.postLogoutRedirectUri = import.meta.env.VITE_AUTH_POST_LOGOUT_REDIRECT_URI_FIREAPPS
+        auth.redirectUri = AUTH_REDIRECT_URI_FIREAPPS
+        auth.postLogoutRedirectUri = AUTH_POST_LOGOUT_REDIRECT_URI_FIREAPPS
     }
 
     return auth
@@ -59,6 +60,6 @@ export const loginRequest = {
 }
 
 export const acquireRequest = (account: AccountInfo) => ({
-    scopes: [`${ import.meta.env.VITE_ENTRA_CLIENT_ID }/.default`],
+    scopes: [`${ ENTRA_CLIENT_ID }/.default`],
     account
 })
